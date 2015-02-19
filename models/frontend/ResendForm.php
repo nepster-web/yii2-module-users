@@ -1,6 +1,6 @@
 <?php
 
-namespace nepster\users\models;
+namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
 use Yii;
@@ -13,17 +13,17 @@ class ResendForm extends \yii\base\Model
     use ModuleTrait;
 
     /**
-     * @var string $email E-mail
+     * @var string
      */
     public $email;
 
     /**
-     * @var string $phone Phone
+     * @var string
      */
     public $phone;
 
     /**
-     * @var User instance
+     * @var \nepster\users\models\User
      */
     private $_model;
 
@@ -57,7 +57,7 @@ class ResendForm extends \yii\base\Model
     }   
     
     /**
-     * @return false OR nepster\users\models\User
+     * @return false OR \nepster\users\models\User
      */
     public function resend()
     {

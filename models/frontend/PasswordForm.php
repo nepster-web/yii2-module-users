@@ -1,6 +1,6 @@
 <?php
 
-namespace nepster\users\models;
+namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
 use Yii;
@@ -13,22 +13,22 @@ class PasswordForm extends \yii\base\Model
     use ModuleTrait;
 
     /**
-     * @var string $password Password
+     * @var string
      */
     public $password;
 
     /**
-     * @var string $repassword Repeat password
+     * @var string
      */
     public $repassword;
 
     /**
-     * @var string Current password
+     * @var string
      */
     public $oldpassword;
 
     /**
-     * @var common\users\modules\models\User User instance
+     * @var \nepster\users\models\User
      */
     private $_user;
 
@@ -71,6 +71,7 @@ class PasswordForm extends \yii\base\Model
     }
 
     /**
+     * Устанавливаем новый пароль
      * @return boolean
      */
     public function password()

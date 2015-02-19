@@ -1,6 +1,6 @@
 <?php
 
-namespace nepster\users\models;
+namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
@@ -14,22 +14,22 @@ class RecoveryConfirmationForm extends \yii\base\Model
     use ModuleTrait;
 
     /**
-     * @var string Password
+     * @var string
      */
     public $password;
 
     /**
-     * @var string Repeat password
+     * @var string
      */
     public $repassword;
 
     /**
-     * @var string Confirmation token
+     * @var string
      */
-    public $access_token;
+    public $secure_key;
 
     /**
-     * @var \common\modules\users\models\User User instance
+     * @var \nepster\users\models\User
      */
     private $_user;
 
@@ -43,9 +43,9 @@ class RecoveryConfirmationForm extends \yii\base\Model
             [['password', 'repassword', 'secure_key'], 'trim'],
             ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users', 'SIMPLE_PASSWORD')],
             ['repassword', 'compare', 'compareAttribute' => 'password'],
-            ['access_token', 'string', 'max' => 64],
+            ['secure_key', 'string', 'max' => 64],
             [
-                'access_token',
+                'secure_key',
                 'exist',
                 'targetClass' => User::className(),
                 'filter' => function ($query) {

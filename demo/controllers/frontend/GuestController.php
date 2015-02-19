@@ -1,17 +1,18 @@
 <?php
 
-namespace frontend\modules\users\controllers;
+namespace common\modules\users\controllers\frontend;
 
-use nepster\users\models as models;
+use common\modules\users\models as models;
 use yii\widgets\ActiveForm;
+use yii\base\Controller;
 use yii\web\Response;
 use yii\helpers\Url;
 use Yii;
 
 /**
- * Frontend controller for guest users.
+ * Class GuestController
  */
-class GuestController extends \frontend\components\Controller
+class GuestController extends Controller
 {
     /**
      * @inheritdoc
@@ -37,8 +38,8 @@ class GuestController extends \frontend\components\Controller
      */
     public function actionSignup()
     {
-        $user = new User(['scenario' => 'signup']);
-        $profile = new Profile(['scenario' => 'signup']);
+        $user = new models\User(['scenario' => 'signup']);
+        $profile = new models\Profile(['scenario' => 'signup']);
         
         if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
             if ($user->validate() && $profile->validate()) {
@@ -75,7 +76,7 @@ class GuestController extends \frontend\components\Controller
      */
     public function actionResend()
     {
-        $model = new ResendForm();
+        $model = new models\ResendForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -111,7 +112,7 @@ class GuestController extends \frontend\components\Controller
             $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new models\LoginForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -138,7 +139,7 @@ class GuestController extends \frontend\components\Controller
      */
     public function actionActivation($token)
     {
-        $model = new ActivationForm(['access_token' => $token]);
+        $model = new models\ActivationForm(['access_token' => $token]);
         if ($model->validate() && $model->activation()) {
             Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_ACTIVATION'));
         } else {
@@ -152,7 +153,7 @@ class GuestController extends \frontend\components\Controller
      */
     public function actionRecovery()
     {
-        $model = new RecoveryForm();
+        $model = new models\RecoveryForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {

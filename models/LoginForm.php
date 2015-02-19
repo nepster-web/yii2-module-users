@@ -13,22 +13,22 @@ class LoginForm extends \yii\base\Model
     use ModuleTrait;
 
     /**
-     * @var string $username Username
+     * @var string
      */
     public $username;
 
     /**
-     * @var string $password Password
+     * @var string
      */
     public $password;
 
     /**
-     * @var boolean rememberMe Remember me
+     * @var boolean
      */
     public $rememberMe = true;
 
     /**
-     * @var User|null User instance
+     * @var \nepster\users\models\User
      */
     private $_user;
 
@@ -97,7 +97,7 @@ class LoginForm extends \yii\base\Model
     }
 
     /**
-     * Logs in a user using the provided username and password.
+     * Авторизация пользователя
      *
      * @return boolean whether the user is logged in successfully
      */

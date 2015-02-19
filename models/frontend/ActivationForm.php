@@ -1,6 +1,6 @@
 <?php
 
-namespace nepster\users\models;
+namespace nepster\users\models\frontend;
 
 use users\traits\ModuleTrait;
 use Yii;

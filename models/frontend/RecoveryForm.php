@@ -1,6 +1,6 @@
 <?php
 
-namespace nepster\users\models;
+namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
 use Yii;
@@ -13,12 +13,12 @@ class RecoveryForm extends \yii\base\Model
     use ModuleTrait;
 
     /**
-     * @var string $email E-mail
+     * @var string
      */
     public $email;
 
     /**
-     * @var nepster\users\models\User User instance
+     * @var \nepster\users\models\User
      */
     private $_model;
 
@@ -48,12 +48,12 @@ class RecoveryForm extends \yii\base\Model
     public function attributeLabels()
     {
         return [
-            'email' => Yii::t('users.attr', 'EMAIL')
+            'email' => Yii::t('users', 'EMAIL')
         ];
     }    
     
     /**
-     * @return false OR nepster\users\models\User
+     * @return false OR \nepster\users\models\User
      */
     public function recovery()
     {

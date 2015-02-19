@@ -1,16 +1,17 @@
 <?php
 
-namespace frontend\modules\users\controllers;
+namespace common\modules\users\controllers\frontend;
 
-use nepster\users\models as models;
+use common\modules\users\models as models;
 use yii\widgets\ActiveForm;
+use yii\base\Controller;
 use yii\web\Response;
 use Yii;
 
 /**
- * Frontend controller for authenticated users.
+ * Class UserController
  */
-class UserController extends \frontend\components\Controller
+class UserController extends Controller
 {
     /**
      * @inheritdoc

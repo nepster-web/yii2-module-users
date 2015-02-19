@@ -1,15 +1,13 @@
 <?php
 
-namespace frontend\modules\users\models;
+namespace common\modules\users\models;
 
 use Yii;
 
 /**
  * Class User
- * @package frontend\modules\users\models
- * User is the model behind the signup form.
  */
-class User extends \common\modules\users\models\User
+class User extends \nepster\users\models\User
 {
     /**
      * @var string $password Password

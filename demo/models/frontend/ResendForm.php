@@ -1,15 +1,13 @@
 <?php
 
-namespace frontend\modules\users\models;
+namespace common\modules\users\models;
 
 use Yii;
 
 /**
  * Class ResendForm
- * @package frontend\modules\users\models
- * ResendForm is the model behind the resend form.
  */
-class ResendForm extends \common\modules\users\models\ResendForm
+class ResendForm extends \nepster\users\models\ResendForm
 {
     /**
      * Send a resend access token.
