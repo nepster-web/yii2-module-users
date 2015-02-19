@@ -38,7 +38,7 @@ class m140418_204055_create_admin extends Migration
             'ban_reason'
         ];
 
-        $this->batchInsert('{{%user}}', $columns, [
+        $this->batchInsert('{{%users}}', $columns, [
             [
                 1,
                 'admin',
@@ -54,7 +54,7 @@ class m140418_204055_create_admin extends Migration
                 $security->generateRandomString(),
                 null,
                 null,
-                Yii::$app->request->getUserIP(),
+                '127.0.0.1',
                 date('Y-m-d H:i:s'),
                 date('Y-m-d H:i:s'),
                 null,

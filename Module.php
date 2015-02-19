@@ -10,6 +10,11 @@ use Yii;
 class Module extends \yii\base\Module
 {
     /**
+     * @var string Роль пользователя по умолчанию
+     */
+    public $defaultRole = 'user';
+
+    /**
      * @var boolean Обязательное подтверждение почтового адреса после регистрации
      */
     public $requireEmailConfirmation = true;

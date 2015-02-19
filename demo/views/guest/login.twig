@@ -1,0 +1,44 @@
+{#
+    Авторизация
+    @var \yii\web\View this
+    @var \frontend\modules\users\models\LoginForm model
+#}
+
+{% extends "@app/themes/basic/layouts/main.twig" %}
+
+{% block title %} {{ t('users.main', 'SIGNIN.TITLE') }} {% endblock %}
+
+{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ t('users.main', 'SIGNIN.TITLE') }} {% endblock %}
+
+{% block content %}
+
+    {% if app.session.hasFlash('danger') %}
+        <div class="alert alert-danger" role="alert">
+            <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+            {{ app.session.getFlash('danger') }}
+        </div>
+    {% endif %}
+
+    {% if app.session.hasFlash('success') %}
+        <div class="alert alert-success" role="alert">
+            <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+            {{ app.session.getFlash('success') }}
+        </div>
+    {% endif %}
+
+    <div class="col-md-6">
+        {{ use('yii/widgets/ActiveForm') }}
+        {% set form = active_form_begin() %}
+    
+        {{ form.field(model, 'username') | raw }}
+        {{ form.field(model, 'password').passwordInput() | raw }}
+        
+        {{ form.field(model, 'rememberMe').checkbox() | raw }}
+        
+        <div class="form-group text-right">
+            <input type="submit" value="{{ t('users.main', 'SIGNIN') }}" class="btn btn-primary" />
+        </div>
+        {{ active_form_end() }} 
+    </div>
+            
+{% endblock content %}

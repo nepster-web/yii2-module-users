@@ -1,0 +1,203 @@
+"users":
+  "USERNAME":
+    ru: 'Логин'
+    en: 'Username'
+  "EMAIL":
+    ru: 'E-MAIL'
+    en: 'E-MAIL'
+  "PASSWORD":
+    ru: 'Пароль'
+    en: 'Password'
+  "REPASSWORD":
+    ru: 'Повторите пароль'
+    en: 'Repeat password'
+  "ROLE":
+    ru: 'Роль'
+    en: 'Role'
+  "STATUS":
+    ru: 'Статус'
+    en: 'Status'
+  "DATE_REGISTER":
+    ru: 'Дата регистрации'
+    en: 'Date signup'
+  "DATE_LASTVISIT":
+    ru: 'Дата последнего входа'
+    en: ''
+  "REMEMBER_ME":
+    ru: 'Запонить'
+    en: ''
+  "NAME":
+    ru: 'Имя'
+    en: ''
+  "SURNAME":
+    ru: 'Фамилия'
+    en: ''
+  "WHAU":
+    ru: 'Откуда про нас узнали ?'
+    en: ''
+  "NEW_EMAIL":
+    ru: 'Новый e-mail'
+    en: ''
+  "NEW_PASSWORD":
+    ru: 'Новый пароль'
+    en: ''
+  "NEW_REPASSWORD":
+    ru: 'Повторите новый пароль'
+    en: ''
+  "NEW_EMAIL":
+    ru: 'Новый E_MAIL'
+    en: ''
+  "NEW_PASSWORD":
+    ru: 'Новый пароль'
+    en: ''
+  "NEW_REPASSWORD":
+    ru: 'Повторите новый пароль'
+    en: ''
+  "OLDEMAIL":
+    ru: 'Текущий e-mail'
+    en: ''
+  "OLDPASSWORD":
+    ru: 'Текущий пароль'
+    en: ''
+  "ACCESS_TOKEN":
+    ru: 'Ключ безопасности'
+    en: ''
+
+  "SIGNUP":
+    ru: 'Регистрация'
+    en: 'Signup'
+  "SIGNIN":
+    ru: 'Вход'
+    en: 'Login'
+  "RESEND":
+    ru: 'Ключ активации'
+    en: 'Resend'
+  "RECOVERY":
+    ru: 'Восстановить пароль'
+    en: 'Recovery password'
+  "LOGOUT":
+    ru: 'Выход'
+    en: 'Logout'
+  "SEND":
+    ru: 'Отправить'
+    en: 'Send'
+  "SAVE":
+    ru: 'Сохранить'
+    en: 'Save'
+  "PROFILE":
+    ru: 'Профиль'
+    en: 'Profile'
+  "SIGNUP.TITLE":
+    ru: 'Регистрация'
+    en: ''
+  "SIGNIN.TITLE":
+    ru: 'Вход'
+    en: 'SignIn'
+  "RESEND.TITLE":
+    ru: 'Код активации'
+    en: ''
+  "RECOVERY.TITLE":
+    ru: 'Восстановить пароль'
+    en: ''
+  "RECOVERY-CONFIRMATION.TITLE":
+    ru: 'Изменить пароль'
+    en: ''
+  "PROFILE.TITLE":
+    ru: 'Профиль'
+    en: ''
+
+  "SUCCESS_SIGNUP_WITHOUT_LOGIN":
+    ru: 'Учётная запись была успешно создана. Через несколько секунд вам на почту будет отправлен код для активации аккаунта. В случае если письмо не пришло в течении 15 минут, вы можете заново запросить отправку ключа по данной <a href="{url}">ссылке</a>.'
+    en: ''
+  "SUCCESS_SIGNUP_WITH_LOGIN":
+    ru: 'Учётная запись была успешно создана.'
+    en: ''
+  "FAIL_SIGNUP":
+    ru: 'В момент регистрации возникла ошибка. Попробуйте ещё раз пожалуйста!'
+    en: ''
+  "SUCCESS_RESEND":
+    ru: 'На указанный электронный адрес было отправлено письмо с кодом активации новой учётной записи.'
+    en: ''
+  "FAIL_RESEND":
+    ru: 'В момент отправки письма возникла ошибка. Возможно Вы уже активировали свой аккаунт!'
+    en: ''
+  "FAIL_RESEND_OFF":
+    ru: 'В данный момент активация учетной записи отключена.'
+    en: ''
+  "SUCCESS_ACTIVATION":
+    ru: 'Ваша учётная запись была успешно активирована.'
+    en: ''
+  "FAIL_ACTIVATION":
+    ru: 'Неверный код активации или возмоможно аккаунт был уже ранее активирован.'
+    en: ''
+  "SUCCESS_RECOVERY":
+    ru: 'На указанный вами электронный адрес было отправлено письмо с кодом восстановления пароля.'
+    en: ''
+  "FAIL_RECOVERY":
+    ru: 'В момент отправки письма возникла ошибка. Попробуйте ещё раз пожалуйста!'
+    en: ''
+  "RECOVERY_CONFIRMATION_WITH_INVALID_KEY":
+    ru: 'Неверный код подтверждения.'
+    en: ''
+  "SUCCESS_RECOVERY_CONFIRMATION":
+    ru: 'Пароль был успешно сохранен.'
+    en: ''
+  "FAIL_RECOVERY_CONFIRMATION":
+    ru: 'В момент подтверждения нового пароля возникла ошибка. Попробуйте ещё раз пожалуйста!'
+    en: ''
+  "ERROR_MSG_INVALID_USERNAME_OR_PASSWORD":
+    ru: 'Неправильный логин или пароль.'
+    en: ''
+  "FAIL_RECOVERY_CONFIRMATION_WITH_INVALID_KEY":
+    ru: 'Неверный код подтверждения.'
+    en: ''
+  "SUCCESS_PASSWORD_CHANGE":
+    ru: 'Пароль был успешно обновлён!'
+    en: ''
+  "FAIL_PASSWORD_CHANGE":
+    ru: 'В момент изменения пароля возникла ошибка. Попробуйте ещё раз пожалуйста!'
+    en: ''
+  "SUCCES_EMAIL_CHANGE":
+    ru: 'На указанный новый электронный адрес было отправлено письмо с кодом подтверждения.'
+    en: ''
+  "FAIL_EMAIL_CHANGE":
+    ru: 'В момент изменения электронного адреса возникла ошибка. Попробуйте ещё раз пожалуйста!'
+    en: ''
+  "SUCCES_UPDATE":
+    ru: 'Профиль был успешно обновлён.'
+    en: ''
+  "FAIL_UPDATE":
+    ru: 'В момент обновления профиля возникла ошибка. Попробуйте ещё раз пожалуйста!'
+    en: ''
+
+  "INVALID_USERNAME_OR_PASSWORD":
+    ru: 'Неверный логин или пароль'
+    en: ''
+  "MUST_ACTIVATE_ACCOUNT":
+    ru: 'Необходимо активировать учетную запись'
+    en: ''
+  "SIMPLE_PASSWORD":
+    ru: 'Вы ввели слишком простой пароль, это может угрожать безопасности Вашего аккаунта. Пожалуйста придумайте пароль состоящий из букв, цифр и символов: -_!@,#$%'
+    en: ''
+  "OLD_PASSWORD_IS_INCORRECT":
+    ru: 'Старый пароль введен неверно'
+    en: ''
+
+  "SUBJECT_SIGNUP":
+    ru: 'Добро пожаловать'
+    en: ''
+  "BODY_SIGNUP_HELLO {name}":
+    ru: 'Добро пожаловать, {name}!'
+    en: ''
+  "BODY_SIGNUP_TOKEN {url}":
+    ru: 'Пожалуйста активируйте Ваш аккаунт перейдя по ссылке: <br/> {url}'
+    en: ''
+  "SUBJECT_RECOVERY":
+    ru: 'Восстановление пароля'
+    en: ''
+  "BODY_RECOVERY_HELLO {name}":
+    ru: 'Здравсвуйте, {name}!'
+    en: ''
+  "BODY_RECOVERY_TOKEN {url}":
+    ru: 'Для восстановления Вашего пароля перейдите по ссылке: <br/> {url}'
+    en: ''
