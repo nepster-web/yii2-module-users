@@ -33,47 +33,6 @@ class InstallController extends \yii\console\Controller
     public $extendsController = "yii\\base\\Controller";
 
     /**
-     * @inheritdoc
-     */
-    public function options($actionId)
-    {
-        return ['from', 'to', 'namespace', 'extendsController'];
-    }
-
-    /**
-     * Установка модуля
-     */
-    public function actionIndex()
-    {
-        // Сообщение
-        $confirmMsg = PHP_EOL;
-        $confirmMsg .= "Install module users. Please confirm:" . PHP_EOL;
-        $confirmMsg .= PHP_EOL;
-        $confirmMsg .= " From [ $this->from ]" . PHP_EOL;
-        $confirmMsg .= " To [ $this->to ]" . PHP_EOL;
-        $confirmMsg .= " Namespace [ $this->namespace ]" . PHP_EOL;
-        $confirmMsg .= " Extends Controller [ $this->extendsController ]" . PHP_EOL;
-        $confirmMsg .= PHP_EOL;
-        $confirmMsg .= "(yes|no)";
-
-        // Подтверждение
-        $confirm = $this->prompt($confirmMsg, [
-            "required" => true,
-            "default" => "no",
-        ]);
-
-        // Копирование файлов
-        if (strncasecmp($confirm, "y", 1) === 0) {
-            $fromPath = Yii::getAlias($this->from);
-            $toPath = Yii::getAlias($this->to);
-            $this->copyFiles($fromPath, $toPath, $this->namespace, $this->extendsController);
-        } else {
-            echo PHP_EOL;
-            $this->stdout("Copy cancelled!" . PHP_EOL, Console::FG_RED);
-        }
-    }
-
-    /**
      * Copy files from $fromPath to $toPath
      *
      * @param string $fromPath
