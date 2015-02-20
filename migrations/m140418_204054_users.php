@@ -51,7 +51,6 @@ class m140418_204054_users extends Migration
             'avatar_url' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "URL Аватара"',
             'whau' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Откуда пользователь узнал о сайте"',
             'birthday' => Schema::TYPE_DATETIME . ' NULL DEFAULT "0000-00-00 00:00:00" COMMENT "Дата рождения"',
-            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'unique(`user_id`)',
         ], $tableOptions . ' COMMENT = "Профили пользователей"');

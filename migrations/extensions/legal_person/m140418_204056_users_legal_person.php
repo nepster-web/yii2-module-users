@@ -24,11 +24,12 @@ class m140418_204056_users_legal_person extends Migration
         $this->createTable('{{%users_legal_person}}', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'legal_person_name' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Полное наименование юридического лица"',
-            'legal_person_address' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Юридический адрес"',
+            'name' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Полное наименование юридического лица"',
+            'address' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Юридический адрес"',
             'BIN' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "ОГРН"',
             'bank' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Банк"',
-            'transaction_account' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Расчетный счет"',
+            'account' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Расчетный счет"',
+            'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Данные юридических лиц"');
 
         $this->addForeignKey('{{%users_legal_person_user_id}}', '{{%users_legal_person}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');

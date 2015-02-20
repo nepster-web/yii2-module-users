@@ -110,10 +110,10 @@ yii migrate --migrationPath=@vendor/nepster-web/yii2-module-users/migrations
 
 Добавить поле для логина:
 ```
-yii migrate --migrationPath=@vendor/nepster-web/yii2-module-users/migrations/extension/username
+yii migrate --migrationPath=@vendor/nepster-web/yii2-module-users/migrations/extensions/username
 ```
 
 Добавить таблицу данных для юридических лиц:
 ```
-yii migrate --migrationPath=@vendor/nepster-web/yii2-module-users/migrations/extension/legal_person
+yii migrate --migrationPath=@vendor/nepster-web/yii2-module-users/migrations/extensions/legal_person
 ```

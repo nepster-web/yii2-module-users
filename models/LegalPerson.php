@@ -2,14 +2,14 @@
 
 namespace nepster\users\models;
 
-use nepster\users\traits\ModuleTrait;
+use users\traits\ModuleTrait;
 use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class Profile
+ * Class ActivationForm
  */
-class Profile extends ActiveRecord
+class LegalPerson extends ActiveRecord
 {
     use ModuleTrait;
 
@@ -18,7 +18,7 @@ class Profile extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%users_profile}}';
+        return '{{%users_legal_person}}';
     }
 
     /**
@@ -43,21 +43,11 @@ class Profile extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('users', 'NAME'),
-            'surname' => Yii::t('users', 'SURNAME'),
-            'whau' => Yii::t('users', 'WHAU'),
-            'avatar_url' => Yii::t('users', 'AVATAR_URL'),
-            'birthday' => Yii::t('users', 'BIRTHDAY'),
-            'create_time' => Yii::t('users', 'CREATE_TIME'),
-            'update_time' => Yii::t('users', 'UPDATE_TIME'),
+            'name' => Yii::t('users', 'LEGAL_PERSON_NAME'),
+            'address' => Yii::t('users', 'LEGAL_PERSON_ADDRESS'),
+            'BIN' => Yii::t('users', 'LEGAL_PERSON_BIN'),
+            'bank' => Yii::t('users', 'LEGAL_PERSON_BALK'),
+            'account' => Yii::t('users', 'LEGAL_PERSON_ACCOUNT'),
         ];
-    }
-
-    /**
-     * @return Profile|null Profile user
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('profile');
     }
 }
