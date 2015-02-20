@@ -34,11 +34,11 @@ class m140418_204054_users extends Migration
             'api_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен для api"',
             'secure_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен"',
             'auth_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
-            'auth_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL ',
+            'auth_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
             'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
-            'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL ',
-            'update_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL ',
-            'ban_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL COMMENT "Время бана"',
+            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
+            'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
+            'ban_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "Время бана"',
             'ban_reason' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Причина бана"',
         ], $tableOptions . ' COMMENT = "Пользователи"');
 
@@ -51,8 +51,8 @@ class m140418_204054_users extends Migration
             'avatar_url' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "URL Аватара"',
             'whau' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Откуда пользователь узнал о сайте"',
             'birthday' => Schema::TYPE_DATETIME . ' NULL DEFAULT "0000-00-00 00:00:00" COMMENT "Дата рождения"',
-            'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
-            'update_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
+            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'unique(`user_id`)',
         ], $tableOptions . ' COMMENT = "Профили пользователей"');
 
@@ -65,7 +65,7 @@ class m140418_204054_users extends Migration
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
             'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
+            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Действия пользователей"');
 
         // Индексы
@@ -97,6 +97,10 @@ class m140418_204054_users extends Migration
             'expire INTEGER',
             'data ' . $dataType,
         ], $tableOptions . ' COMMENT = "Сессии пользователей"');
+
+        // Индексы
+        $this->createIndex('{{%session_user_id}}', '{{%session}}', 'user_id');
+        $this->createIndex('{{%session_expire}}', '{{%session}}', 'expire');
     }
 
     /**

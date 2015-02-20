@@ -22,18 +22,19 @@
             <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
             {{ app.session.getFlash('success') }}
         </div>
-    {% endif %}
+    {% else %}
 
-    <div class="col-md-6">
-        {{ use('yii/widgets/ActiveForm') }}
-        {% set form = active_form_begin() %}
-        
-        {{ form.field(model, 'email').textInput({'placeholder' : model.getAttributeLabel('email')}) | raw }}
+        <div class="col-md-6">
+            {{ use('yii/widgets/ActiveForm') }}
+            {% set form = active_form_begin() %}
 
-        <div class="form-group text-right">
-            <input type="submit" value="{{ t('users.main', 'SEND') }}" class="btn btn-primary" />
+            {{ form.field(model, 'email').textInput({'placeholder' : model.getAttributeLabel('email')}) | raw }}
+
+            <div class="form-group text-right">
+                <input type="submit" value="{{ t('users.main', 'SEND') }}" class="btn btn-primary" />
+            </div>
+            {{ active_form_end() }}
         </div>
-        {{ active_form_end() }} 
-    </div>
-            
+
+    {% endif %}
 {% endblock content %}

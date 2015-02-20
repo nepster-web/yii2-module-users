@@ -3,6 +3,7 @@
 namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
+use nepster\users\models\User;
 use Yii;
 
 /**
@@ -25,7 +26,7 @@ class ResendForm extends \yii\base\Model
     /**
      * @var \nepster\users\models\User
      */
-    private $_model;
+    private $_user;
 
     /**
      * @inheritdoc
@@ -61,12 +62,12 @@ class ResendForm extends \yii\base\Model
      */
     public function resend()
     {
-        $this->_model = User::findByEmail($this->email, 'inactive');
+        $this->_user = User::findByEmail($this->email, 'inactive');
         
-        if ($this->_model !== null) {
-            $this->_model->generateSecureKey();
-            if($this->_model->save(false)) {
-                return $this->_model;
+        if ($this->_user !== null) {
+            $this->_user->generateSecureKey();
+            if($this->_user->save(false)) {
+                return $this->_user;
             }            
         }
         return false;

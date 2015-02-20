@@ -2,7 +2,7 @@
 
 namespace common\modules\users\controllers\backend;
 
-use yii\base\Controller;
+use frontend\components\Controller;
 use Yii;
 
 /**

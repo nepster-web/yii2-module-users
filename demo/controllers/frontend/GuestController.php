@@ -4,7 +4,7 @@ namespace common\modules\users\controllers\frontend;
 
 use common\modules\users\models as models;
 use yii\widgets\ActiveForm;
-use yii\base\Controller;
+use frontend\components\Controller;
 use yii\web\Response;
 use yii\helpers\Url;
 use Yii;
@@ -45,7 +45,7 @@ class GuestController extends Controller
                 $user->populateRelation('profile', $profile);
                 if ($user->save(false)) {
                     if ($this->module->requireEmailConfirmation === true) {
-                        $user->send('mail');
+                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"' );
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
                         ]));
@@ -75,12 +75,13 @@ class GuestController extends Controller
      */
     public function actionResend()
     {
-        $model = new models\ResendForm();
+        $model = new models\frontend\ResendForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($this->module->requireEmailConfirmation === true) {
-                    if ($model->resend()) {
+                    if ($user = $model->resend()) {
+                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"' );
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RESEND'));
                         return $this->redirect(['login']);
                     } else {
@@ -134,7 +135,7 @@ class GuestController extends Controller
      */
     public function actionActivation($token)
     {
-        $model = new models\ActivationForm(['access_token' => $token]);
+        $model = new models\frontend\ActivationForm(['secure_key' => $token]);
         if ($model->validate() && $model->activation()) {
             Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_ACTIVATION'));
         } else {
@@ -148,11 +149,12 @@ class GuestController extends Controller
      */
     public function actionRecovery()
     {
-        $model = new models\RecoveryForm();
+        $model = new models\frontend\RecoveryForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                if ($model->recovery()) {
+                if ($user = $model->recovery()) {
+                    Yii::$app->consoleRunner->run('users/send ' . $user->id . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"' );
                     Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY'));
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY'));
@@ -174,7 +176,7 @@ class GuestController extends Controller
      */
     public function actionRecoveryConfirmation($token)
     {
-        $model = new RecoveryConfirmationForm(['access_token' => $token]);
+        $model = new models\frontend\RecoveryConfirmationForm(['secure_key' => $token]);
     
         if (!$model->isValidToken()) {
             Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY_CONFIRMATION_WITH_INVALID_KEY'));

@@ -1,25 +1,21 @@
 <?php
 
-namespace common\modules\users\models;
+namespace common\modules\users\models\frontend;
 
 use Yii;
 
 /**
  * Class RecoveryForm
  */
-class RecoveryForm extends \nepster\users\models\RecoveryForm
+class RecoveryForm extends \nepster\users\models\frontend\RecoveryForm
 {
     /**
-     * Send a recovery password token.
-     *
-     * @return boolean true if recovery token was successfully sent
+     * @inheritdoc
      */
     public function recovery()
     {
-        if ($model = parent::recovery()) {
-            // Отправить уведомление
-            Yii::$app->consoleRunner->run('users/send ' . $this->module->sendTransport . ' ' . $model->id . ' recovery "' . Yii::t('users.send', 'SUBJECT_RECOVERY') . '"' );
-            return true;
+        if ($user = parent::recovery()) {
+            return $user;
         }
         return false;
     }

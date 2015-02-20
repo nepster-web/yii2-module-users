@@ -3,12 +3,13 @@
 namespace nepster\users\models;
 
 use nepster\users\traits\ModuleTrait;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
  * Class Profile
  */
-class Profile extends \yii\db\ActiveRecord
+class Profile extends ActiveRecord
 {
     use ModuleTrait;
 
@@ -18,6 +19,23 @@ class Profile extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%users_profile}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                //'value' => function () { return date("Y-m-d H:i:s"); },
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                ],
+            ],
+        ];
     }
 
     /**

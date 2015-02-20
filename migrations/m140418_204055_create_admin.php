@@ -55,8 +55,8 @@ class m140418_204055_create_admin extends Migration
                 null,
                 null,
                 '127.0.0.1',
-                date('Y-m-d H:i:s'),
-                date('Y-m-d H:i:s'),
+                time(),
+                time(),
                 null,
                 null,
             ],
@@ -69,8 +69,8 @@ class m140418_204055_create_admin extends Migration
             'surname',
             'avatar_url',
             'whau',
-            'birthday',
-            'update_time',
+            //'birthday',
+            'create_time',
         ];
 
         $this->batchInsert('{{%users_profile}}', $columns, [
@@ -81,8 +81,8 @@ class m140418_204055_create_admin extends Migration
                 'Admin',
                 null,
                 null,
-                null,
-                date('Y-m-d H:i:s'),
+                //null,
+                time(),
             ],
         ]);
     }

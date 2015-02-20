@@ -4,7 +4,7 @@ namespace common\modules\users\controllers\frontend;
 
 use common\modules\users\models as models;
 use yii\widgets\ActiveForm;
-use yii\base\Controller;
+use frontend\components\Controller;
 use yii\web\Response;
 use Yii;
 

@@ -1,15 +1,19 @@
 {#
     Регистрация
     @var \yii\web\View this
-    @var \frontend\modules\users\models\User user
-    @var \frontend\modules\users\models\Profile profile
+    @var \common\modules\users\models\User user
+    @var \common\modules\users\models\Profile profile
 #}
 
 {% extends "@app/themes/basic/layouts/main.twig" %}
 
-{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ t('users.main', 'SIGNUP.TITLE') }} {% endblock %}
+{% block title %} {{ t('users', 'SIGNUP.TITLE') }} {% endblock %}
+
+{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ block('title') }} {% endblock %}
 
 {% block content %}
+
+    {{ use('yii/widgets/ActiveForm') }}
 
     {% if app.session.hasFlash('danger') %}        
         <div class="alert alert-danger" role="alert">
@@ -26,21 +30,23 @@
     {% endif %}
 
     <div class="col-md-6">
-        {{ use('yii/widgets/ActiveForm') }}
         {% set form = active_form_begin() %}
-    
-        {{ form.field(user, 'username') | raw }}
+
+        <h3>Основные данные</h3>
+        {{ form.field(user, 'phone') | raw }}
         {{ form.field(user, 'email') | raw }}
         {{ form.field(user, 'password').passwordInput() | raw }}
         {{ form.field(user, 'repassword').passwordInput() | raw }}
-        
+
+        <br/>
+
+        <h3>Данные профиля</h3>
         {{ form.field(profile, 'name') | raw }}
         {{ form.field(profile, 'surname') | raw }}
-        
         {{ form.field(profile, 'whau') | raw }}
         
         <div class="form-group text-right">
-            <input type="submit" value="{{ t('users.main', 'SIGNUP') }}" class="btn btn-primary" />
+            <input type="submit" value="{{ t('users', 'SIGNUP') }}" class="btn btn-primary" />
         </div>
         {{ active_form_end() }} 
     </div>

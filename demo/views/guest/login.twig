@@ -1,16 +1,18 @@
 {#
     Авторизация
     @var \yii\web\View this
-    @var \frontend\modules\users\models\LoginForm model
+    @var \common\modules\users\models\LoginForm model
 #}
 
 {% extends "@app/themes/basic/layouts/main.twig" %}
 
 {% block title %} {{ t('users.main', 'SIGNIN.TITLE') }} {% endblock %}
 
-{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ t('users.main', 'SIGNIN.TITLE') }} {% endblock %}
+{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ block('title') }} {% endblock %}
 
 {% block content %}
+
+    {{ use('yii/widgets/ActiveForm') }}
 
     {% if app.session.hasFlash('danger') %}
         <div class="alert alert-danger" role="alert">
@@ -27,16 +29,16 @@
     {% endif %}
 
     <div class="col-md-6">
-        {{ use('yii/widgets/ActiveForm') }}
         {% set form = active_form_begin() %}
     
         {{ form.field(model, 'username') | raw }}
         {{ form.field(model, 'password').passwordInput() | raw }}
-        
         {{ form.field(model, 'rememberMe').checkbox() | raw }}
         
         <div class="form-group text-right">
-            <input type="submit" value="{{ t('users.main', 'SIGNIN') }}" class="btn btn-primary" />
+            <a href="{{ path(['/users/guest/signup']) }}">{{  t('users.main', 'SIGNUP') }}</a> |
+            <a href="{{ path(['/users/guest/recovery']) }}">{{  t('users.main', 'RECOVERY') }}</a> &nbsp;
+            <input type="submit" value="{{ t('users', 'SIGNIN') }}" class="btn btn-primary" />
         </div>
         {{ active_form_end() }} 
     </div>

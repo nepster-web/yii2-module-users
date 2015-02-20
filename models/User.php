@@ -37,7 +37,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return [
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
-                'value' => function () { return date("Y-m-d H:i:s"); },
+                //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
@@ -321,7 +321,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function generateApiKey()
     {
-        $this->api_key = Security::generateExpiringRandomString();
+        $this->api_key = Yii::$app->security->generateRandomString();
     }
     
     /**

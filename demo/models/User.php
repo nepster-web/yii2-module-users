@@ -12,12 +12,7 @@ class User extends \nepster\users\models\User
     /**
      * @var string
      */
-    public static $password;
-
-    /**
-     * @var string
-     */
-    public static $repassword;
+    public $repassword;
 
     /**
      * @inheritdoc
@@ -25,7 +20,7 @@ class User extends \nepster\users\models\User
     public function scenarios()
     {
         return [
-            'signup' => ['username', 'email', 'password', 'repassword'],
+            'signup' => ['phone', 'email', 'password', 'repassword'],
         ];
     }
     
@@ -57,16 +52,14 @@ class User extends \nepster\users\models\User
     public function rules()
     {
         return [
-            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
-            ['username', 'string', 'min' => 3, 'max' => 30],
-            [['username', 'email'], 'unique'],
-            [['username', 'email', 'password', 'repassword'], 'required'],
-            [['username', 'email', 'password', 'repassword'], 'trim'],
+            [['phone', 'email', 'password', 'repassword'], 'required'],
+            [['phone', 'email', 'password', 'repassword'], 'trim'],
+
+            [['phone', 'email'], 'unique'],
 
             ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users', 'SIMPLE_PASSWORD')],
             ['repassword', 'compare', 'compareAttribute' => 'password'],
 
-            ['email', 'string', 'max' => 100],
             ['email', 'email'],
         ];
     }
@@ -80,6 +73,8 @@ class User extends \nepster\users\models\User
             if ($this->isNewRecord) {
                 // Хешируем пароль
                 $this->setPassword($this->password);
+                // IP пользователя
+                $this->create_ip = Yii::$app->request->userIP;
             }
             return true;
         }
