@@ -2,7 +2,7 @@
 
 namespace nepster\users\models;
 
-use users\traits\ModuleTrait;
+use nepster\users\traits\ModuleTrait;
 use yii\db\ActiveRecord;
 use Yii;
 
