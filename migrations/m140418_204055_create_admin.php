@@ -70,7 +70,6 @@ class m140418_204055_create_admin extends Migration
             'avatar_url',
             'whau',
             //'birthday',
-            'create_time',
         ];
 
         $this->batchInsert('{{%users_profile}}', $columns, [
@@ -82,7 +81,6 @@ class m140418_204055_create_admin extends Migration
                 null,
                 null,
                 //null,
-                time(),
             ],
         ]);
     }
