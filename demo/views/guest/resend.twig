@@ -6,7 +6,9 @@
 
 {% extends "@app/themes/basic/layouts/main.twig" %}
 
-{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ t('users.main', 'RESEND.TITLE') }} {% endblock %}
+{% block title %} {{ t('users', 'RESEND.TITLE') }} {% endblock %}
+
+{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ block('title') }} {% endblock %}
 
 {% block content %}
 
@@ -31,7 +33,7 @@
         {{ form.field(model, 'email').textInput({'placeholder' : model.getAttributeLabel('email')}) | raw }}
 
         <div class="form-group text-right">
-            <input type="submit" value="{{ t('users.main', 'SIGNIN') }}" class="btn btn-primary" />
+            <input type="submit" value="{{ t('users', 'SEND') }}" class="btn btn-primary" />
         </div>
         {{ active_form_end() }} 
     </div>

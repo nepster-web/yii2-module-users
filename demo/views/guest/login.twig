@@ -6,7 +6,7 @@
 
 {% extends "@app/themes/basic/layouts/main.twig" %}
 
-{% block title %} {{ t('users.main', 'SIGNIN.TITLE') }} {% endblock %}
+{% block title %} {{ t('users', 'SIGNIN.TITLE') }} {% endblock %}
 
 {% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ block('title') }} {% endblock %}
 
@@ -36,8 +36,8 @@
         {{ form.field(model, 'rememberMe').checkbox() | raw }}
         
         <div class="form-group text-right">
-            <a href="{{ path(['/users/guest/signup']) }}">{{  t('users.main', 'SIGNUP') }}</a> |
-            <a href="{{ path(['/users/guest/recovery']) }}">{{  t('users.main', 'RECOVERY') }}</a> &nbsp;
+            <a href="{{ path(['/users/guest/signup']) }}">{{  t('users', 'SIGNUP') }}</a> |
+            <a href="{{ path(['/users/guest/recovery']) }}">{{  t('users', 'RECOVERY') }}</a> &nbsp;
             <input type="submit" value="{{ t('users', 'SIGNIN') }}" class="btn btn-primary" />
         </div>
         {{ active_form_end() }} 

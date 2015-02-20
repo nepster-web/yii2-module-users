@@ -5,6 +5,9 @@
   "EMAIL":
     ru: 'E-MAIL'
     en: 'E-MAIL'
+  "PHONE":
+    ru: 'Телефон'
+    en: 'PHONE'
   "PASSWORD":
     ru: 'Пароль'
     en: 'Password'
@@ -63,6 +66,9 @@
     ru: 'Ключ безопасности'
     en: ''
 
+  "SEND":
+    ru: 'Отправить'
+    en: 'Send'
   "SIGNUP":
     ru: 'Регистрация'
     en: 'Signup'
