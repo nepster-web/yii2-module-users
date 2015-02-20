@@ -6,11 +6,11 @@
 
 {% extends "@app/themes/basic/layouts/main.twig" %}
 
-{% block title %} {{ t('users.main', 'PROFILE.TITLE') }} {% endblock %}
+{% block title %} {{ t('users', 'PROFILE.TITLE') }} {% endblock %}
+
+{% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ block('title') }} {% endblock %}
 
 {% block content %}
-
-    <h1>{{ t('users.main', 'PROFILE.TITLE') }}</h1>
 
     {% if app.session.hasFlash('danger') %}        
         <div class="alert alert-danger" role="alert">
@@ -34,7 +34,7 @@
         {{ form.field(model, 'surname').textInput() | raw }}
 
         <div class="form-group">
-            <input type="submit" value="{{ t('users.main', 'SAVE') }}" class="btn btn-primary" />
+            <input type="submit" value="{{ t('users', 'SAVE') }}" class="btn btn-primary" />
         </div>
         {{ active_form_end() }} 
     </div>

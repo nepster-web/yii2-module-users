@@ -20,51 +20,39 @@
   "STATUS":
     ru: 'Статус'
     en: 'Status'
-  "DATE_REGISTER":
-    ru: 'Дата регистрации'
-    en: 'Date signup'
-  "DATE_LASTVISIT":
-    ru: 'Дата последнего входа'
-    en: ''
   "REMEMBER_ME":
     ru: 'Запонить'
     en: ''
   "NAME":
     ru: 'Имя'
-    en: ''
+    en: 'Name'
   "SURNAME":
     ru: 'Фамилия'
     en: ''
   "WHAU":
     ru: 'Откуда про нас узнали ?'
     en: ''
-  "NEW_EMAIL":
-    ru: 'Новый e-mail'
-    en: ''
   "NEW_PASSWORD":
     ru: 'Новый пароль'
-    en: ''
-  "NEW_REPASSWORD":
-    ru: 'Повторите новый пароль'
-    en: ''
+    en: 'New password'
   "NEW_EMAIL":
-    ru: 'Новый E_MAIL'
-    en: ''
+    ru: 'Новый E-MAIL'
+    en: 'New E-MAIL'
   "NEW_PASSWORD":
     ru: 'Новый пароль'
-    en: ''
+    en: 'New password'
   "NEW_REPASSWORD":
     ru: 'Повторите новый пароль'
-    en: ''
+    en: 'Repeat new password'
   "OLDEMAIL":
-    ru: 'Текущий e-mail'
-    en: ''
+    ru: 'Текущий E-MAIL'
+    en: 'Current E-MAIL'
   "OLDPASSWORD":
     ru: 'Текущий пароль'
     en: ''
   "ACCESS_TOKEN":
     ru: 'Ключ безопасности'
-    en: ''
+    en: 'Access token'
 
   "SEND":
     ru: 'Отправить'
@@ -95,22 +83,28 @@
     en: 'Profile'
   "SIGNUP.TITLE":
     ru: 'Регистрация'
-    en: ''
+    en: 'Signup'
   "SIGNIN.TITLE":
     ru: 'Вход'
     en: 'SignIn'
   "RESEND.TITLE":
     ru: 'Код активации'
-    en: ''
+    en: 'Code activation'
   "RECOVERY.TITLE":
     ru: 'Восстановить пароль'
-    en: ''
+    en: 'Recovery password'
   "RECOVERY-CONFIRMATION.TITLE":
     ru: 'Изменить пароль'
-    en: ''
+    en: 'Change password'
   "PROFILE.TITLE":
     ru: 'Профиль'
-    en: ''
+    en: 'Profile'
+  "CHANGE_PASSWORD":
+    ru: 'Изменить пароль'
+    en: 'Change password'
+  "CHANGE_PASSWORD.TITLE":
+    ru: 'Изменить пароль'
+    en: 'Change password'
 
   "SUCCESS_SIGNUP_WITHOUT_LOGIN":
     ru: 'Учётная запись была успешно создана. Через несколько секунд вам на почту будет отправлен код для активации аккаунта. В случае если письмо не пришло в течении 15 минут, вы можете заново запросить отправку ключа по данной <a href="{url}">ссылке</a>.'

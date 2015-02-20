@@ -3,8 +3,8 @@
 namespace common\modules\users\controllers\frontend;
 
 use common\modules\users\models as models;
-use yii\widgets\ActiveForm;
 use frontend\components\Controller;
+use yii\widgets\ActiveForm;
 use yii\web\Response;
 use yii\helpers\Url;
 use Yii;

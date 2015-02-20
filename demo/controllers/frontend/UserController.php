@@ -3,8 +3,8 @@
 namespace common\modules\users\controllers\frontend;
 
 use common\modules\users\models as models;
-use yii\widgets\ActiveForm;
 use frontend\components\Controller;
+use yii\widgets\ActiveForm;
 use yii\web\Response;
 use Yii;
 
@@ -42,45 +42,19 @@ class UserController extends Controller
     }
 
     /**
-     * Изменить пароль
-     */
-    public function actionPassword()
-    {
-        $model = new PasswordForm();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                if ($model->password()) {
-                    Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_PASSWORD_CHANGE'));
-                } else {
-                    Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_PASSWORD_CHANGE'));
-                }
-                return $this->refresh();
-            } else if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($model);
-            }
-        }
-
-        return $this->render('password', [
-            'model' => $model
-        ]);
-    }
-
-    /**
      * Профиль
      */
     public function actionProfile()
     {
-        $model = Profile::findByUserId(Yii::$app->user->id);
+        $model = models\Profile::findByUserId(Yii::$app->user->id);
         $model->setScenario('signup');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-                    Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCES_UPDATE'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
                 } else {
-                    Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_UPDATE'));
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
                 }
                 return $this->refresh();
             } elseif (Yii::$app->request->isAjax) {
@@ -90,6 +64,32 @@ class UserController extends Controller
         }
 
         return $this->render('profile', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * Изменить пароль
+     */
+    public function actionPassword()
+    {
+        $model = new models\frontend\PasswordForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($model->password()) {
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_PASSWORD_CHANGE'));
+                } else {
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_PASSWORD_CHANGE'));
+                }
+                return $this->refresh();
+            } else if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+        }
+
+        return $this->render('password', [
             'model' => $model
         ]);
     }
