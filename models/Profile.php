@@ -23,40 +23,16 @@ class Profile extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
-        return [
-            'signup' => ['name', 'surname', 'whau'],
-            'update' => ['name', 'surname'],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            // Name
-            ['name', 'match', 'pattern' => '/^[a-zа-яё]+$/iu'],
-            
-            // Surname
-            ['surname', 'match', 'pattern' => '/^[a-zа-яё]+(-[a-zа-яё]+)?$/iu'],
-            
-            // Whau
-            ['whau', 'string', 'min' => 1, 'max' => 200],
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
             'name' => Yii::t('users', 'NAME'),
             'surname' => Yii::t('users', 'SURNAME'),
-            'whau' => Yii::t('users', 'WHAU')
+            'whau' => Yii::t('users', 'WHAU'),
+            'avatar_url' => Yii::t('users', 'AVATAR_URL'),
+            'birthday' => Yii::t('users', 'BIRTHDAY'),
+            'create_time' => Yii::t('users', 'CREATE_TIME'),
+            'update_time' => Yii::t('users', 'UPDATE_TIME'),
         ];
     }
 

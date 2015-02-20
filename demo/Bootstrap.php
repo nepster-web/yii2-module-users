@@ -1,8 +1,6 @@
 <?php
 
-namespace frontend\modules\users;
-
-use Yii;
+namespace common\modules\users;
 
 /**
  * Users module bootstrap class.

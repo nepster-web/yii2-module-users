@@ -33,8 +33,7 @@ class GuestController extends Controller
     }
 
     /**
-     * Sign Up page.
-     * If record will be successful created, user will be redirected to home page.
+     * Регистрация
      */
     public function actionSignup()
     {
@@ -47,16 +46,16 @@ class GuestController extends Controller
                 if ($user->save(false)) {
                     if ($this->module->requireEmailConfirmation === true) {
                         $user->send('mail');
-                        Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
+                        Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
                         ]));
                     } else {
                         Yii::$app->user->login($user);
-                        Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_SIGNUP_WITH_LOGIN'));
+                        Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITH_LOGIN'));
                     }
                     return $this->redirect(['login']);
                 } else {
-                    Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_SIGNUP'));
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_SIGNUP'));
                     return $this->refresh();
                 }
             } else if (Yii::$app->request->isAjax) {
@@ -65,14 +64,14 @@ class GuestController extends Controller
             }
         }
 
-        return $this->render('signup.twig', [
+        return $this->render('signup', [
             'user' => $user,
             'profile' => $profile
         ]);
     }
 
     /**
-     * Resend email confirmation token page.
+     * Повторная отправка ключа активации
      */
     public function actionResend()
     {
@@ -82,14 +81,14 @@ class GuestController extends Controller
             if ($model->validate()) {
                 if ($this->module->requireEmailConfirmation === true) {
                     if ($model->resend()) {
-                        Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_RESEND'));
+                        Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RESEND'));
                         return $this->redirect(['login']);
                     } else {
-                        Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_RESEND'));
+                        Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RESEND'));
                         return $this->refresh();
                     }
                 } else {
-                    Yii::$app->session->setFlash('success', Yii::t('users.flash', 'FAIL_RESEND_OFF'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'FAIL_RESEND_OFF'));
                     return $this->refresh();
                 }
             } else if (Yii::$app->request->isAjax) {
@@ -98,13 +97,13 @@ class GuestController extends Controller
             }
         }
 
-        return $this->render('resend.twig', [
+        return $this->render('resend', [
             'model' => $model
         ]);
     }
 
     /**
-     * Sign In page.
+     * Авторизация
      */
     public function actionLogin()
     {
@@ -125,31 +124,27 @@ class GuestController extends Controller
             }
         }
 
-        return $this->render('login.twig', [
+        return $this->render('login', [
             'model' => $model
         ]);
     }
 
     /**
-     * Activate a new user page.
-     *
-     * @param string $token Activation token.
-     *
-     * @return mixed View
+     * Активация
      */
     public function actionActivation($token)
     {
         $model = new models\ActivationForm(['access_token' => $token]);
         if ($model->validate() && $model->activation()) {
-            Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_ACTIVATION'));
+            Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_ACTIVATION'));
         } else {
-            Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_ACTIVATION'));
+            Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_ACTIVATION'));
         }
         return $this->redirect(['login']);
     }
 
     /**
-     * Request password recovery page.
+     * Восстановить пароль
      */
     public function actionRecovery()
     {
@@ -158,9 +153,9 @@ class GuestController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->recovery()) {
-                    Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_RECOVERY'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY'));
                 } else {
-                    Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_RECOVERY'));
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY'));
                 }
                 return $this->refresh();                
             } else if (Yii::$app->request->isAjax) {
@@ -169,34 +164,30 @@ class GuestController extends Controller
             }
         }
 
-        return $this->render('recovery.twig', [
+        return $this->render('recovery', [
             'model' => $model
         ]);
     }
 
     /**
-     * Confirm password recovery request page.
-     *
-     * @param string $token Confirmation token
-     *
-     * @return mixed View
+     * Подтверждение восстановления пароля
      */
     public function actionRecoveryConfirmation($token)
     {
         $model = new RecoveryConfirmationForm(['access_token' => $token]);
     
         if (!$model->isValidToken()) {
-            Yii::$app->session->setFlash('danger', Yii::t('users.flash', 'FAIL_RECOVERY_CONFIRMATION_WITH_INVALID_KEY'));
+            Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY_CONFIRMATION_WITH_INVALID_KEY'));
             return $this->redirect(['recovery']);
         }
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->recovery()) {
-                    Yii::$app->session->setFlash('success', Yii::t('users.flash', 'SUCCESS_RECOVERY_CONFIRMATION'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY_CONFIRMATION'));
                     return $this->redirect(['login']);
                 } else {
-                    Yii::$app->session->setFlash('danger',  Yii::t('users.flash', 'FAIL_RECOVERY_CONFIRMATION'));
+                    Yii::$app->session->setFlash('danger',  Yii::t('users', 'FAIL_RECOVERY_CONFIRMATION'));
                     return $this->refresh();
                 }
             } elseif (Yii::$app->request->isAjax) {
@@ -205,7 +196,7 @@ class GuestController extends Controller
             }
         }
 
-        return $this->render('recovery-confirmation.twig', [
+        return $this->render('recovery-confirmation', [
             'model' => $model
         ]);
     }

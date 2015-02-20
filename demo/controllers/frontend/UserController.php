@@ -32,7 +32,7 @@ class UserController extends Controller
     }
 
     /**
-     * Log Out page.
+     * Выход
      */
     public function actionLogout()
     {
@@ -42,7 +42,7 @@ class UserController extends Controller
     }
 
     /**
-     * Change password page.
+     * Изменить пароль
      */
     public function actionPassword()
     {
@@ -62,13 +62,13 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('password.twig', [
+        return $this->render('password', [
             'model' => $model
         ]);
     }
 
     /**
-     * Profile updating page.
+     * Профиль
      */
     public function actionProfile()
     {
@@ -89,7 +89,7 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('profile.twig', [
+        return $this->render('profile', [
             'model' => $model
         ]);
     }

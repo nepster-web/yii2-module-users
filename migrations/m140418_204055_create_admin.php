@@ -18,7 +18,7 @@ class m140418_204055_create_admin extends Migration
 
         $columns = [
             'id',
-            'username',
+            //'username',
             'role',
             'status',
             'email',
@@ -41,7 +41,7 @@ class m140418_204055_create_admin extends Migration
         $this->batchInsert('{{%users}}', $columns, [
             [
                 1,
-                'admin',
+                //'admin',
                 'administrator',
                 1,
                 'admin@admin.admin',

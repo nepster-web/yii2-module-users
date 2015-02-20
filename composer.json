@@ -16,7 +16,8 @@
     },
     "require": {
         "yiisoft/yii2": "*",
-        "yiisoft/yii2-swiftmailer": "*"
+        "yiisoft/yii2-swiftmailer": "*",
+        "nepster-web/yii2-modules-installer": "dev-master"
     },
     "autoload": {
         "psr-4": {

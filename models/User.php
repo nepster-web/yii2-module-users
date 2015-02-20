@@ -21,6 +21,13 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     const STATUS_DELETED = 2;
 
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%users}}';
+    }
 
     /**
      * @inheritdoc
@@ -42,20 +49,39 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('users', 'USERNAME'),
+            'role' => Yii::t('users', 'ROLE'),
+            'status' => Yii::t('users', 'STATUS'),
+            'email' => Yii::t('users', 'EMAIL'),
+            'phone' => Yii::t('users', 'PHONE'),
+            'mail_verify' => Yii::t('users', 'MAIL_VERIFY'),
+            'phone_verify' => Yii::t('users', 'PHONE_VERIFY'),
+            'password' => Yii::t('users', 'PASSWORD'),
+            'auth_key' => Yii::t('users', 'AUTH_KEY'),
+            'api_key' => Yii::t('users', 'API_KEY'),
+            'secure_key' => Yii::t('users', 'SECURE_KEY'),
+            'auth_ip' => Yii::t('users', 'AUTH_KEY'),
+            'auth_time' => Yii::t('users', 'AUTH_TIME'),
+            'create_ip' => Yii::t('users', 'CREATE_IP'),
+            'create_time' => Yii::t('users', 'CREATE_TIME'),
+            'update_time' => Yii::t('users', 'UPDATE_TIME'),
+            'ban_time' => Yii::t('users', 'BAN_TIME'),
+            'ban_reason' => Yii::t('users', 'BAN_REASON'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function transactions()
     {
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL
         ];
     }
-    
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%users}}';
-    }    
     
     /**
      * @inheritdoc
@@ -208,33 +234,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return Yii::$app->security->validatePassword($password, $this->password);
     }
-    
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'username' => Yii::t('users', 'USERNAME'),
-            'role' => Yii::t('users', 'ROLE'),
-            'status' => Yii::t('users', 'STATUS'),
-            'email' => Yii::t('users', 'EMAIL'),
-            'phone' => Yii::t('users', 'PHONE'),
-            'mail_verify' => Yii::t('users', 'MAIL_VERIFY'),
-            'phone_verify' => Yii::t('users', 'PHONE_VERIFY'),
-            'password' => Yii::t('users', 'PASSWORD'),
-            'auth_key' => Yii::t('users', 'AUTH_KEY'),
-            'api_key' => Yii::t('users', 'API_KEY'),
-            'secure_key' => Yii::t('users', 'SECURE_KEY'),
-            'auth_ip' => Yii::t('users', 'AUTH_KEY'),
-            'auth_time' => Yii::t('users', 'AUTH_TIME'),
-            'create_ip' => Yii::t('users', 'CREATE_IP'),
-            'create_time' => Yii::t('users', 'CREATE_TIME'),
-            'update_time' => Yii::t('users', 'UPDATE_TIME'),
-            'ban_time' => Yii::t('users', 'BAN_TIME'),
-            'ban_reason' => Yii::t('users', 'BAN_REASON'),
-        ];
-    }
 
     /**
      * @return Profile|null User profile
@@ -267,7 +266,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
                 $this->generateAuthKey();
                 $this->generateApiKey();
                 $this->generateSecureKey();
-
             }
 
             return true;

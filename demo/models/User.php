@@ -10,34 +10,14 @@ use Yii;
 class User extends \nepster\users\models\User
 {
     /**
-     * @var string $password Password
+     * @var string
      */
-    public $password;
+    public static $password;
 
     /**
-     * @var string $repassword Repeat password
+     * @var string
      */
-    public $repassword;
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
-            ['username', 'string', 'min' => 3, 'max' => 30],
-            [['username', 'email'], 'unique'],
-            [['username', 'email', 'password', 'repassword'], 'required'],
-            [['username', 'email', 'password', 'repassword'], 'trim'],
-
-            ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users.validate', 'SIMPLE_PASSWORD')],
-            ['repassword', 'compare', 'compareAttribute' => 'password'],
-
-            ['email', 'string', 'max' => 100],
-            ['email', 'email'],
-        ];
-    }
+    public static $repassword;
 
     /**
      * @inheritdoc
@@ -67,9 +47,28 @@ class User extends \nepster\users\models\User
         $labels = parent::attributeLabels();
 
         return array_merge($labels, [
-            'password' => Yii::t('users.attr', 'PASSWORD'),
-            'repassword' => Yii::t('users.attr', 'REPASSWORD')
+            'repassword' => Yii::t('users', 'REPASSWORD')
         ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
+            ['username', 'string', 'min' => 3, 'max' => 30],
+            [['username', 'email'], 'unique'],
+            [['username', 'email', 'password', 'repassword'], 'required'],
+            [['username', 'email', 'password', 'repassword'], 'trim'],
+
+            ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users', 'SIMPLE_PASSWORD')],
+            ['repassword', 'compare', 'compareAttribute' => 'password'],
+
+            ['email', 'string', 'max' => 100],
+            ['email', 'email'],
+        ];
     }
 
     /**
@@ -79,6 +78,7 @@ class User extends \nepster\users\models\User
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
+                // Хешируем пароль
                 $this->setPassword($this->password);
             }
             return true;
@@ -94,26 +94,9 @@ class User extends \nepster\users\models\User
         parent::afterSave($insert, $changedAttributes);
 
         if ($insert) {
-            
             // Сохраняем профиль
             $this->profile->user_id = $this->id;
             $this->profile->save();
-            
-            /*
-            $auth = Yii::$app->authManager;
-            $role = $auth->getRole(self::ROLE_DEFAULT);
-            $auth->assign($role, $this->id);
-            */
         }
     }
-    
-    /**
-     * Send, confirmation token.
-     */
-    public function send($transport)
-    {
-        $transport = ($transport == 'sms') ? 'sms' : 'mail';
-        Yii::$app->consoleRunner->run('users/send ' . $transport . ' ' . $this->id . ' signup "' . Yii::t('users.send', 'SUBJECT_SIGNUP') . '"');
-    }
-
 }

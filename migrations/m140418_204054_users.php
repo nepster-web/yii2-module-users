@@ -23,7 +23,6 @@ class m140418_204054_users extends Migration
         // Пользователи
         $this->createTable('{{%users}}', [
             'id' => Schema::TYPE_PK,
-            'username' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Логин"',
             'role' => Schema::TYPE_STRING . ' NOT NULL DEFAULT "user" COMMENT "Роль"',
             'status' => Schema::TYPE_SMALLINT . ' NOT NULL',
             'email' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Почтовый адрес"',
@@ -47,10 +46,10 @@ class m140418_204054_users extends Migration
         $this->createTable('{{%users_profile}}', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'name' => Schema::TYPE_STRING . ' COMMENT "Имя"',
-            'surname' => Schema::TYPE_STRING . ' COMMENT "Фамилия"',
-            'avatar_url' => Schema::TYPE_STRING . ' COMMENT "URL Аватара"',
-            'whau' => Schema::TYPE_STRING . ' COMMENT "Откуда пользователь узнал о сайте"',
+            'name' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Имя"',
+            'surname' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Фамилия"',
+            'avatar_url' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "URL Аватара"',
+            'whau' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Откуда пользователь узнал о сайте"',
             'birthday' => Schema::TYPE_DATETIME . ' NULL DEFAULT "0000-00-00 00:00:00" COMMENT "Дата рождения"',
             'create_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
             'update_time' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
@@ -58,12 +57,11 @@ class m140418_204054_users extends Migration
         ], $tableOptions . ' COMMENT = "Профили пользователей"');
 
         // Действия
-        $this->createTable('{{%user_actions}}', [
+        $this->createTable('{{%users_actions}}', [
             'id' => Schema::TYPE_PK,
             'application' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Приложение"',
-            'module' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Модуль"',
-            'controller' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Контроллер"',
             'action' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Действие"',
+            'data' => Schema::TYPE_TEXT . ' NULL DEFAULT NULL COMMENT "Данные"',
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
             'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
@@ -71,12 +69,11 @@ class m140418_204054_users extends Migration
         ], $tableOptions . ' COMMENT = "Действия пользователей"');
 
         // Индексы
-       // $this->createIndex('{{%user}}_email', '{{%user}}', 'email', true);
-       // $this->createIndex('{{%user}}_username', '{{%user}}', 'username', true);
+        $this->createIndex('{{%users_email}}', '{{%users}}', 'email', true);
 
         // Ключи
-       // $this->addForeignKey('{{%users_profile}}_user_id', '{{%users_profile}}', 'user_id', '{{%user}}', 'id');
-       // $this->addForeignKey('{{%user_actions}}_user_id', '{{%user_actions}}', 'user_id', '{{%user}}', 'id');
+        $this->addForeignKey('{{%users_profile_user_id}}', '{{%users_profile}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('{{%users_actions_user_id}}', '{{%users_actions}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
 
 
         // СЕССИИ
@@ -100,9 +97,6 @@ class m140418_204054_users extends Migration
             'expire INTEGER',
             'data ' . $dataType,
         ], $tableOptions . ' COMMENT = "Сессии пользователей"');
-
-        // Foreign Keys
-        //$this->addForeignKey('FK_session_user', '{{%session}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**
@@ -111,7 +105,7 @@ class m140418_204054_users extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%session}}');
-        $this->dropTable('{{%user_actions}}');
+        $this->dropTable('{{%users_actions}}');
         $this->dropTable('{{%users_profile}}');
         $this->dropTable('{{%users}}');
     }
