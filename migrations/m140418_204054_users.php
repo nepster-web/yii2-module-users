@@ -69,6 +69,7 @@ class m140418_204054_users extends Migration
 
         // Индексы
         $this->createIndex('{{%users_email}}', '{{%users}}', 'email', true);
+        $this->createIndex('{{%users_api_key}}', '{{%users}}', 'api_key', true);
 
         // Ключи
         $this->addForeignKey('{{%users_profile_user_id}}', '{{%users_profile}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
