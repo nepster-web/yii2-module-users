@@ -33,6 +33,19 @@ class GuestController extends Controller
     }
 
     /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+           $this->module->viewPath = '@common/modules/users/views/frontend';
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Регистрация
      */
     public function actionSignup()
@@ -45,7 +58,7 @@ class GuestController extends Controller
                 $user->populateRelation('profile', $profile);
                 if ($user->save(false)) {
                     if ($this->module->requireEmailConfirmation === true) {
-                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"' );
+                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"' );
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
                         ]));

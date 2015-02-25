@@ -1,12 +1,12 @@
 {#
-    Изменить пароль
+    Повторный запрос ключа активации
     @var \yii\web\View this
-    @var \frontend\users\models\RecoveryConfirmationForm model
+    @var \frontend\users\models\ResendForm model
 #}
 
 {% extends "@app/themes/basic/layouts/main.twig" %}
 
-{% block title %} {{ t('users', 'RECOVERY-CONFIRMATION.TITLE') }} {% endblock %}
+{% block title %} {{ t('users', 'RESEND.TITLE') }} {% endblock %}
 
 {% block contentTitle %}<i class="glyphicon glyphicon-user"></i>  {{ block('title') }} {% endblock %}
 
@@ -15,14 +15,14 @@
     {% if app.session.hasFlash('danger') %}        
         <div class="alert alert-danger" role="alert">
             <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-            {{ app.session.getFlash('danger') }}
+            {{ app.session.getFlash('danger') | raw }}
         </div>
     {% endif %}
 
     {% if app.session.hasFlash('success') %}        
         <div class="alert alert-success" role="alert">
             <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-            {{ app.session.getFlash('success') }}
+            {{ app.session.getFlash('success') | raw }}
         </div>
     {% endif %}
 
@@ -30,8 +30,7 @@
         {{ use('yii/widgets/ActiveForm') }}
         {% set form = active_form_begin() %}
         
-        {{ form.field(model, 'password').passwordInput({'placeholder' : model.getAttributeLabel('password')}) | raw }}
-        {{ form.field(model, 'repassword').passwordInput({'placeholder' : model.getAttributeLabel('repassword')}) | raw }}
+        {{ form.field(model, 'email').textInput({'placeholder' : model.getAttributeLabel('email')}) | raw }}
 
         <div class="form-group text-right">
             <input type="submit" value="{{ t('users', 'SEND') }}" class="btn btn-primary" />

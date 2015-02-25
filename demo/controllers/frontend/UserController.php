@@ -32,6 +32,19 @@ class UserController extends Controller
     }
 
     /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            $this->module->viewPath = '@common/modules/users/views/frontend';
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Выход
      */
     public function actionLogout()

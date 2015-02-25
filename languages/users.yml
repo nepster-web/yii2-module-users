@@ -2,12 +2,21 @@
   "USERNAME":
     ru: 'Логин'
     en: 'Username'
+  "MAIL_OR_PHONE":
+    ru: 'E-MAIL или телефон'
+    en: 'E-MAIL or phone'
+  "USERNAME_OR_MAIL_OR_PHONE":
+    ru: 'Логин, E-MAIL или телефон'
+    en: 'Login, E-MAIL or phone'
+  "USERNAME_OR_EMAIL":
+    ru: 'Логин или E-MAIL'
+    en: 'Login or E-MAIL'
   "EMAIL":
     ru: 'E-MAIL'
     en: 'E-MAIL'
   "PHONE":
     ru: 'Телефон'
-    en: 'PHONE'
+    en: 'Phone'
   "PASSWORD":
     ru: 'Пароль'
     en: 'Password'
@@ -22,16 +31,16 @@
     en: 'Status'
   "REMEMBER_ME":
     ru: 'Запонить'
-    en: ''
+    en: 'Remember Me'
   "NAME":
     ru: 'Имя'
     en: 'Name'
   "SURNAME":
     ru: 'Фамилия'
-    en: ''
+    en: 'Surname'
   "WHAU":
     ru: 'Откуда про нас узнали ?'
-    en: ''
+    en: 'How did you find out about us?'
   "NEW_PASSWORD":
     ru: 'Новый пароль'
     en: 'New password'
@@ -49,29 +58,62 @@
     en: 'Current E-MAIL'
   "OLDPASSWORD":
     ru: 'Текущий пароль'
-    en: ''
-  "ACCESS_TOKEN":
+    en: 'Current password'
+  "SECURE_KEY":
     ru: 'Ключ безопасности'
+    en: 'Security key'
+  "API_KEY":
+    ru: 'Секретный токен API'
     en: 'Access token'
+  "AUTH_KEY":
+    ru: 'Секретный токен авторизации'
+    en: 'Confidential token auth'
+  "CITY":
+    ru: 'Город'
+    en: 'City'
+  "INDIVIDUAL_PERSON":
+    ru: 'Физическое лицо'
+    en: 'Individual person'
+  "LEGAL_PERSON":
+    ru: 'Юридическое лицо'
+    en: 'Legal entity'
+  "PASSPORT":
+    ru: 'Паспорт'
+    en: 'Passport'
+  "LEGAL_PERSON_NAME":
+    ru: 'Полное наименование'
+    en: 'Legal entity full name'
+  "LEGAL_PERSON_ADDRESS":
+    ru: 'Юридический адрес'
+    en: 'Legal entity address'
+  "LEGAL_PERSON_BIN":
+    ru: 'ОГРН'
+    en: 'PSRN'
+  "LEGAL_PERSON_BANK":
+    ru: 'Банк'
+    en: 'Bank'
+  "LEGAL_PERSON_ACCOUNT":
+    ru: 'Расчетный счет'
+    en: 'Legal entity account'
 
   "SEND":
     ru: 'Отправить'
     en: 'Send'
   "SIGNUP":
     ru: 'Регистрация'
-    en: 'Signup'
+    en: 'Sign up'
   "SIGNIN":
     ru: 'Вход'
-    en: 'Login'
+    en: 'Log in'
   "RESEND":
     ru: 'Ключ активации'
     en: 'Resend'
   "RECOVERY":
     ru: 'Восстановить пароль'
-    en: 'Recovery password'
+    en: 'Recover password'
   "LOGOUT":
     ru: 'Выход'
-    en: 'Logout'
+    en: 'Log out'
   "SEND":
     ru: 'Отправить'
     en: 'Send'
@@ -83,16 +125,16 @@
     en: 'Profile'
   "SIGNUP.TITLE":
     ru: 'Регистрация'
-    en: 'Signup'
+    en: 'Sign up'
   "SIGNIN.TITLE":
     ru: 'Вход'
-    en: 'SignIn'
+    en: 'Log in'
   "RESEND.TITLE":
     ru: 'Код активации'
-    en: 'Code activation'
+    en: 'Activation code'
   "RECOVERY.TITLE":
     ru: 'Восстановить пароль'
-    en: 'Recovery password'
+    en: 'Recover password'
   "RECOVERY-CONFIRMATION.TITLE":
     ru: 'Изменить пароль'
     en: 'Change password'
@@ -108,96 +150,96 @@
 
   "SUCCESS_SIGNUP_WITHOUT_LOGIN":
     ru: 'Учётная запись была успешно создана. Через несколько секунд вам на почту будет отправлен код для активации аккаунта. В случае если письмо не пришло в течении 15 минут, вы можете заново запросить отправку ключа по данной <a href="{url}">ссылке</a>.'
-    en: ''
+    en: 'The account has been successfully created. After a few seconds the activation code will be send to your e-mail. If the letter is not received within 15 minutes, you can request a key re-send by the following link <a href="{url}">ссылке</a>.'
   "SUCCESS_SIGNUP_WITH_LOGIN":
     ru: 'Учётная запись была успешно создана.'
-    en: ''
+    en: 'The account has been created successfully'
   "FAIL_SIGNUP":
     ru: 'В момент регистрации возникла ошибка. Попробуйте ещё раз пожалуйста!'
-    en: ''
+    en: 'Failed to register an account. Please try again!'
   "SUCCESS_RESEND":
     ru: 'На указанный электронный адрес было отправлено письмо с кодом активации новой учётной записи.'
-    en: ''
+    en: 'A code to activate new account has been sent to the given e-mail address.'
   "FAIL_RESEND":
     ru: 'В момент отправки письма возникла ошибка. Возможно Вы уже активировали свой аккаунт!'
-    en: ''
+    en: 'Failed to send an e-mail. Perhaps, you already activated your account!'
   "FAIL_RESEND_OFF":
     ru: 'В данный момент активация учетной записи отключена.'
-    en: ''
+    en: 'The account activation is disconnected at the moment.'
   "SUCCESS_ACTIVATION":
     ru: 'Ваша учётная запись была успешно активирована.'
-    en: ''
+    en: 'Your account has been successfully activated.'
   "FAIL_ACTIVATION":
     ru: 'Неверный код активации или возмоможно аккаунт был уже ранее активирован.'
-    en: ''
+    en: 'Incorrect activation code or perhaps account was activated earlier.'
   "SUCCESS_RECOVERY":
     ru: 'На указанный вами электронный адрес было отправлено письмо с кодом восстановления пароля.'
-    en: ''
+    en: 'A password recovery code has been sent to the given e-mail address.'
   "FAIL_RECOVERY":
     ru: 'В момент отправки письма возникла ошибка. Попробуйте ещё раз пожалуйста!'
-    en: ''
+    en: 'Failed to send an e-mail. Try again, please!'
   "RECOVERY_CONFIRMATION_WITH_INVALID_KEY":
     ru: 'Неверный код подтверждения.'
-    en: ''
+    en: 'Incorrect confirmation code.'
   "SUCCESS_RECOVERY_CONFIRMATION":
     ru: 'Пароль был успешно сохранен.'
-    en: ''
+    en: 'Password has been successfully saved.'
   "FAIL_RECOVERY_CONFIRMATION":
     ru: 'В момент подтверждения нового пароля возникла ошибка. Попробуйте ещё раз пожалуйста!'
-    en: ''
+    en: 'Failed to confirm new password. Try again, please!'
   "ERROR_MSG_INVALID_USERNAME_OR_PASSWORD":
     ru: 'Неправильный логин или пароль.'
-    en: ''
+    en: 'Incorrect login or password.'
   "FAIL_RECOVERY_CONFIRMATION_WITH_INVALID_KEY":
     ru: 'Неверный код подтверждения.'
-    en: ''
+    en: 'Incorrect confirmation code.'
   "SUCCESS_PASSWORD_CHANGE":
     ru: 'Пароль был успешно обновлён!'
-    en: ''
+    en: 'Password has been successfully updated!'
   "FAIL_PASSWORD_CHANGE":
     ru: 'В момент изменения пароля возникла ошибка. Попробуйте ещё раз пожалуйста!'
-    en: ''
+    en: 'Failed to change the password. Try again, please!'
   "SUCCES_EMAIL_CHANGE":
     ru: 'На указанный новый электронный адрес было отправлено письмо с кодом подтверждения.'
-    en: ''
+    en: 'Confirmation code has been sent to the new given e-mail address.'
   "FAIL_EMAIL_CHANGE":
     ru: 'В момент изменения электронного адреса возникла ошибка. Попробуйте ещё раз пожалуйста!'
-    en: ''
+    en: 'Failed to change the e-mail address. Try again, please!'
   "SUCCES_UPDATE":
     ru: 'Профиль был успешно обновлён.'
-    en: ''
+    en: 'Profile has been successfully updated.'
   "FAIL_UPDATE":
     ru: 'В момент обновления профиля возникла ошибка. Попробуйте ещё раз пожалуйста!'
-    en: ''
+    en: 'Failed to update a profile. Try again, please!'
 
   "INVALID_USERNAME_OR_PASSWORD":
     ru: 'Неверный логин или пароль'
-    en: ''
+    en: 'Incorrect login or password.'
   "MUST_ACTIVATE_ACCOUNT":
     ru: 'Необходимо активировать учетную запись'
-    en: ''
+    en: 'Account activation is necessary'
   "SIMPLE_PASSWORD":
     ru: 'Вы ввели слишком простой пароль, это может угрожать безопасности Вашего аккаунта. Пожалуйста придумайте пароль состоящий из букв, цифр и символов: -_!@,#$%'
-    en: ''
+    en: "You've entered too simple password, it can threaten safety of your account. Please, create the password consisting of letters, numbers and symbols: - _! @, # $ %"
   "OLD_PASSWORD_IS_INCORRECT":
     ru: 'Старый пароль введен неверно'
-    en: ''
+    en: 'The old password is entered incorrectly'
 
   "SUBJECT_SIGNUP":
     ru: 'Добро пожаловать'
-    en: ''
+    en: ' Welcome'
   "BODY_SIGNUP_HELLO {name}":
     ru: 'Добро пожаловать, {name}!'
-    en: ''
+    en: 'Welcome, {name}!'
   "BODY_SIGNUP_TOKEN {url}":
     ru: 'Пожалуйста активируйте Ваш аккаунт перейдя по ссылке: <br/> {url}'
-    en: ''
+    en: 'Please, activate your account following the link: <br/> {url} '
   "SUBJECT_RECOVERY":
     ru: 'Восстановление пароля'
-    en: ''
+    en: 'Password recovery'
   "BODY_RECOVERY_HELLO {name}":
     ru: 'Здравсвуйте, {name}!'
-    en: ''
+    en: 'Hello, {name}!'
   "BODY_RECOVERY_TOKEN {url}":
     ru: 'Для восстановления Вашего пароля перейдите по ссылке: <br/> {url}'
-    en: ''
+    en: 'To recover your password follow the link: <br/> {url}'

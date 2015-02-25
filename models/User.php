@@ -32,6 +32,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -82,7 +90,23 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             self::SCENARIO_DEFAULT => self::OP_ALL
         ];
     }
-    
+
+    /**
+     * @inheritdoc
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
     /**
      * @inheritdoc
      */
@@ -113,14 +137,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         }
         return $query->all();
     }
-
-    /**
-     * @inheritdoc
-     */
-    public static function find()
-    {
-        return new UserQuery(get_called_class());
-    }    
 
     /**
      * Поиск пользователя по логину
@@ -194,25 +210,30 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-        
-    /**
-     * @inheritdoc
-     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         return static::findOne(['api_key' => $token]);
+    }
+
+    /**
+     * Поиск пользователя по секретному ключу
+     * @param $secureKey
+     * @param null $scope
+     * @return array|null|ActiveRecord
+     */
+    public static function findBySecureKey($secureKey, $scope = null)
+    {
+        $query = static::find()->where(['secure_key' => $secureKey]);
+        if ($scope !== null) {
+            if (is_array($scope)) {
+                foreach ($scope as $value) {
+                    $query->$value();
+                }
+            } else {
+                $query->$scope();
+            }
+        }
+        return $query->one();
     }
 
     /**
@@ -241,37 +262,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-
-            if ($this->isNewRecord) {
-                
-                // Статус по умолчанию
-                if (!$this->status) {
-                    $this->status = $this->module->requireEmailConfirmation ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
-                }
-                
-                // Роль по умолчанию
-                if (!$this->role) {
-                    $this->role = $this->module->defaultRole;
-                }
-                
-                // Генерация секретных токенов
-                $this->generateAuthKey();
-                $this->generateApiKey();
-                $this->generateSecureKey();
-            }
-
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -356,6 +346,37 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         $this->setPassword($password);
         return $this->save(false);
-    }   
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+
+            if ($this->isNewRecord) {
+
+                // Статус по умолчанию
+                if (!$this->status) {
+                    $this->status = $this->module->requireEmailConfirmation ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
+                }
+
+                // Роль по умолчанию
+                if (!$this->role) {
+                    $this->role = $this->module->defaultRole;
+                }
+
+                // Генерация секретных токенов
+                $this->generateAuthKey();
+                $this->generateApiKey();
+                $this->generateSecureKey();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 
 }

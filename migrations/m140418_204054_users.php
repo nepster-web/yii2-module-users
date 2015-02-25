@@ -74,33 +74,6 @@ class m140418_204054_users extends Migration
         // Ключи
         $this->addForeignKey('{{%users_profile_user_id}}', '{{%users_profile}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('{{%users_actions_user_id}}', '{{%users_actions}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-
-
-        // СЕССИИ
-        // https://github.com/yiisoft/yii2/blob/master/framework/web/DbSession.php
-        /*
-            Where 'BLOB' refers to the BLOB-type of your preferred DBMS. Below are the BLOB type that can be used for some popular DBMS:
-
-            MySQL: LONGBLOB
-            PostgreSQL: BYTEA
-            MSSQL: BLOB
-        */
-
-        $dataType = 'BLOB';
-        if ($this->db->driverName === 'mysql') {
-            $dataType = 'LONGBLOB';
-        }
-
-        $this->createTable('{{%session}}', [
-            'id CHAR(64) NOT NULL PRIMARY KEY',
-            'user_id' => 'int(11) unsigned',
-            'expire INTEGER',
-            'data ' . $dataType,
-        ], $tableOptions . ' COMMENT = "Сессии пользователей"');
-
-        // Индексы
-        $this->createIndex('{{%session_user_id}}', '{{%session}}', 'user_id');
-        $this->createIndex('{{%session_expire}}', '{{%session}}', 'expire');
     }
 
     /**
@@ -108,7 +81,6 @@ class m140418_204054_users extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%session}}');
         $this->dropTable('{{%users_actions}}');
         $this->dropTable('{{%users_profile}}');
         $this->dropTable('{{%users}}');

@@ -3,6 +3,7 @@
 namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
+use nepster\users\models\User;
 use Yii;
 
 /**

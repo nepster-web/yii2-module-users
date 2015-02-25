@@ -4,6 +4,7 @@ namespace nepster\users\models\frontend;
 
 use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
+use nepster\users\models\User;
 use Yii;
 
 /**
@@ -72,7 +73,7 @@ class RecoveryConfirmationForm extends \yii\base\Model
     public function isValidToken()
     {
         if (Security::isValidToken($this->secure_key, $this->module->recoveryWithin) === true) {
-            return ($this->_user = User::findIdentityByAccessToken($this->secure_key)) !== null;
+            return ($this->_user = User::findBySecureKey($this->secure_key, 'active')) !== null;
         }
         return false;
     }

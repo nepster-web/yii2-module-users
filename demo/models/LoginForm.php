@@ -9,6 +9,18 @@ use Yii;
  */
 class LoginForm extends \nepster\users\models\LoginForm implements \nepster\users\interfaces\LoginFormInterface
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        return array_merge($labels, [
+            'username' => Yii::t('users', 'MAIL_OR_PHONE'),
+        ]);
+    }
+
     /**
      * Поиск пользователя
      * @return \nepster\users\models\User

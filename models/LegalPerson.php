@@ -46,7 +46,7 @@ class LegalPerson extends ActiveRecord
             'name' => Yii::t('users', 'LEGAL_PERSON_NAME'),
             'address' => Yii::t('users', 'LEGAL_PERSON_ADDRESS'),
             'BIN' => Yii::t('users', 'LEGAL_PERSON_BIN'),
-            'bank' => Yii::t('users', 'LEGAL_PERSON_BALK'),
+            'bank' => Yii::t('users', 'LEGAL_PERSON_BANK'),
             'account' => Yii::t('users', 'LEGAL_PERSON_ACCOUNT'),
         ];
     }

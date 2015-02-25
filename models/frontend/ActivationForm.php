@@ -2,7 +2,8 @@
 
 namespace nepster\users\models\frontend;
 
-use users\traits\ModuleTrait;
+use nepster\users\traits\ModuleTrait;
+use nepster\users\models\User;
 use Yii;
 
 /**
@@ -49,7 +50,7 @@ class ActivationForm extends \yii\base\Model
      */
     public function activation()
     {
-        $model = User::findIdentityByAccessToken($this->secure_key);
+        $model = User::findBySecureKey($this->secure_key, 'mailUnverified');
         if ($model !== null) {
             return $model->mailVerification();
         }

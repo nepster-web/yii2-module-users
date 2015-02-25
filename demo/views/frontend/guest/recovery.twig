@@ -15,14 +15,14 @@
     {% if app.session.hasFlash('danger') %}        
         <div class="alert alert-danger" role="alert">
             <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-            {{ app.session.getFlash('danger') }}
+            {{ app.session.getFlash('danger') | raw}}
         </div>
     {% endif %}
 
     {% if app.session.hasFlash('success') %}        
         <div class="alert alert-success" role="alert">
             <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-            {{ app.session.getFlash('success') }}
+            {{ app.session.getFlash('success') | raw}}
         </div>
     {% else %}
 
