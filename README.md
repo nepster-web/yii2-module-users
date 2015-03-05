@@ -13,6 +13,7 @@
 * Изменение пароля
 * Блокировка пользователей
 * Мультиязычность
+* Гибкая конфигурация
 
 
 ## Установка
@@ -38,7 +39,7 @@ php composer.phar require --prefer-dist nepster-web/yii2-module-users: dev-maste
 
 Текущий модуль, зависит от следующих расширений:
 
- [yii2-modules-installer](https://github.com/nepster-web/yii2-modules-installer),
+ [yii2-extensions-installer](https://github.com/nepster-web/yii2-extensions-installer),
  [yii2-console-runner-extension](https://github.com/vova07/yii2-console-runner-extension) и
  [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer). 
 
