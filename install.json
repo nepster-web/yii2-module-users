@@ -1,0 +1,11 @@
+{
+  "name": "users",
+  "copy": {
+    "@vendor/nepster-web/yii2-module-users/demo": "@common/modules/users"
+  },
+  "settings": {
+    "Module namespace": "common\\modules\\users",
+    "Path to module": "@common/modules/users",
+    "Web controller": "yii\\web\\Controller"
+  }
+}

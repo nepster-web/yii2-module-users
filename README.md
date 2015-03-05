@@ -18,7 +18,7 @@
 Запустите в консоле
 
 ```
-php composer.phar require nepster-web/yii2-module-users: dev-master
+php composer.phar require --prefer-dist nepster-web/yii2-module-users: dev-master
 ```
 
 или добавьте
@@ -32,32 +32,23 @@ php composer.phar require nepster-web/yii2-module-users: dev-master
 
 ## Настройка
 
-Текущий модуль, зависит от пакета [yii2-modules-installer](https://github.com/nepster-web/yii2-modules-installer). Поэтому прежде чем перейти к установке модуля пользователей
-необходимо сконфигурировать консольное приложение следующим образом:
+Текущий модуль, зависит от следующих расширений:
+ [yii2-modules-installer](https://github.com/nepster-web/yii2-modules-installer). 
+ [yii2-console-runner-extension](https://github.com/vova07/yii2-console-runner-extension). 
+
+
+Поэтому прежде чем перейти к установке модуля пользователей необходимо сконфигурировать консольное приложение добавить настройки вышеуказанных расширений.
+
+
+Далее необходимо запустить инсталлер и установить модуль следуя инструкциям:
 
 ```
-'controllerMap' => [
-...
-    'installer' => [
-        'class' => 'nepster\modules\installer\Installer',
-        'from' => "@vendor/nepster-web/yii2-module-{module}/demo",
-        'to' => "@common/modules/{module}",
-        'namespace' => "common\\modules\\{module}",
-        'controller' => "yii\\base\\Controller",
-    ]
-...
-],
-```
-
-Далее необходимо установить демонстрационные данные модуля:
-
-```
-yii users/install
+yii installer
 ```
 
 **После того как модуль успешно установлен:**
 
-Сконфигурируйте консольное приложение:
+Добавьте настройки в консольное приложение:
 ```
 'modules' => [
 ...
