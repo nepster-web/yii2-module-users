@@ -1,10 +1,10 @@
 <?php
 
-namespace common\modules\users\controllers\frontend;
+namespace app\modules\users\controllers\frontend;
 
-use common\modules\users\models as models;
-use frontend\components\Controller;
+use app\modules\users\models as models;
 use yii\widgets\ActiveForm;
+use yii\web\Controller;
 use yii\web\Response;
 use yii\helpers\Url;
 use Yii;
@@ -38,7 +38,7 @@ class GuestController extends Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
-           $this->module->viewPath = '@common/modules/users/views/frontend';
+           $this->module->viewPath = '@app/modules/users/views/frontend';
             return true;
         } else {
             return false;
@@ -125,7 +125,7 @@ class GuestController extends Controller
             $this->goHome();
         }
 
-        $model = new models\LoginForm();
+        $model = new models\LoginForm(['scenario' => 'user']);
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {

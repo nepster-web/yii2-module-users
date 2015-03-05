@@ -1,8 +1,9 @@
 <?php
 
-namespace common\modules\users\controllers\frontend;
+namespace app\modules\users\controllers\frontend;
 
-use frontend\components\Controller;
+use app\modules\users\models as models;
+use yii\web\Controller;
 use Yii;
 
 /**
@@ -34,7 +35,7 @@ class DefaultController extends Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
-            $this->module->viewPath = '@common/modules/users/views/frontend';
+            $this->module->viewPath = '@app/modules/users/views/frontend';
             return true;
         } else {
             return false;

@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\users\models;
+namespace app\modules\users\models;
 
 use Yii;
 
@@ -74,7 +74,9 @@ class User extends \nepster\users\models\User
                 // Хешируем пароль
                 $this->setPassword($this->password);
                 // IP пользователя
-                $this->create_ip = Yii::$app->request->userIP;
+                if (!Yii::$app instanceof \yii\console\Application) {
+                    $this->create_ip = Yii::$app->request->userIP;
+                }
             }
             return true;
         }

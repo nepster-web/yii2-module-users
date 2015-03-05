@@ -243,3 +243,7 @@
   "BODY_RECOVERY_TOKEN {url}":
     ru: 'Для восстановления Вашего пароля перейдите по ссылке: <br/> {url}'
     en: 'To recover your password follow the link: <br/> {url}'
+
+  "YOU_HAVE_BEEN_BANNED {time}":
+    ru: 'Вы заблокированы до {time}'
+    en: 'You have been banned to {time}'

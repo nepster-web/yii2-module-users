@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\users;
+namespace app\modules\users;
 
 /**
  * Users module bootstrap class.
@@ -12,6 +12,16 @@ class Bootstrap implements \yii\base\BootstrapInterface
      */
     public function bootstrap($app)
     {
+        // Register translations
+        $app->i18n->translations['users*'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => '@app/modules/users/messages',
+            'fileMap' => [
+                // path you files
+            ],
+        ];
+
         // Add module URL rules.
         $app->urlManager->addRules([
                 'activation/<token>' => 'users/guest/activation',

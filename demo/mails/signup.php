@@ -3,7 +3,7 @@
  * Activation email view.
  *
  * @var \yii\web\View $this View
- * @var \common\modules\users\models\User $user
+ * @var \app\modules\users\models\User $user
  */
 use yii\helpers\Html;
 use yii\helpers\Url;

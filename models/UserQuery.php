@@ -2,6 +2,7 @@
 
 namespace nepster\users\models;
 
+use nepster\users\traits\ModuleTrait;
 use yii\db\ActiveQuery;
 
 /**
@@ -9,6 +10,8 @@ use yii\db\ActiveQuery;
  */
 class UserQuery extends ActiveQuery
 {
+    use ModuleTrait;
+
     /**
      * @return $this
      */
@@ -75,9 +78,9 @@ class UserQuery extends ActiveQuery
     /**
      * @return $this
      */
-	public function banned()
-	{
-		//$this->andWhere([]);
-		return $this;
-	}
+    public function control()
+    {
+        $this->andWhere(['role' => $this->module->accessRoleToControlpanel]);
+        return $this;
+    }
 }

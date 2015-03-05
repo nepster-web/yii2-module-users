@@ -38,8 +38,6 @@ class m140418_204054_users extends Migration
             'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
             'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
             'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
-            'ban_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "Время бана"',
-            'ban_reason' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Причина бана"',
         ], $tableOptions . ' COMMENT = "Пользователи"');
 
         // Профили
@@ -59,17 +57,30 @@ class m140418_204054_users extends Migration
         $this->createTable('{{%users_actions}}', [
             'id' => Schema::TYPE_PK,
             'application' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Приложение"',
+            'module' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Модуль"',
             'action' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Действие"',
             'data' => Schema::TYPE_TEXT . ' NULL DEFAULT NULL COMMENT "Данные"',
-            'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
+            'time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Действия пользователей"');
+
+        // История бана
+        $this->createTable('{{%users_ban}}', [
+            'id' => Schema::TYPE_PK,
+            'time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "Время бана"',
+            'reason' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Причина бана"',
+            'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
+            'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
+        ], $tableOptions . ' COMMENT = "Истроия блокировки бользователей"');
 
         // Индексы
         $this->createIndex('{{%users_email}}', '{{%users}}', 'email', true);
         $this->createIndex('{{%users_api_key}}', '{{%users}}', 'api_key', true);
+        $this->createIndex('{{users_user_id}}', '{{%users_ban}}', 'user_id');
+        $this->createIndex('{{users_ban_ip}}', '{{%users_ban}}', 'ip');
 
         // Ключи
         $this->addForeignKey('{{%users_profile_user_id}}', '{{%users_profile}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
@@ -82,6 +93,7 @@ class m140418_204054_users extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%users_actions}}');
+        $this->dropTable('{{%users_ban}}');
         $this->dropTable('{{%users_profile}}');
         $this->dropTable('{{%users}}');
     }

@@ -15,6 +15,28 @@ class Module extends \yii\base\Module
     public $defaultRole = 'user';
 
     /**
+     * @var array Доступ ролей в панель управления
+     */
+    public $accessRoleToControlpanel = ['admin'];
+
+    /**
+     * @var int Кол-во попыток авторизации
+     */
+    public $amountAttemptsAuth = 5;
+
+    /**
+     * Сколько раз пользователь может неправильно ввести логин и пароль
+     * прежде чем попасть в бан
+     * @var int Интервал времени для попыток авторизации
+     */
+    public $allowedTimeAttemptsAuth = 600; // 10 минут
+
+    /**
+     * @var int Интервал времени на который блокировать пользователя
+     */
+    public $intervalAuthBan = 900; // 15 минут
+
+    /**
      * @var boolean Обязательное подтверждение почтового адреса после регистрации
      */
     public $requireEmailConfirmation = true;

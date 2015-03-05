@@ -35,6 +35,17 @@ class LoginForm extends \yii\base\Model
     /**
      * @inheritdoc
      */
+    public function scenarios()
+    {
+        return [
+            'user'  => ['username', 'password', 'rememberMe'],
+            'admin' => ['username', 'password', 'rememberMe']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -57,22 +68,12 @@ class LoginForm extends \yii\base\Model
     }
 
     /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        return [
-            self::SCENARIO_DEFAULT => ['username', 'password', 'rememberMe'],
-        ];
-    }
-
-    /**
      * Валидация пароля
      */
     public function validatePassword($attribute)
     {
-        $this->_user = static::getUser($this->username);
-        
+        $this->_user = static::$_user;
+
         if (!$this->_user || !$this->_user->validatePassword($this->$attribute)) {
             $this->addError('username', '');
             $this->addError($attribute, Yii::t('users', 'INVALID_USERNAME_OR_PASSWORD'));

@@ -19,10 +19,10 @@ class m140418_204055_create_admin extends Migration
         $columns = [
             'id',
             //'username',
-            'role',
-            'status',
             'email',
             'phone',
+            'role',
+            'status',
             'mail_verify',
             'phone_verify',
             'password',
@@ -34,18 +34,16 @@ class m140418_204055_create_admin extends Migration
             'create_ip',
             'create_time',
             'update_time',
-            'ban_time',
-            'ban_reason'
         ];
 
         $this->batchInsert('{{%users}}', $columns, [
             [
                 1,
                 //'admin',
-                'administrator',
-                1,
-                'admin@admin.admin',
+                'admin@admin.ru',
                 null,
+                'admin',
+                1,
                 1,
                 1,
                 $security->generatePasswordHash('admin'),
@@ -57,8 +55,6 @@ class m140418_204055_create_admin extends Migration
                 '127.0.0.1',
                 time(),
                 time(),
-                null,
-                null,
             ],
         ]);
 
