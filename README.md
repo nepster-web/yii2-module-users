@@ -71,8 +71,7 @@ yii installer
 'bootstrap' => [
 ...
     'common\modules\users\Bootstrap',
-...
-],
+]
 ```
 
 ```
@@ -82,8 +81,20 @@ yii installer
         'class' => 'common\modules\users\Module',
         'controllerNamespace' => 'common\modules\users\controllers\frontend',
     ],
+]
+```
+
+```
+'components' => [
     ...
-],
+    'userAction' => [
+        'class' => 'nepster\users\components\Action',
+    ],
+    'user' => [
+        'identityClass' => 'common\modules\users\models\User',
+        'enableAutoLogin' => true,
+    ],
+]
 ```
 
 Обратите внимание, указанные в примерах конфигурации неймспейсы могут отличаться, поэтому не забудьте указать правильные пути к классам.
