@@ -7,8 +7,12 @@
 
 * Регистрация
 * Авторизация (используя логин и/или почтовый адрес и/или телефон)
+* Действия пользователей
 * Активация аккаунта
 * Восстановление пароля
+* Изменение пароля
+* Блокировка пользователей
+* Мультиязычность
 
 
 ## Установка
@@ -33,8 +37,10 @@ php composer.phar require --prefer-dist nepster-web/yii2-module-users: dev-maste
 ## Настройка
 
 Текущий модуль, зависит от следующих расширений:
- [yii2-modules-installer](https://github.com/nepster-web/yii2-modules-installer). 
- [yii2-console-runner-extension](https://github.com/vova07/yii2-console-runner-extension). 
+
+ [yii2-modules-installer](https://github.com/nepster-web/yii2-modules-installer),
+ [yii2-console-runner-extension](https://github.com/vova07/yii2-console-runner-extension) и
+ [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer). 
 
 
 Поэтому прежде чем перейти к установке модуля пользователей необходимо сконфигурировать консольное приложение добавить настройки вышеуказанных расширений.

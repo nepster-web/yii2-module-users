@@ -11,7 +11,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/nepster-web/yii2-module-users?state=open",
+        "issues": "https://github.com/nepster-web/yii2-module-users/issues",
         "source": "https://github.com/nepster-web/yii2-module-users"
     },
     "require": {
