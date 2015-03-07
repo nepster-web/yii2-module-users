@@ -1,5 +1,6 @@
 {
   "name": "users",
+  "type": "module",
   "copy": {
     "@vendor/nepster-web/yii2-module-users/demo": "@common/modules/users"
   },

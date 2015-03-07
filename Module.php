@@ -20,14 +20,12 @@ class Module extends \yii\base\Module
     public $accessRoleToControlpanel = ['admin'];
 
     /**
-     * @var int Кол-во попыток авторизации
+     * @var int Кол-во попыток неправильной авторизации
      */
     public $amountAttemptsAuth = 5;
 
     /**
-     * Сколько раз пользователь может неправильно ввести логин и пароль
-     * прежде чем попасть в бан
-     * @var int Интервал времени для попыток авторизации
+     * @var int Интервал времени на которое будет заблокирован пользователь
      */
     public $allowedTimeAttemptsAuth = 600; // 10 минут
 
