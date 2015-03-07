@@ -23,7 +23,7 @@
 Запустите в консоле
 
 ```
-php composer.phar require --prefer-dist nepster-web/yii2-module-users: dev-master
+php composer.phar require --prefer-dist nepster-web/yii2-module-users "dev-master"
 ```
 
 или добавьте
