@@ -12,6 +12,21 @@ class Profile extends \nepster\users\models\Profile
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        /*
+            $labels = parent::attributeLabels();
+
+            return array_merge($labels, [
+
+            ]);
+        */
+        return parent::attributeLabels();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         return [

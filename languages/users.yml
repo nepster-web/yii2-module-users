@@ -225,6 +225,16 @@
     ru: 'Старый пароль введен неверно'
     en: 'The old password is entered incorrectly'
 
+  "STATUS_ACTIVE":
+    ru: 'Активный'
+    en: 'Active'
+  "STATUS_INACTIVE":
+    ru: 'Неактивный'
+    en: 'Inactive'
+  "STATUS_DELETED":
+    ru: 'Удален'
+    en: 'Deleted'
+
   "SUBJECT_SIGNUP":
     ru: 'Добро пожаловать'
     en: ' Welcome'
@@ -243,7 +253,6 @@
   "BODY_RECOVERY_TOKEN {url}":
     ru: 'Для восстановления Вашего пароля перейдите по ссылке: <br/> {url}'
     en: 'To recover your password follow the link: <br/> {url}'
-
   "YOU_HAVE_BEEN_BANNED {time}":
     ru: 'Вы заблокированы до {time}'
     en: 'You have been banned to {time}'

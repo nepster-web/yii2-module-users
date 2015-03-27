@@ -6,6 +6,7 @@ use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
 use yii\base\InvalidParamException;
 use yii\db\ActiveRecord;
+use yii\widgets\Pjax;
 use Yii;
 
 /**
@@ -60,6 +61,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('users', 'ID'),
             'username' => Yii::t('users', 'USERNAME'),
             'role' => Yii::t('users', 'ROLE'),
             'status' => Yii::t('users', 'STATUS'),
@@ -71,13 +73,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             'auth_key' => Yii::t('users', 'AUTH_KEY'),
             'api_key' => Yii::t('users', 'API_KEY'),
             'secure_key' => Yii::t('users', 'SECURE_KEY'),
-            'auth_ip' => Yii::t('users', 'AUTH_KEY'),
+            'auth_ip' => Yii::t('users', 'AUTH_IP'),
             'auth_time' => Yii::t('users', 'AUTH_TIME'),
             'create_ip' => Yii::t('users', 'CREATE_IP'),
             'create_time' => Yii::t('users', 'CREATE_TIME'),
             'update_time' => Yii::t('users', 'UPDATE_TIME'),
-            'ban_time' => Yii::t('users', 'BAN_TIME'),
-            'ban_reason' => Yii::t('users', 'BAN_REASON'),
         ];
     }
 
