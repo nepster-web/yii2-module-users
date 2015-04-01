@@ -253,7 +253,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password);
+        if ($password && $this->password) {
+            return Yii::$app->security->validatePassword($password, $this->password);
+        }
+        return false;
     }
 
     /**
@@ -262,14 +265,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * Generates "remember me" authentication key.
-     */
-    public function generateAuthKey()
-    {
-        $this->auth_key = Yii::$app->security->generateRandomString();
     }
     
     /**
@@ -296,6 +291,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         $this->phone_verify = 1;
         $this->generateSecureKey();
         return $this->save(false);
+    }
+
+    /**
+     * Generates "remember me" authentication key.
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     /**

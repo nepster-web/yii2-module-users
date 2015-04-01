@@ -98,12 +98,15 @@ yii installer
 ```
 'components' => [
     ...
-    'userAction' => [
-        'class' => 'nepster\users\components\Action',
-    ],
     'user' => [
+        'class' => 'yii\web\User',
         'identityClass' => 'common\modules\users\models\User',
         'enableAutoLogin' => true,
+        'absoluteAuthTimeout' => 31536000,  // сессия живет 365 дней
+        'loginUrl' => ['/users/guest/login'],
+    ],
+    'userAction' => [
+        'class' => 'nepster\users\components\Action',
     ],
 ]
 ```
