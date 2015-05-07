@@ -46,8 +46,8 @@ php composer.phar require --prefer-dist nepster-web/yii2-module-users "dev-maste
 
 Текущий модуль, устанавливает следующие пакеты:
 
- * [yii2-authclient](https://github.com/yiisoft/yii2-authclient)
  * [yii2-extensions-installer](https://github.com/nepster-web/yii2-extensions-installer)
+ * [yii2-authclient](https://github.com/yiisoft/yii2-authclient)
  * [yii2-console-runner-extension](https://github.com/vova07/yii2-console-runner-extension)
  * [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer)
  

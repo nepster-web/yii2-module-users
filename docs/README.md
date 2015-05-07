@@ -4,19 +4,17 @@
 
 ## Установка и настройка
 
-- [Installation](install.md)
+- [Установка и настройка](install.md)
 - [Конфигурация](configuration.md)
 - [Список доступных действий](available-actions.md)
-- [Troubleshooting](troubleshooting.md)
-- [Usage with Yii2 advanced template](usage-with-advanced-template.md)
 
 ## Реализация
 
-- [Демонстрационный данные](demo.md)
+- [Демонстрационные данные](demo.md)
 
 ## Возможности
 
 - [Авторизация  через социальные сети](social-auth.md)
-- [Действия пользователей](user-management.md)
-- [Блокировка пользователей](user-management.md)
+- [Действия пользователей](user-actions.md)
+- [Блокировка пользователей](user-ban.md)
 - [Отправка писем на E-MAIL](mailer.md)
