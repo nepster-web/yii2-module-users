@@ -17,7 +17,7 @@
     "require": {
         "yiisoft/yii2": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "nepster-web/yii2-extensions-installer": "dev-master",
+        "nepster-web/yii2-extensions-installer": "*",
         "vova07/yii2-console-runner-extension": "dev-master"
     },
     "autoload": {
