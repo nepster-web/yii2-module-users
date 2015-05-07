@@ -29,6 +29,7 @@ class m140418_204054_users extends Migration
             'phone' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Главный телефон"',
             'mail_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация почты"',
             'phone_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация телефона"',
+            'banned' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Заблокирован"',
             'password' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Пароль в зашифрованном виде"',
             'auth_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен авторизации"',
             'api_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен для api"',
@@ -63,18 +64,18 @@ class m140418_204054_users extends Migration
             'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
             'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Действия пользователей"');
 
         // История бана
         $this->createTable('{{%users_ban}}', [
             'id' => Schema::TYPE_PK,
-            'time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "Время бана"',
-            'reason' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Причина бана"',
             'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'reason' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Причина бана"',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
             'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-        ], $tableOptions . ' COMMENT = "Истроия блокировки бользователей"');
+            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "Время бана"',
+        ], $tableOptions . ' COMMENT = "История блокировки бользователей"');
 
         // Индексы
         $this->createIndex('{{%users_email}}', '{{%users}}', 'email', true);
@@ -85,6 +86,7 @@ class m140418_204054_users extends Migration
         // Ключи
         $this->addForeignKey('{{%users_profile_user_id}}', '{{%users_profile}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('{{%users_actions_user_id}}', '{{%users_actions}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('{{%users_ban_user_id}}', '{{%users_ban}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**

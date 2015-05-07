@@ -23,7 +23,7 @@ class User extends \nepster\users\models\User
             'signup' => ['phone', 'email', 'password', 'repassword'],
         ];
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -65,43 +65,6 @@ class User extends \nepster\users\models\User
     }
 
     /**
-     * @return array Массив доступных данных статуса
-     */
-    public static function getStatusArray()
-    {
-        return [
-            self::STATUS_ACTIVE => [
-                'label' => Yii::t('users', 'STATUS_ACTIVE'),
-                'color' => 'green',
-            ],
-            self::STATUS_INACTIVE => [
-                'label' => Yii::t('users', 'STATUS_INACTIVE'),
-                'color' => 'red',
-            ],
-            self::STATUS_DELETED => [
-                'label' => Yii::t('users', 'STATUS_DELETED'),
-                'color' => 'silver',
-            ],
-        ];
-    }
-
-    /**
-     * @return LegalPerson|null User profile
-     */
-    /*public function getPerson()
-    {
-        return $this->hasOne(LegalPerson::className(), ['user_id' => 'id']);
-    }*/
-
-    /**
-     * @return Profile|null User profile
-     */
-    public function getProfile()
-    {
-        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
-    }
-
-    /**
      * @inheritdoc
      */
     public function beforeSave($insert)
@@ -132,5 +95,43 @@ class User extends \nepster\users\models\User
             $this->profile->user_id = $this->id;
             $this->profile->save(false);
         }
+    }
+
+    /**
+     * @return LegalPerson|null User profile
+     */
+    /*public function getPerson()
+    {
+        return $this->hasOne(LegalPerson::className(), ['user_id' => 'id']);
+    }*/
+
+    /**
+     * @return Profile|null User profile
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Данные статуса
+     * @return array
+     */
+    public static function getStatusArray()
+    {
+        return [
+            self::STATUS_ACTIVE => [
+                'label' => Yii::t('users', 'STATUS_ACTIVE'),
+                'color' => 'green',
+            ],
+            self::STATUS_INACTIVE => [
+                'label' => Yii::t('users', 'STATUS_INACTIVE'),
+                'color' => 'red',
+            ],
+            self::STATUS_DELETED => [
+                'label' => Yii::t('users', 'STATUS_DELETED'),
+                'color' => 'silver',
+            ],
+        ];
     }
 }

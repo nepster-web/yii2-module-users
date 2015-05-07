@@ -94,6 +94,45 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+
+            if ($this->isNewRecord) {
+
+                // Статус по умолчанию
+                if (!$this->status) {
+                    $this->status = $this->module->requireEmailConfirmation ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
+                }
+
+                // Роль по умолчанию
+                if (!$this->role) {
+                    $this->role = $this->module->defaultRole;
+                }
+
+                // Генерация секретных токенов
+                $this->generateAuthKey();
+                $this->generateApiKey();
+                $this->generateSecureKey();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return Profile|null User profile
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getId()
     {
         return $this->id;
@@ -182,7 +221,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             }
         }
         return $query->one();
-    }    
+    }
 
     /**
      * Поиск пользователя по телефону
@@ -217,6 +256,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Поиск пользователя по секретному ключу
+     *
      * @param $secureKey
      * @param null $scope
      * @return array|null|ActiveRecord
@@ -238,6 +278,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Auth Key validation.
+     *
      * @param string $authKey
      * @return boolean
      */
@@ -248,6 +289,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Password validation.
+     *
      * @param string $password
      * @return boolean
      */
@@ -259,14 +301,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return false;
     }
 
-    /**
-     * @return Profile|null User profile
-     */
-    public function getProfile()
-    {
-        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
-    }
-    
     /**
      * Верификация e-mail
      *
@@ -316,7 +350,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         $this->api_key = Yii::$app->security->generateRandomString();
     }
-    
+
     /**
      *  Восстановить пароль
      *
@@ -349,37 +383,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         $this->setPassword($password);
         return $this->save(false);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-
-            if ($this->isNewRecord) {
-
-                // Статус по умолчанию
-                if (!$this->status) {
-                    $this->status = $this->module->requireEmailConfirmation ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
-                }
-
-                // Роль по умолчанию
-                if (!$this->role) {
-                    $this->role = $this->module->defaultRole;
-                }
-
-                // Генерация секретных токенов
-                $this->generateAuthKey();
-                $this->generateApiKey();
-                $this->generateSecureKey();
-            }
-
-            return true;
-        }
-
-        return false;
     }
 
 }

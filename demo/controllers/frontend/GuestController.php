@@ -125,7 +125,7 @@ class GuestController extends Controller
             $this->goHome();
         }
 
-        $model = new models\LoginForm(['scenario' => 'user']);
+        $model = new models\SigninForm(['scenario' => 'user']);
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {

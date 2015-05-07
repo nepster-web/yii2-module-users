@@ -6,9 +6,9 @@ use nepster\users\traits\ModuleTrait;
 use Yii;
 
 /**
- * Class LoginForm
+ * Class SigninForm
  */
-class LoginForm extends \yii\base\Model
+class SigninForm extends \yii\base\Model
 {
     use ModuleTrait;
 

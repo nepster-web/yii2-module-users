@@ -5,9 +5,9 @@ namespace app\modules\users\models;
 use Yii;
 
 /**
- * Class LoginForm
+ * Class SigninForm
  */
-class LoginForm extends \nepster\users\models\LoginForm
+class SigninForm extends \nepster\users\models\SigninForm
 {
     /**
      * @var \nepster\users\models\User

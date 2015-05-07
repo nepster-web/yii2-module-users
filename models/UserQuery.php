@@ -78,6 +78,15 @@ class UserQuery extends ActiveQuery
     /**
      * @return $this
      */
+    public function banned()
+    {
+        $this->andWhere(['banned' => 1]);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function control()
     {
         $this->andWhere(['role' => $this->module->accessRoleToControlpanel]);

@@ -54,14 +54,6 @@ class Profile extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     */
-    public static function findByUserId($id)
-    {
-        return static::findOne(['user_id' => $id]);
-    }
-
-    /**
      * @return Profile|null Profile user
      */
     public function getUser()

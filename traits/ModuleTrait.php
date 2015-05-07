@@ -3,6 +3,9 @@
 namespace nepster\users\traits;
 
 use nepster\users\Module;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
+use yii\base\Model;
 use Yii;
 
 /**
@@ -16,7 +19,7 @@ trait ModuleTrait
     private $_module;
 
     /**
-     * @return \nepster\users\Module|null Module instance
+     * @return Module|null|\yii\base\Module
      */
     public function getModule()
     {

@@ -12,7 +12,6 @@ use yii\helpers\Json;
 use yii\db\Query;
 use Yii;
 
-
 /**
  * Компонент сохраняющий действия пользователя
  *
