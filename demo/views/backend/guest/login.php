@@ -2,7 +2,7 @@
 /*
     Авторизация
     @var \yii\web\View this
-    @var \app\modules\users\models\LoginForm $model
+    @var \common\modules\users\models\LoginForm $model
 */
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;

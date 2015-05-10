@@ -2,8 +2,8 @@
 /*
     Регистрация
     @var \yii\web\View $this
-    @var \app\modules\users\models\User $user
-    @var \app\modules\users\models\Profile $profile
+    @var \common\modules\users\models\User $user
+    @var \common\modules\users\models\Profile $profile
 */
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;

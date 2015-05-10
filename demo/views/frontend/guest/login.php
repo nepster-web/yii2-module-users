@@ -2,7 +2,7 @@
 /*
     Авторизация
     @var \yii\web\View this
-    @var \app\modules\users\models\LoginForm $model
+    @var \common\modules\users\models\LoginForm $model
 */
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
@@ -30,7 +30,7 @@ use yii\helpers\Html;
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'username') ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password', ['errorOptions' => ['class' => 'help-block', 'encode' => false]])->passwordInput() ?>
         <?= $form->field($model, 'rememberMe')->checkbox() ?>
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
