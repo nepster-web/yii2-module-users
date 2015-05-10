@@ -88,4 +88,9 @@ return [
     'FAIL_EMAIL_CHANGE' => 'В момент изменения электронного адреса возникла ошибка. Попробуйте ещё раз пожалуйста!',
     'SUCCES_UPDATE' => 'Профиль был успешно обновлён.',
     'FAIL_UPDATE' => 'В момент обновления профиля возникла ошибка. Попробуйте ещё раз пожалуйста!',
+
+    'YOU_ACCOUNT_BEEN_BANNED {time} {reason}' => 'Ваш аккаунт заблокирован {time} {reason}',
+    'YOU_IP_BEEN_BANNED {time} {reason}' => 'Ваш IP-адрес заблокирован {time} {reason}',
+    'BEEN_BANNED_TIME {time}' => 'на {time}',
+    'BEEN_BANNED_REASON {reason}' => '<br> Причина: {reason}',
 ];

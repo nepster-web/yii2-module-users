@@ -49,7 +49,7 @@ class m140418_204054_users extends Migration
             'surname' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Фамилия"',
             'avatar_url' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "URL Аватара"',
             'whau' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Откуда пользователь узнал о сайте"',
-            'birthday' => Schema::TYPE_DATETIME . ' NULL DEFAULT "0000-00-00 00:00:00" COMMENT "Дата рождения"',
+            'birthday' => Schema::TYPE_DATE . ' NULL DEFAULT NULL COMMENT "Дата рождения"',
             'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'unique(`user_id`)',
         ], $tableOptions . ' COMMENT = "Профили пользователей"');
@@ -63,30 +63,32 @@ class m140418_204054_users extends Migration
             'data' => Schema::TYPE_TEXT . ' NULL DEFAULT NULL COMMENT "Данные"',
             'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
+            'hash' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "User Agent + IP"',
             'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'time_create' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Действия пользователей"');
 
-        // История бана
-        $this->createTable('{{%users_ban}}', [
+        // История блокировки пользователей
+        $this->createTable('{{%users_banned}}', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'reason' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Причина бана"',
-            'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "Время бана"',
-        ], $tableOptions . ' COMMENT = "История блокировки бользователей"');
+            'ip' => Schema::TYPE_BIGINT . ' NULL DEFAULT NULL COMMENT "IP пользователя через ip2long"',
+            'time_banned' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL COMMENT "До какого времени действует бан"',
+            'ip_network' => Schema::TYPE_BIGINT . ' NULL DEFAULT NULL COMMENT "IP адрес подсети через ip2long"',
+            'ip_mask' => Schema::TYPE_BIGINT . ' NULL DEFAULT NULL COMMENT "Соответственно маска через ip2long"',
+        ], $tableOptions . ' COMMENT = "История блокировки пользователей"');
 
         // Индексы
         $this->createIndex('{{%users_email}}', '{{%users}}', 'email', true);
         $this->createIndex('{{%users_api_key}}', '{{%users}}', 'api_key', true);
-        $this->createIndex('{{users_user_id}}', '{{%users_ban}}', 'user_id');
-        $this->createIndex('{{users_ban_ip}}', '{{%users_ban}}', 'ip');
+        $this->createIndex('{{users_user_id}}', '{{%users_banned}}', 'user_id');
+        $this->createIndex('{{users_banned_ip}}', '{{%users_banned}}', 'ip');
 
         // Ключи
         $this->addForeignKey('{{%users_profile_user_id}}', '{{%users_profile}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('{{%users_actions_user_id}}', '{{%users_actions}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('{{%users_ban_user_id}}', '{{%users_ban}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('{{users_banned_user_id}}', '{{%users_banned}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**
@@ -95,7 +97,7 @@ class m140418_204054_users extends Migration
     public function safeDown()
     {
         $this->dropTable('{{%users_actions}}');
-        $this->dropTable('{{%users_ban}}');
+        $this->dropTable('{{%users_banned}}');
         $this->dropTable('{{%users_profile}}');
         $this->dropTable('{{%users}}');
     }

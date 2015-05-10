@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\models;
+namespace common\modules\users\models;
 
 use Yii;
 
@@ -43,37 +43,48 @@ class SigninForm extends \nepster\users\models\SigninForm
     public function afterValidate()
     {
         parent::afterValidate();
-        $userId = self::$_user ? self::$_user->id : null;
-        if (!$this->getErrors()) {
-            // Проверить заблокирован пользователь или нет
-            $verifyBan = Yii::$app->userAction
-                ->user($userId)
-                ->verifyBan(false);
 
-            if ($verifyBan) {
-                $this->addError('password', Yii::t('users', 'YOU_HAVE_BEEN_BANNED {time}', [
-                    'time' =>  Yii::$app->formatter->asDate($verifyBan['time'], 'd MMMM yyyy h:mm')
+        $userId = self::$_user ? self::$_user->id : null;
+
+        // Проверяем заблокирован ли пользователь
+        $userBanned = false;
+        if ($userBanned = Yii::$app->user->isBanned($userId)) {
+            $this->clearErrors();
+            $this->addError('username', '');
+            if ($userBanned['user_id']) {
+                $this->addError('password', Yii::t('users', 'YOU_ACCOUNT_BEEN_BANNED {time} {reason}', [
+                    'time' => $userBanned['time_banned'] ? Yii::t('users', 'BEEN_BANNED_TIME {time}', ['time' => $userBanned['time_banned']]) : '',
+                    'reason' => $userBanned['reason'] ? Yii::t('users', 'BEEN_BANNED_REASON {reason}', ['reason' => $userBanned['reason']]) : '',
                 ]));
             } else {
-                Yii::$app->userAction
-                    ->module($this->module->id)
-                    ->action('auth')
-                    ->user($userId)
-                    ->save();
+                $this->addError('password', Yii::t('users', 'YOU_IP_BEEN_BANNED {time} {reason}', [
+                    'time' => $userBanned['time_banned'] ? Yii::t('users', 'BEEN_BANNED_TIME {time}', ['time' => $userBanned['time_banned']]) : '',
+                    'reason' => $userBanned['reason'] ? Yii::t('users', 'BEEN_BANNED_REASON {reason}', ['reason' => $userBanned['reason']]) : '',
+                ]));
             }
-        } else {
+        }
+
+        if (!$this->getErrors()) {
+
+            // Записываем попытку успешной авторизации в историю
+            Yii::$app->user->action($userId, 'frontend', $this->module->id, 'auth');
+
+        } else if (!$userBanned) {
+
+            // Записываем попытку неудачной авторизации в историю
             $data = [
                 'attributes' => $this->getAttributes(),
                 'errors' => $this->getErrors(),
             ];
-            Yii::$app->userAction
-                ->module($this->module->id)
-                ->action('auth-error')
-                ->user($userId)
-                ->data($data)
-                ->save();
+            Yii::$app->user->action($userId, 'frontend', $this->module->id, 'auth-error', $data);
+
+
+            // Дополнительные условия авторизации
+            // Если условия не выполнены, необходимо заблокировать пользователя
+            if (!Yii::$app->user->verifyAuthCondition($userId)) {
+                Yii::$app->user->bannedByIp(Yii::$app->request->userIP, time() + $this->module->allowedTimeAttemptsAuth, null);
+            }
         }
-        return true;
     }
 
     /**
@@ -101,11 +112,10 @@ class SigninForm extends \nepster\users\models\SigninForm
         */
 
         // Поиск пользователя по телефону
-        if(strncasecmp($username, "+", 1) === 0) {
+        if (strncasecmp($username, "+", 1) === 0) {
             $username = str_replace('+', '', $username);
             return User::findByPhone($username, $scope);
-        }
-        else {
+        } else {
             return User::findByEmail($username, $scope);
         }
     }

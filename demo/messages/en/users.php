@@ -88,4 +88,9 @@ return [
     'FAIL_EMAIL_CHANGE' => 'Failed to change the e-mail address. Try again, please!',
     'SUCCES_UPDATE' => 'Profile has been successfully updated.',
     'FAIL_UPDATE' => 'Failed to update a profile. Try again, please!',
+
+    'YOU_ACCOUNT_BEEN_BANNED {time} {reason}' => 'Your account is banned {time} {reason}',
+    'YOU_IP_BEEN_BANNED {time} {reason}' => 'Your IP-address is banned {time} {reason}',
+    'BEEN_BANNED_TIME {time}' => 'at {time}',
+    'BEEN_BANNED_REASON {reason}' => '<br> Reason: {reason}',
 ];

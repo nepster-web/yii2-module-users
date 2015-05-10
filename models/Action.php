@@ -5,6 +5,7 @@ namespace nepster\users\models;
 use nepster\users\traits\ModuleTrait;
 use yii\base\InvalidParamException;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
 use Yii;
 
 /**
@@ -28,11 +29,10 @@ class Action extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp' => [
+            'TimestampBehavior' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
-                //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'time',
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'time_create',
                 ],
             ],
         ];
@@ -51,20 +51,59 @@ class Action extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Запись действия пользователя
+     * @param $userId
+     * @param $application
+     * @param $module
+     * @param $action
+     * @param array $data
+     * @return bool
      */
-    public function beforeSave($insert)
+    public static function saveRecord($userId, $application, $module, $action, array $data = [])
     {
-        if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                if (!Yii::$app instanceof \yii\console\Application) {
-                    $this->user_agent = Yii::$app->request->userAgent;
-                    $this->ip = Yii::$app->request->userIP;
-                }
-            }
-            return true;
-        }
-        return false;
+        $model = new self;
+        $model->user_id = $userId;
+        $model->application = $application ? $application : 'frontend';
+        $model->module = $module;
+        $model->action = $action;
+        $model->data = $data ? Json::encode($data) : null;
+        $model->hash = md5(Yii::$app->request->userAgent . Yii::$app->request->userIP);
+        $model->ip = ip2long(Yii::$app->request->userIP);
+        $model->time_create = time();
+        return $model->save(false);
     }
 
+    /**
+     * Вернуть записи о действиях или их количество
+     * @param int $userId
+     * @param string $action
+     * @param int $interval
+     * @param bool $count
+     * @return array|int
+     */
+    public static function getRecords($userId = null, $action = null, $interval = null, $count = false)
+    {
+        $query = self::find();
+
+        if ($userId) {
+            $query->andWhere('user_id = :user_id', [':user_id' => $userId]);
+        }
+
+        if ($action) {
+            $query->andWhere('action = :action', [':action' => $action]);
+        }
+
+
+        if ($interval) {
+            $query->andWhere('time_create >= :time', [':time' => time() - $interval]);
+        }
+
+        $query->asArray();
+
+        if ($count) {
+            return $query->count();
+        }
+
+        return $query->all();
+    }
 }

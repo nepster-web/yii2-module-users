@@ -39,9 +39,6 @@ yii installer
 и следуйте дальнейшим инструкциям.
 
 
-
-
-
 # Настройка
 
 После того как модуль успешно установлен, добавьте следующие настройки в консольное приложение:
@@ -85,14 +82,11 @@ yii installer
 'components' => [
     ...
     'user' => [
-        'class' => 'yii\web\User',
+        'class' => 'nepster\users\components\User',
         'identityClass' => 'common\modules\users\models\User',
         'enableAutoLogin' => true,
         'absoluteAuthTimeout' => 31536000,  // сессия живет 365 дней
         'loginUrl' => ['/users/guest/login'],
-    ],
-    'userAction' => [
-        'class' => 'nepster\users\components\Action',
     ],
 ]
 ```
