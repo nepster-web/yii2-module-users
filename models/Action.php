@@ -53,20 +53,20 @@ class Action extends ActiveRecord
     /**
      * Запись действия пользователя
      * @param $userId
-     * @param $application
      * @param $module
      * @param $action
      * @param array $data
      * @return bool
      */
-    public static function saveRecord($userId, $application, $module, $action, array $data = [])
+    public static function saveRecord($userId, $module, $action, array $data = [])
     {
         $model = new self;
         $model->user_id = $userId;
-        $model->application = $application ? $application : 'frontend';
+        $model->application = Yii::$app->id;
         $model->module = $module;
         $model->action = $action;
         $model->data = $data ? Json::encode($data) : null;
+        $model->user_agent = Yii::$app->request->userAgent;
         $model->hash = md5(Yii::$app->request->userAgent . Yii::$app->request->userIP);
         $model->ip = ip2long(Yii::$app->request->userIP);
         $model->time_create = time();

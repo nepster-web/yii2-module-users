@@ -6,7 +6,6 @@ use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
 use yii\base\InvalidParamException;
 use yii\db\ActiveRecord;
-use yii\widgets\Pjax;
 use Yii;
 
 /**
@@ -46,7 +45,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return [
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
-                //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
@@ -123,11 +121,30 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
-     * @return Profile|null User profile
+     * Профиль пользователя
+     * @return \yii\db\ActiveQuery
      */
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Действия пользователя
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActions()
+    {
+        return $this->hasMany(Action::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Блокировки пользователя
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBanneds()
+    {
+        return $this->hasMany(Banned::className(), ['user_id' => 'id']);
     }
 
     /**

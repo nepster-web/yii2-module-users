@@ -17,15 +17,14 @@ class User extends \yii\web\User
     /**
      * Записать действие пользователя в историю
      * @param $userId
-     * @param $application
      * @param $module
      * @param $action
      * @param array $data
      * @return bool
      */
-    public function action($userId, $application, $module, $action, $data = [])
+    public function action($userId, $module, $action, $data = [])
     {
-        return Action::saveRecord($userId, $application, $module, $action, $data);
+        return Action::saveRecord($userId, $module, $action, $data);
     }
 
     /**

@@ -15,63 +15,63 @@ class UserQuery extends ActiveQuery
     /**
      * @return $this
      */
-	public function mailVerified()
-	{
-		$this->andWhere(['mail_verify' => 1]);
-		return $this;
-	}
-
-    /**
-     * @return $this
-     */
-	public function mailUnverified()
-	{
-		$this->andWhere(['mail_verify' => 0]);
-		return $this;
-	}
-
-    /**
-     * @return $this
-     */
-	public function phoneVerified()
-	{
-		$this->andWhere(['phone_verify' => 1]);
-		return $this;
-	}
-
-    /**
-     * @return $this
-     */
-	public function phoneUnverified()
-	{
-		$this->andWhere(['phone_verify' => 0]);
-		return $this;
-	}
-
-    /**
-     * @return $this
-     */
-	public function active()
-	{
-		$this->andWhere(['status' => User::STATUS_ACTIVE]);
-		return $this;
-	}
-
-    /**
-     * @return $this
-     */
-    public function inactive()
+    public function mailVerified()
     {
-        $this->andWhere(['status' => User::STATUS_INACTIVE]);
+        $this->andWhere([User::tableName() . '.mail_verify' => 1]);
         return $this;
     }
 
     /**
      * @return $this
      */
-    public function delete()
+    public function mailUnverified()
     {
-        $this->andWhere(['status' => User::STATUS_DELETED]);
+        $this->andWhere([User::tableName() . '.mail_verify' => 0]);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function phoneVerified()
+    {
+        $this->andWhere([User::tableName() . '.phone_verify' => 1]);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function phoneUnverified()
+    {
+        $this->andWhere([User::tableName() . '.phone_verify' => 0]);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function active()
+    {
+        $this->andWhere([User::tableName() . '.status' => User::STATUS_ACTIVE]);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function inactive()
+    {
+        $this->andWhere([User::tableName() . '.status' => User::STATUS_INACTIVE]);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function deleted()
+    {
+        $this->andWhere([User::tableName() . '.status' => User::STATUS_DELETED]);
         return $this;
     }
 
@@ -80,7 +80,7 @@ class UserQuery extends ActiveQuery
      */
     public function banned()
     {
-        $this->andWhere(['banned' => 1]);
+        $this->andWhere([User::tableName() . '.banned' => 1]);
         return $this;
     }
 
@@ -89,7 +89,7 @@ class UserQuery extends ActiveQuery
      */
     public function control()
     {
-        $this->andWhere(['role' => $this->module->accessRoleToControlpanel]);
+        $this->andWhere([User::tableName() . '.role' => $this->module->accessRoleToControlpanel]);
         return $this;
     }
 }
