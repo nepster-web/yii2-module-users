@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\users\controllers\frontend;
+namespace common\modules\users\controllers\frontend;
 
-use app\modules\users\models as models;
+use common\modules\users\models as models;
 use yii\widgets\ActiveForm;
 use yii\web\Controller;
 use yii\web\Response;
@@ -38,7 +38,7 @@ class GuestController extends Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
-           $this->module->viewPath = '@app/modules/users/views/frontend';
+            $this->module->viewPath = '@common/modules/users/views/frontend';
             return true;
         } else {
             return false;
@@ -52,13 +52,13 @@ class GuestController extends Controller
     {
         $user = new models\User(['scenario' => 'signup']);
         $profile = new models\Profile(['scenario' => 'signup']);
-        
+
         if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
             if ($user->validate() && $profile->validate()) {
                 $user->populateRelation('profile', $profile);
                 if ($user->save(false)) {
                     if ($this->module->requireEmailConfirmation === true) {
-                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"' );
+                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
                         ]));
@@ -94,7 +94,7 @@ class GuestController extends Controller
             if ($model->validate()) {
                 if ($this->module->requireEmailConfirmation === true) {
                     if ($user = $model->resend()) {
-                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"' );
+                        Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RESEND'));
                         return $this->redirect(['login']);
                     } else {
@@ -167,12 +167,12 @@ class GuestController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($user = $model->recovery()) {
-                    Yii::$app->consoleRunner->run('users/send ' . $user->id . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"' );
+                    Yii::$app->consoleRunner->run('users/send ' . $user->id . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"');
                     Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY'));
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY'));
                 }
-                return $this->refresh();                
+                return $this->refresh();
             } else if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
@@ -190,7 +190,7 @@ class GuestController extends Controller
     public function actionRecoveryConfirmation($token)
     {
         $model = new models\frontend\RecoveryConfirmationForm(['secure_key' => $token]);
-    
+
         if (!$model->isValidToken()) {
             Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY_CONFIRMATION_WITH_INVALID_KEY'));
             return $this->redirect(['recovery']);
@@ -202,7 +202,7 @@ class GuestController extends Controller
                     Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY_CONFIRMATION'));
                     return $this->redirect(['login']);
                 } else {
-                    Yii::$app->session->setFlash('danger',  Yii::t('users', 'FAIL_RECOVERY_CONFIRMATION'));
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY_CONFIRMATION'));
                     return $this->refresh();
                 }
             } elseif (Yii::$app->request->isAjax) {

@@ -67,7 +67,7 @@ class LoginForm extends \nepster\users\models\LoginForm
         if (!$this->getErrors()) {
 
             // Записываем попытку успешной авторизации в историю
-            Yii::$app->user->action($userId, 'frontend', $this->module->id, 'auth');
+            Yii::$app->user->action($userId, $this->module->id, 'auth');
 
         } else if (!$userBanned) {
 
@@ -76,7 +76,7 @@ class LoginForm extends \nepster\users\models\LoginForm
                 'attributes' => $this->getAttributes(),
                 'errors' => $this->getErrors(),
             ];
-            Yii::$app->user->action($userId, 'frontend', $this->module->id, 'auth-error', $data);
+            Yii::$app->user->action($userId, $this->module->id, 'auth-error', $data);
 
 
             // Дополнительные условия авторизации

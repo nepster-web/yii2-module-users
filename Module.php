@@ -9,7 +9,7 @@ use Yii;
  */
 class Module extends \yii\base\Module
 {
-    // Разобраться с конфигурацией
+    //TODO: Разобраться с конфигурацией
 
     /**
      * @var bool Импортировать

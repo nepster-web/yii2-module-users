@@ -38,8 +38,8 @@ class m140418_204054_users extends Migration
             'auth_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
             'auth_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
             'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
-            'create_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
-            'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
+            'time_create' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
+            'time_update' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
         ], $tableOptions . ' COMMENT = "Пользователи"');
 
         // Профили
@@ -51,7 +51,7 @@ class m140418_204054_users extends Migration
             'avatar_url' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "URL Аватара"',
             'whau' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Откуда пользователь узнал о сайте"',
             'birthday' => Schema::TYPE_DATE . ' NULL DEFAULT NULL COMMENT "Дата рождения"',
-            'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'time_update' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'unique(`user_id`)',
         ], $tableOptions . ' COMMENT = "Профили пользователей"');
 
@@ -64,7 +64,7 @@ class m140418_204054_users extends Migration
             'data' => Schema::TYPE_TEXT . ' NULL DEFAULT NULL COMMENT "Данные"',
             'user_id' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
             'user_agent' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
-            'hash' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "User Agent + IP"',
+            'hash' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "md5(User Agent + IP)"',
             'ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL',
             'time_create' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Действия пользователей"');

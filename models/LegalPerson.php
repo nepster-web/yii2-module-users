@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class ActivationForm
+ * Данные юридических лиц
  */
 class LegalPerson extends ActiveRecord
 {
@@ -28,11 +28,17 @@ class LegalPerson extends ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
+                'class' => \yii\behaviors\TimestampBehavior::className(),
                 //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                    // ActiveRecord::EVENT_BEFORE_INSERT => 'time_create',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',
                 ],
+            ],
+            'BlameableBehavior' => [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => false,
             ],
         ];
     }
@@ -49,5 +55,23 @@ class LegalPerson extends ActiveRecord
             'bank' => Yii::t('users', 'LEGAL_PERSON_BANK'),
             'account' => Yii::t('users', 'LEGAL_PERSON_ACCOUNT'),
         ];
+    }
+
+    /**
+     * @return LegalPerson|null LegalPerson user
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('legalPerson');
+    }
+
+    /**
+     * Поиск по идентификатору пользователя
+     * @param $id
+     * @return null|static
+     */
+    public static function findByUserId($id)
+    {
+        return static::findOne(['user_id' => $id]);
     }
 }

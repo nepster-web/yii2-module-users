@@ -9,7 +9,7 @@ use yii\helpers\Json;
 use Yii;
 
 /**
- * Class Action
+ * Записи о действиях пользователей
  */
 class Action extends ActiveRecord
 {
@@ -92,7 +92,6 @@ class Action extends ActiveRecord
         if ($action) {
             $query->andWhere('action = :action', [':action' => $action]);
         }
-
 
         if ($interval) {
             $query->andWhere('time_create >= :time', [':time' => time() - $interval]);

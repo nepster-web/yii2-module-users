@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\users\controllers\backend;
+namespace common\modules\users\controllers\backend;
 
-use app\modules\users\models as models;
+use common\modules\users\models as models;
 use yii\widgets\ActiveForm;
 use yii\web\Controller;
 use yii\web\Response;
@@ -17,7 +17,7 @@ class GuestController extends Controller
     /**
      * @inheritdoc
      */
-    /*public function behaviors()
+    public function behaviors()
     {
         return [
             'access' => [
@@ -30,7 +30,7 @@ class GuestController extends Controller
                 ]
             ]
         ];
-    }*/
+    }
 
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class GuestController extends Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
-           $this->module->viewPath = '@app/modules/users/views/backend';
+           $this->module->viewPath = '@common/modules/users/views/backend';
             return true;
         } else {
             return false;

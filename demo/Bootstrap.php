@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users;
+namespace common\modules\users;
 
 /**
  * Users module bootstrap class.
@@ -16,7 +16,7 @@ class Bootstrap implements \yii\base\BootstrapInterface
         $app->i18n->translations['users*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
-            'basePath' => '@app/modules/users/messages',
+            'basePath' => '@common/modules/users/messages',
             'fileMap' => [
                 // path you files
             ],
@@ -27,9 +27,7 @@ class Bootstrap implements \yii\base\BootstrapInterface
                 'activation/<token>' => 'users/guest/activation',
                 'recovery-confirmation/<token>' => 'users/guest/recovery-confirmation',
                 '<_a:(login|signup|activation|resend|recovery)>' => 'users/guest/<_a>',
-                '<_a:logout>' => 'users/user/<_a>',
-                'profile' => 'users/user/profile',
-                'password' => 'users/user/password',
+                '<_a:logout|profile|password|legal-person>' => 'users/user/<_a>',
             ]
         );
     }

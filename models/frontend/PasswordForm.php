@@ -56,7 +56,7 @@ class PasswordForm extends \yii\base\Model
         return [
             'password' => Yii::t('users', 'NEW_PASSWORD'),
             'repassword' => Yii::t('users', 'NEW_REPASSWORD'),
-            'oldpassword' => Yii::t('users', 'OLDPASSWORD')
+            'oldpassword' => Yii::t('users', 'OLD_PASSWORD')
         ];
     }
 
@@ -85,13 +85,15 @@ class PasswordForm extends \yii\base\Model
 
     /**
      * Поиск пользователя по id.
-     *
      * @return User|null User instance
      */
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::find()->where(['id' => Yii::$app->user->identity->id])->active()->one();
+            $this->_user = User::find()
+                ->where(['id' => Yii::$app->user->identity->id])
+                ->status()
+                ->one();
         }
         return $this->_user;
     }

@@ -2,6 +2,7 @@
 
 namespace nepster\users\models;
 
+use app\modules\users\models\LegalPerson;
 use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
 use yii\base\InvalidParamException;
@@ -9,7 +10,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class User
+ * Класс для работы с пользователями
  */
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -46,8 +47,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'time_create',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',
                 ],
             ],
         ];
@@ -74,8 +75,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             'auth_ip' => Yii::t('users', 'AUTH_IP'),
             'auth_time' => Yii::t('users', 'AUTH_TIME'),
             'create_ip' => Yii::t('users', 'CREATE_IP'),
-            'create_time' => Yii::t('users', 'CREATE_TIME'),
-            'update_time' => Yii::t('users', 'UPDATE_TIME'),
+            'time_create' => Yii::t('users', 'TIME_CREATE'),
+            'time_update' => Yii::t('users', 'TIME_UPDATE'),
         ];
     }
 
@@ -130,6 +131,15 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
+     * Данные юридического лица
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLegalPerson()
+    {
+        return $this->hasOne(LegalPerson::className(), ['user_id' => 'id']);
+    }
+
+    /**
      * Действия пользователя
      * @return \yii\db\ActiveQuery
      */
@@ -173,10 +183,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Поиск пользователей IDs.
-     *
      * @param $ids Users IDs
      * @param null $scope Scope
-     *
      * @return array|\yii\db\ActiveRecord[] Users
      */
     public static function findIdentities($ids, $scope = null)
@@ -196,10 +204,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Поиск пользователя по логину
-     *
      * @param string $username Username
      * @param string $scope Scope
-     *
      * @return array|\yii\db\ActiveRecord[] User
      */
     public static function findByUsername($username, $scope = null)
@@ -242,10 +248,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Поиск пользователя по телефону
-     *
      * @param string $phone Phone
      * @param string $scope Scope
-     *
      * @return array|\yii\db\ActiveRecord[] User
      */
     public static function findByPhone($phone, $scope = null)
@@ -273,7 +277,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Поиск пользователя по секретному ключу
-     *
      * @param $secureKey
      * @param null $scope
      * @return array|null|ActiveRecord
@@ -295,7 +298,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Auth Key validation.
-     *
      * @param string $authKey
      * @return boolean
      */
@@ -305,8 +307,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
-     * Password validation.
-     *
+     * Проверка пароля
      * @param string $password
      * @return boolean
      */
@@ -320,7 +321,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Верификация e-mail
-     *
      * @return boolean true if account was successfully activated
      */
     public function mailVerification()
@@ -333,7 +333,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Верефикация телефона
-     *
      * @return boolean true if account was successfully activated
      */
     public function phoneVerification()
@@ -370,7 +369,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      *  Восстановить пароль
-     *
      * @param string $password New Password
      * @return boolean true if password was successfully recovered
      */
@@ -383,7 +381,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Сгенерировать новый hash пароля
-     *
      * @param string $password
      */
     public function setPassword($password)
@@ -393,7 +390,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
     /**
      * Изменить пароль пользователя
-     *
      * @return boolean true if password was successfully changed
      */
     public function password($password)

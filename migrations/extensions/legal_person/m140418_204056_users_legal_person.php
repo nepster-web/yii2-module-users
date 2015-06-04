@@ -29,7 +29,7 @@ class m140418_204056_users_legal_person extends Migration
             'BIN' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "ОГРН"',
             'bank' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Банк"',
             'account' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Расчетный счет"',
-            'update_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
+            'time_update' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL',
         ], $tableOptions . ' COMMENT = "Данные юридических лиц"');
 
         $this->addForeignKey('{{%users_legal_person_user_id}}', '{{%users_legal_person}}', 'user_id', '{{%users}}', 'id', 'CASCADE', 'CASCADE');

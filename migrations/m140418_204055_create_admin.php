@@ -32,8 +32,8 @@ class m140418_204055_create_admin extends Migration
             'auth_ip',
             'auth_time',
             'create_ip',
-            'create_time',
-            'update_time',
+            'time_create',
+            'time_update',
         ];
 
         $this->batchInsert('{{%users}}', $columns, [

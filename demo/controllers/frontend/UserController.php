@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\users\controllers\frontend;
+namespace common\modules\users\controllers\frontend;
 
-use app\modules\users\models as models;
+use common\modules\users\models as models;
 use yii\web\Controller;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
@@ -37,7 +37,7 @@ class UserController extends Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
-            $this->module->viewPath = '@app/modules/users/views/frontend';
+            $this->module->viewPath = '@common/modules/users/views/frontend';
             return true;
         } else {
             return false;
@@ -103,6 +103,36 @@ class UserController extends Controller
         }
 
         return $this->render('password', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * Изменить данные юридического лица
+     */
+    public function actionLegalPerson()
+    {
+        if ($model = models\LegalPerson::findByUserId(Yii::$app->user->id)) {
+            $model->scenario = 'user-create';
+        } else {
+            $model = new models\LegalPerson(['scenario' => 'user-update']);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($model->save(false)) {
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_LEGAL_PERSON_UPDATE'));
+                } else {
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_LEGAL_PERSON_UPDATE'));
+                }
+                return $this->refresh();
+            } else if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+        }
+
+        return $this->render('legal-person', [
             'model' => $model
         ]);
     }

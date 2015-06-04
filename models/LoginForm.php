@@ -6,7 +6,7 @@ use nepster\users\traits\ModuleTrait;
 use Yii;
 
 /**
- * Class LoginForm
+ * Форма авторизации
  */
 class LoginForm extends \yii\base\Model
 {
@@ -69,6 +69,7 @@ class LoginForm extends \yii\base\Model
 
     /**
      * Валидация пароля
+     * @param $attribute
      */
     public function validatePassword($attribute)
     {
@@ -86,7 +87,6 @@ class LoginForm extends \yii\base\Model
 
     /**
      * Авторизация пользователя
-     *
      * @return boolean whether the user is logged in successfully
      */
     public function login()

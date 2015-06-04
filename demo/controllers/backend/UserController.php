@@ -1,15 +1,17 @@
 <?php
 
-namespace common\modules\users\controllers\frontend;
+namespace common\modules\users\controllers\backend;
 
-use common\modules\users\models as models;
+use app\modules\users\models as models;
 use yii\web\Controller;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
 use Yii;
 
 /**
- * Class DefaultController
+ * Class UserController
  */
-class DefaultController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritdoc
@@ -22,7 +24,7 @@ class DefaultController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['?', '@']
+                        'roles' => ['@']
                     ]
                 ]
             ]
@@ -35,10 +37,20 @@ class DefaultController extends Controller
     public function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
-            $this->module->viewPath = '@common/modules/users/views/frontend';
+            $this->module->viewPath = '@app/modules/users/views/backend';
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Выход
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
     }
 }

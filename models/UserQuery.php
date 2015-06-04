@@ -13,74 +13,43 @@ class UserQuery extends ActiveQuery
     use ModuleTrait;
 
     /**
+     * @param int $state
      * @return $this
      */
-    public function mailVerified()
+    public function mailVerified($state = 1)
     {
-        $this->andWhere([User::tableName() . '.mail_verify' => 1]);
+        $this->andWhere([User::tableName() . '.mail_verify' => $state]);
         return $this;
     }
 
     /**
+     * @param int $state
      * @return $this
      */
-    public function mailUnverified()
+    public function phoneVerified($state = 1)
     {
-        $this->andWhere([User::tableName() . '.mail_verify' => 0]);
+        $this->andWhere([User::tableName() . '.phone_verify' => $state]);
         return $this;
     }
 
     /**
+     * @param int $state
      * @return $this
      */
-    public function phoneVerified()
+    public function status($state = null)
     {
-        $this->andWhere([User::tableName() . '.phone_verify' => 1]);
+        $state = $state ? $state : User::STATUS_ACTIVE;
+        $this->andWhere([User::tableName() . '.status' => $state]);
         return $this;
     }
 
     /**
+     * @param int $state
      * @return $this
      */
-    public function phoneUnverified()
+    public function banned($state = 1)
     {
-        $this->andWhere([User::tableName() . '.phone_verify' => 0]);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function active()
-    {
-        $this->andWhere([User::tableName() . '.status' => User::STATUS_ACTIVE]);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function inactive()
-    {
-        $this->andWhere([User::tableName() . '.status' => User::STATUS_INACTIVE]);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function deleted()
-    {
-        $this->andWhere([User::tableName() . '.status' => User::STATUS_DELETED]);
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function banned()
-    {
-        $this->andWhere([User::tableName() . '.banned' => 1]);
+        $this->andWhere([User::tableName() . '.banned' => $state]);
         return $this;
     }
 

@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class Profile
+ * Управление профилями пользователей
  */
 class Profile extends ActiveRecord
 {
@@ -28,10 +28,10 @@ class Profile extends ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
+                'class' => \yii\behaviors\TimestampBehavior::className(),
                 //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',
                 ],
             ],
         ];
@@ -48,8 +48,7 @@ class Profile extends ActiveRecord
             'whau' => Yii::t('users', 'WHAU'),
             'avatar_url' => Yii::t('users', 'AVATAR_URL'),
             'birthday' => Yii::t('users', 'BIRTHDAY'),
-            'create_time' => Yii::t('users', 'CREATE_TIME'),
-            'update_time' => Yii::t('users', 'UPDATE_TIME'),
+            'time_update' => Yii::t('users', 'TIME_UPDATE'),
         ];
     }
 
@@ -59,5 +58,15 @@ class Profile extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('profile');
+    }
+
+    /**
+     * Поиск по идентификатору пользователя
+     * @param $id
+     * @return null|static
+     */
+    public static function findByUserId($id)
+    {
+        return static::findOne(['user_id' => $id]);
     }
 }

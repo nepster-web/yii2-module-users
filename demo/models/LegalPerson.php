@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\models;
+namespace common\modules\users\models;
 
 use Yii;
 
@@ -15,8 +15,8 @@ class LegalPerson extends \nepster\users\models\LegalPerson
     public function scenarios()
     {
         return [
-            'signup' => ['name', 'address', 'BIN', 'bank', 'account'],
-            'update' => ['name', 'address', 'BIN', 'bank', 'account'],
+            'user-create' => ['name', 'address', 'BIN', 'bank', 'account'],
+            'user-update' => ['name', 'address', 'BIN', 'bank', 'account'],
         ];
     }
 

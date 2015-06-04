@@ -1,16 +1,14 @@
 <?php
 /*
-    Авторизация
+    Данные юридического лица
     @var \yii\web\View this
-    @var \common\modules\users\models\LoginForm $model
+    @var \common\modules\users\models\LegalPerson $model
 */
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-
-$this->context->layout = '//min';
 ?>
 
-<h3><i class="glyphicon glyphicon-user"></i>  <?=Yii::t('users', 'SIGNIN.TITLE')?></h3>
+<h3><i class="glyphicon glyphicon-user"></i>  Данные юридического лица</h3>
 
 <br/>
 
@@ -31,9 +29,17 @@ $this->context->layout = '//min';
 <div class="row">
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'username') ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
+
+        <?= $form->field($model, 'name')->textInput() ?>
+        <?= $form->field($model, 'address')->textInput() ?>
+        <?= $form->field($model, 'BIN')->textInput() ?>
+        <?= $form->field($model, 'bank')->textInput() ?>
+        <?= $form->field($model, 'account')->textInput() ?>
+
+
+
+
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
         </div>
