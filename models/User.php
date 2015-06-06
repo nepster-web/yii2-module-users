@@ -2,7 +2,6 @@
 
 namespace nepster\users\models;
 
-use app\modules\users\models\LegalPerson;
 use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
 use yii\base\InvalidParamException;

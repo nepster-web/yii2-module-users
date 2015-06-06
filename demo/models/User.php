@@ -5,7 +5,7 @@ namespace common\modules\users\models;
 use Yii;
 
 /**
- * Class User
+ * @inheritdoc
  */
 class User extends \nepster\users\models\User
 {
@@ -42,7 +42,7 @@ class User extends \nepster\users\models\User
         $labels = parent::attributeLabels();
 
         return array_merge($labels, [
-            'repassword' => Yii::t('users', 'REPASSWORD')
+            'repassword' => Yii::t('users', 'REPASSWORD'),
         ]);
     }
 
@@ -100,10 +100,10 @@ class User extends \nepster\users\models\User
     /**
      * @return LegalPerson|null User profile
      */
-    /*public function getPerson()
+    public function getPerson()
     {
         return $this->hasOne(LegalPerson::className(), ['user_id' => 'id']);
-    }*/
+    }
 
     /**
      * @return Profile|null User profile
@@ -120,18 +120,9 @@ class User extends \nepster\users\models\User
     public static function getStatusArray()
     {
         return [
-            self::STATUS_ACTIVE => [
-                'label' => Yii::t('users', 'STATUS_ACTIVE'),
-                'color' => 'green',
-            ],
-            self::STATUS_INACTIVE => [
-                'label' => Yii::t('users', 'STATUS_INACTIVE'),
-                'color' => 'red',
-            ],
-            self::STATUS_DELETED => [
-                'label' => Yii::t('users', 'STATUS_DELETED'),
-                'color' => 'silver',
-            ],
+            self::STATUS_ACTIVE => Yii::t('users', 'STATUS_ACTIVE'),
+            self::STATUS_INACTIVE => Yii::t('users', 'STATUS_INACTIVE'),
+            self::STATUS_DELETED => Yii::t('users', 'STATUS_DELETED'),
         ];
     }
 }

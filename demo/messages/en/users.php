@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'USER' => 'User',
+    'CONTACTS' => 'Contacts',
     'USERNAME' => 'Username',
     'MAIL_OR_PHONE' => 'E-MAIL or phone',
     'USERNAME_OR_MAIL_OR_PHONE' => 'Login, E-MAIL or phone',
@@ -24,6 +26,16 @@ return [
     'API_KEY' => 'Access token',
     'AUTH_KEY' => 'Confidential token auth',
     'CITY' => 'City',
+
+    'TIME_CREATE' => 'Date register',
+    'TIME_UPDATE' => 'Date update',
+    'BIRTHDAY' => 'Birthday',
+    'MAIL_VERIFY' => 'E-MAIL verify',
+    'PHONE_VERIFY' => 'Phone verify',
+    'CREATE_IP' => 'Register IP',
+    'AUTH_IP' => 'Login IP',
+    'AUTH_TIME' => 'Login date',
+
     'INDIVIDUAL_PERSON' => 'Individual person',
     'LEGAL_PERSON' => 'Legal person',
     'PASSPORT' => 'Passport',

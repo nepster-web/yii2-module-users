@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'USER' => 'Пользователь',
+    'CONTACTS' => 'Контакты',
     'USERNAME' => 'Логин',
     'MAIL_OR_PHONE' => 'E-MAIL или телефон',
     'USERNAME_OR_MAIL_OR_PHONE' => 'Логин, E-MAIL или телефон',
@@ -24,6 +26,16 @@ return [
     'API_KEY' => 'Секретный токен API',
     'AUTH_KEY' => 'Секретный токен авторизации',
     'CITY' => 'City',
+
+    'TIME_CREATE' => 'Дата регистрации',
+    'TIME_UPDATE' => 'Дата обновления',
+    'BIRTHDAY' => 'Дата рождения',
+    'MAIL_VERIFY' => 'E-MAIL подтвержден',
+    'PHONE_VERIFY' => 'Телефон подтвержден',
+    'CREATE_IP' => 'IP регистрации',
+    'AUTH_IP' => 'IP входа',
+    'AUTH_TIME' => 'Дата входа',
+
     'INDIVIDUAL_PERSON' => 'Физическое лицо',
     'LEGAL_PERSON' => 'Юридическое лицо',
     'PASSPORT' => 'Паспорт',
