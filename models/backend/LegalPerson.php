@@ -1,11 +1,12 @@
 <?php
 
-namespace common\modules\users\models;
+namespace common\modules\users\models\backend;
 
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class LegalPerson
+ * @inheritdoc
  */
 class LegalPerson extends \nepster\users\models\LegalPerson
 {
@@ -23,27 +24,33 @@ class LegalPerson extends \nepster\users\models\LegalPerson
     /**
      * @inheritdoc
      */
+    public function transactions()
+    {
+        return [
+            'create' => self::OP_ALL,
+            'update' => self::OP_ALL,
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
             // Полное наименование юридического лица
-            ['name', 'required'],
             ['name', 'trim'],
 
             // Юридический адрес
-            ['address', 'required'],
             ['address', 'trim'],
 
             // ОГРН
-            ['BIN', 'required'],
             ['BIN', 'trim'],
 
             // Банк
-            ['bank', 'required'],
             ['bank', 'trim'],
 
             // Расчетный счет
-            ['account', 'required'],
             ['account', 'trim'],
         ];
     }

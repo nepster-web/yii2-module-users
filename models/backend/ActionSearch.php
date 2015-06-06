@@ -2,7 +2,7 @@
 
 namespace common\modules\users\models\backend;
 
-use common\modules\users\models\Profile;
+use nepster\users\models\Action;
 use yii\data\ActiveDataProvider;
 use yii\base\Model;
 use Yii;
@@ -10,17 +10,12 @@ use Yii;
 /**
  * @inheritdoc
  */
-class UserSearch extends User
+class ActionSearch extends Action
 {
     /**
      * @var string
      */
     public $user;
-
-    /**
-     * @var string
-     */
-    public $contacts;
 
     /**
      * @var string
@@ -39,9 +34,7 @@ class UserSearch extends User
     {
         return [
             ['id', 'integer'],
-            [['user', 'role', 'contacts', 'date_from', 'date_to'], 'string'],
-            ['status', 'in', 'range' => array_keys(self::getStatusArray())],
-            ['banned', 'in', 'range' => array_keys(Yii::$app->formatter->booleanFormat)],
+            [['user', 'application', 'module', 'action', 'date_from', 'date_to', 'ip'], 'string'],
             [['date_from', 'date_to'], 'date', 'format' => 'php:Y-m-d'],
         ];
     }
@@ -55,7 +48,6 @@ class UserSearch extends User
 
         return array_merge($labels, [
             'user' => Yii::t('users', 'USER'),
-            'contacts' => Yii::t('users', 'CONTACTS'),
             'date_from' => Yii::t('users', 'DATE_FROM'),
             'date_to' => Yii::t('users', 'DATE_TO'),
         ]);
@@ -88,7 +80,11 @@ class UserSearch extends User
     {
         $query = self::find()
             ->joinWith([
-                'profile'
+                'user' => function ($query) {
+                    return $query->joinWith([
+                        'profile'
+                    ]);
+                }
             ]);
 
         $dataProvider = new ActiveDataProvider([
@@ -108,11 +104,6 @@ class UserSearch extends User
             'desc' => [self::tableName() . '.id' => SORT_DESC],
         ];
 
-        $dataProvider->sort->attributes['contacts'] = [
-            'asc' => [self::tableName() . '.email' => SORT_ASC],
-            'desc' => [self::tableName() . '.email' => SORT_DESC],
-        ];
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -120,32 +111,34 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            self::tableName() . '.id' => $this->id,
-            'status' => $this->status,
-            'banned' => $this->banned,
-        ]);
-
-        if (!$this->status) {
-            $query->andWhere('status != :status', [':status' => $this::STATUS_DELETED]);
-        }
-
         if (!empty($this->date_from)) {
             $dateFrom = strtotime($this->date_from);
-            $query->andWhere('time_create >= :date_from', [':date_from' => $dateFrom]);
+            $query->andWhere(self::tableName(). '.time_create >= :date_from', [':date_from' => $dateFrom]);
         }
 
         if (!empty($this->date_to)) {
             $dateTo = strtotime($this->date_to) + 86400; // Минимальный диапазон выборки 24 часа
-            $query->andWhere('time_create <= :date_to', [':date_to' => $dateTo]);
+            $query->andWhere(self::tableName(). '.time_create <= :date_to', [':date_to' => $dateTo]);
+        }
+
+        if (!empty($this->application)) {
+            $query->andWhere('application LIKE :application', [':application' => '%' . $this->application . '%']);
+        }
+
+        if (!empty($this->module)) {
+            $query->andWhere('module LIKE :module', [':module' => '%' . $this->module . '%']);
+        }
+
+        if (!empty($this->action)) {
+            $query->andWhere('action LIKE :action', [':action' => '%' . $this->action . '%']);
         }
 
         if (!empty($this->user)) {
             $query->andWhere('name LIKE :name OR surname LIKE :surname', [':name' => '%' . $this->user . '%', ':surname' => '%' . $this->user . '%']);
         }
 
-        if (!empty($this->contacts)) {
-            $query->andWhere('phone LIKE :phone OR email LIKE :email', [':phone' => '%' . $this->contacts . '%', ':email' => '%' . $this->contacts . '%']);
+        if (!empty($this->ip)) {
+            $query->andWhere('ip LIKE :ip', [':ip' => '%' . ip2long($this->ip) . '%']);
         }
 
         return $dataProvider;

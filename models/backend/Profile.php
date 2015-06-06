@@ -1,11 +1,12 @@
 <?php
 
-namespace common\modules\users\models;
+namespace common\modules\users\models\backend;
 
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class Profile
+ * @inheritdoc
  */
 class Profile extends \nepster\users\models\Profile
 {
@@ -15,8 +16,8 @@ class Profile extends \nepster\users\models\Profile
     public function scenarios()
     {
         return [
-            'create' => ['name', 'surname', 'whau'],
-            'update' => ['name', 'surname'],
+            'create' => ['name', 'surname', 'birthday', 'whau'],
+            'update' => ['name', 'surname', 'birthday', 'whau'],
         ];
     }
 

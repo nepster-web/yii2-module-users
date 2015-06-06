@@ -23,7 +23,7 @@ class m140418_204054_users extends Migration
         // Пользователи
         $this->createTable('{{%users}}', [
             'id' => Schema::TYPE_PK,
-            'role' => Schema::TYPE_STRING . ' NOT NULL DEFAULT "user" COMMENT "Роль"',
+            'group' => Schema::TYPE_STRING . ' NOT NULL DEFAULT "user" COMMENT "Группа пользователя"',
             'status' => Schema::TYPE_SMALLINT . ' NOT NULL',
             'email' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Почтовый адрес"',
             'phone' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Главный телефон"',

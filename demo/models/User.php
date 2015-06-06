@@ -112,17 +112,4 @@ class User extends \nepster\users\models\User
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'id']);
     }
-
-    /**
-     * Данные статуса
-     * @return array
-     */
-    public static function getStatusArray()
-    {
-        return [
-            self::STATUS_ACTIVE => Yii::t('users', 'STATUS_ACTIVE'),
-            self::STATUS_INACTIVE => Yii::t('users', 'STATUS_INACTIVE'),
-            self::STATUS_DELETED => Yii::t('users', 'STATUS_DELETED'),
-        ];
-    }
 }

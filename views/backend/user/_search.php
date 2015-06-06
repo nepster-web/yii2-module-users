@@ -9,7 +9,7 @@ use yii\helpers\Html;
 ?>
 
 <?php $form = ActiveForm::begin([
-    'id' => 'users-search',
+    'id' => 'search-model',
     'action' => ['index'],
     'method' => 'get',
 ]); ?>
@@ -19,13 +19,14 @@ use yii\helpers\Html;
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-1"><?= $form->field($model, 'role') ?></div>
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-2"><?= $form->field($model, 'user') ?></div>
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-2"><?= $form->field($model, 'contacts') ?></div>
-        <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-2"><?= $form->field($model, 'status')->dropDownList($model->statusArray, ['prompt' => '']) ?></div>
+        <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-1"><?= $form->field($model, 'banned')->dropDownList(Yii::$app->formatter->booleanFormat, ['prompt' => '']) ?></div>
+        <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-1"><?= $form->field($model, 'status')->dropDownList($model->statusArray, ['prompt' => '']) ?></div>
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-2"><?= $form->field($model, 'date_from') ?></div>
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-12 col-lg-2"><?= $form->field($model, 'date_to') ?></div>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('users', 'SEARCH'), ['class' => 'btn btn-primary']) ?>
     </div>
 
 <?php ActiveForm::end(); ?>
