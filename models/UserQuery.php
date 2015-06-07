@@ -1,5 +1,4 @@
 <?php
-
 namespace nepster\users\models;
 
 use nepster\users\traits\ModuleTrait;
@@ -36,9 +35,8 @@ class UserQuery extends ActiveQuery
      * @param int $state
      * @return $this
      */
-    public function status($state = null)
+    public function status($state = User::STATUS_ACTIVE)
     {
-        $state = $state ? $state : User::STATUS_ACTIVE;
         $this->andWhere([User::tableName() . '.status' => $state]);
         return $this;
     }

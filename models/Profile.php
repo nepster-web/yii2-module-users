@@ -1,39 +1,63 @@
 <?php
 
-namespace common\modules\users\models;
+namespace nepster\users\models;
 
+use nepster\users\traits\ModuleTrait;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
  * Class Profile
  */
-class Profile extends \nepster\users\models\Profile
+class Profile extends ActiveRecord
 {
+    use ModuleTrait;
+
     /**
      * @inheritdoc
      */
-    public function scenarios()
+    public static function tableName()
+    {
+        return '{{%users_profile}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
     {
         return [
-            'create' => ['name', 'surname', 'whau'],
-            'update' => ['name', 'surname'],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                //'value' => function () { return date("Y-m-d H:i:s"); },
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                ],
+            ],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function attributeLabels()
     {
         return [
-            // Name
-            ['name', 'match', 'pattern' => '/^[a-zа-яё]+$/iu'],
-
-            // Surname
-            ['surname', 'match', 'pattern' => '/^[a-zа-яё]+(-[a-zа-яё]+)?$/iu'],
-
-            // Whau
-            ['whau', 'string', 'min' => 1, 'max' => 200],
+            'name' => Yii::t('users', 'NAME'),
+            'surname' => Yii::t('users', 'SURNAME'),
+            'whau' => Yii::t('users', 'WHAU'),
+            'avatar_url' => Yii::t('users', 'AVATAR_URL'),
+            'birthday' => Yii::t('users', 'BIRTHDAY'),
+            'create_time' => Yii::t('users', 'CREATE_TIME'),
+            'update_time' => Yii::t('users', 'UPDATE_TIME'),
         ];
+    }
+
+    /**
+     * @return Profile|null Profile user
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('profile');
     }
 }

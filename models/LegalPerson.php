@@ -1,50 +1,53 @@
 <?php
 
-namespace common\modules\users\models;
+namespace nepster\users\models;
 
+use nepster\users\traits\ModuleTrait;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class LegalPerson
+ * Class ActivationForm
  */
-class LegalPerson extends \nepster\users\models\LegalPerson
+class LegalPerson extends ActiveRecord
 {
+    use ModuleTrait;
+
     /**
      * @inheritdoc
      */
-    public function scenarios()
+    public static function tableName()
+    {
+        return '{{%users_legal_person}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
     {
         return [
-            'create' => ['name', 'address', 'BIN', 'bank', 'account'],
-            'update' => ['name', 'address', 'BIN', 'bank', 'account'],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                //'value' => function () { return date("Y-m-d H:i:s"); },
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                ],
+            ],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function attributeLabels()
     {
         return [
-            // Полное наименование юридического лица
-            ['name', 'required'],
-            ['name', 'trim'],
-
-            // Юридический адрес
-            ['address', 'required'],
-            ['address', 'trim'],
-
-            // ОГРН
-            ['BIN', 'required'],
-            ['BIN', 'trim'],
-
-            // Банк
-            ['bank', 'required'],
-            ['bank', 'trim'],
-
-            // Расчетный счет
-            ['account', 'required'],
-            ['account', 'trim'],
+            'name' => Yii::t('users', 'LEGAL_PERSON_NAME'),
+            'address' => Yii::t('users', 'LEGAL_PERSON_ADDRESS'),
+            'BIN' => Yii::t('users', 'LEGAL_PERSON_BIN'),
+            'bank' => Yii::t('users', 'LEGAL_PERSON_BANK'),
+            'account' => Yii::t('users', 'LEGAL_PERSON_ACCOUNT'),
         ];
     }
 }

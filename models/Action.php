@@ -9,11 +9,19 @@ use yii\helpers\Json;
 use Yii;
 
 /**
- * Записи о действиях пользователей
+ * Class Action
  */
 class Action extends ActiveRecord
 {
     use ModuleTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%users_actions}}';
+    }
 
     /**
      * @inheritdoc
@@ -28,37 +36,6 @@ class Action extends ActiveRecord
                 ],
             ],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%users_actions}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('users', 'ID'),
-            'application' => Yii::t('users', 'APPLICATION'),
-            'module' => Yii::t('users', 'MODULE'),
-            'action' => Yii::t('users', 'ACTION'),
-            'ip' => Yii::t('users', 'IP'),
-            'time_create' => Yii::t('users', 'TIME_CREATE'),
-        ];
-    }
-
-    /**
-     * @return $this
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -115,6 +92,7 @@ class Action extends ActiveRecord
         if ($action) {
             $query->andWhere('action = :action', [':action' => $action]);
         }
+
 
         if ($interval) {
             $query->andWhere('time_create >= :time', [':time' => time() - $interval]);

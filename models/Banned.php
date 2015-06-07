@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Записи о блокировках пользователей
+ * Class Banned
  */
 class Banned extends ActiveRecord
 {
@@ -136,7 +136,6 @@ class Banned extends ActiveRecord
         $transaction = self::getDb()->beginTransaction();
 
         try {
-
             $model = new self;
             $model->user_id = $userId;
             $model->ip = ip2long($ip);
@@ -150,6 +149,8 @@ class Banned extends ActiveRecord
             return true;
 
         } catch (\Exception $e) {
+
+            echo $e->getMessage();
             $transaction->rollBack();
             return false;
         }
