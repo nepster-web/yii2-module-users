@@ -100,12 +100,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
                 // Статус по умолчанию
                 if (!$this->status) {
-                    $this->status = $this->module->requireEmailConfirmation ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
+                    $this->status = $this->module->params['requireEmailConfirmation'] ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
                 }
 
                 // Роль по умолчанию
                 if (!$this->role) {
-                    $this->role = $this->module->defaultRole;
+                    $this->role = $this->module->params['defaultRole'];
                 }
 
                 // Генерация секретных токенов

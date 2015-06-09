@@ -56,7 +56,7 @@ class UserQuery extends ActiveQuery
      */
     public function control()
     {
-        $this->andWhere([User::tableName() . '.role' => $this->module->accessRoleToControlpanel]);
+        $this->andWhere([User::tableName() . '.role' => $this->module->params['accessRoleToControlpanel']]);
         return $this;
     }
 }

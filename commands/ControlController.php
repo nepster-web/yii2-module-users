@@ -47,23 +47,15 @@ class ControlController extends \yii\console\Controller
 
 
 
-
-
-
     /**
      *
      */
     public function actionCron()
     {
 
+
+
     }
-
-
-
-
-
-
-
 
 
 
@@ -76,24 +68,23 @@ class ControlController extends \yii\console\Controller
 
         // Создание пользователей
         $userCreate = $auth->createPermission('user-create');
-        $userCreate->description = 'USER_CREATE';
+        $userCreate->description = 'PERMISSION_USER_CREATE';
         $auth->add($userCreate);
 
         // Редактирование пользователей
         $userUpdate = $auth->createPermission('user-update');
-        $userUpdate->description = 'USER_UPDATE';
+        $userUpdate->description = 'PARAM_USER_UPDATE';
         $auth->add($userUpdate);
 
         // Просмотр пользователей
         $userView = $auth->createPermission('user-view');
-        $userView->description = 'USER_UPDATE';
+        $userView->description = 'PARAM_USER_VIEW';
         $auth->add($userView);
 
         // Удаление пользователей
         $userDelete = $auth->createPermission('user-delete');
-        $userDelete->description = 'USER_UPDATE';
+        $userDelete->description = 'PERMISSION_USER_DELETE';
         $auth->add($userDelete);
-
 
         // Добавляем роль "admin"
         $admin = $auth->createRole('admin');
@@ -106,18 +97,13 @@ class ControlController extends \yii\console\Controller
 
         // Назначение ролей пользователям. 1 и 2 это IDs возвращаемые IdentityInterface::getId()
         // обычно реализуемый в модели User.
-        // $auth->assign($admin, 1);
+        $auth->assign($admin, 1);
 
 
 
 
 
-
-
-
-
-
-        $rule = new \nepster\users\rbac\UserGroupRule;
+        $rule = new \nepster\users\rbac\rules\UserGroupRule;
         $auth->add($rule);
 
         /*$author = $auth->createRole('author');
@@ -130,15 +116,6 @@ class ControlController extends \yii\console\Controller
         $auth->add($admin);
         $auth->addChild($admin, $author);*/
     }
-
-
-
-
-
-
-
-
-
 
 
 

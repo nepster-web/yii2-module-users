@@ -54,7 +54,7 @@ class Profile extends ActiveRecord
     }
 
     /**
-     * @return Profile|null Profile user
+     * @return $this
      */
     public function getUser()
     {

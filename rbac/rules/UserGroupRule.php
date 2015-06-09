@@ -1,6 +1,6 @@
 <?php
 
-namespace nepster\users\rbac;
+namespace nepster\users\rbac\rules;
 
 use yii\rbac\Rule;
 use Yii;
