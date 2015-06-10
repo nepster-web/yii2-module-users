@@ -5,6 +5,7 @@ namespace nepster\users\models;
 use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
 use yii\base\InvalidParamException;
+use yii\web\User as WebUser;
 use yii\db\ActiveRecord;
 use Yii;
 
@@ -46,8 +47,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'create_time',
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'time_register',
                 ],
             ],
         ];
@@ -61,7 +61,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return [
             'id' => Yii::t('users', 'ID'),
             'username' => Yii::t('users', 'USERNAME'),
-            'role' => Yii::t('users', 'ROLE'),
+            'group' => Yii::t('users', 'ROLE'),
             'status' => Yii::t('users', 'STATUS'),
             'email' => Yii::t('users', 'EMAIL'),
             'phone' => Yii::t('users', 'PHONE'),
@@ -71,11 +71,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             'auth_key' => Yii::t('users', 'AUTH_KEY'),
             'api_key' => Yii::t('users', 'API_KEY'),
             'secure_key' => Yii::t('users', 'SECURE_KEY'),
-            'auth_ip' => Yii::t('users', 'AUTH_IP'),
-            'auth_time' => Yii::t('users', 'AUTH_TIME'),
-            'create_ip' => Yii::t('users', 'CREATE_IP'),
-            'create_time' => Yii::t('users', 'CREATE_TIME'),
-            'update_time' => Yii::t('users', 'UPDATE_TIME'),
+            'time_activity' => Yii::t('users', 'TIME_ACTIVITY'),
+            'ip_register' => Yii::t('users', 'IP_REGISTER'),
+            'time_register' => Yii::t('users', 'TIME_REGISTER'),
         ];
     }
 
@@ -104,8 +102,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
                 }
 
                 // Роль по умолчанию
-                if (!$this->role) {
-                    $this->role = $this->module->params['defaultRole'];
+                if (!$this->group) {
+                    $this->group = $this->module->params['defaultGroup'];
                 }
 
                 // Генерация секретных токенов
@@ -402,4 +400,13 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->save(false);
     }
 
+    /**
+     * Статус Online текущего пользователя
+     *
+     * @return bool
+     */
+    public function isOnline()
+    {
+        return ((time() - $this->time_activity) >= $this->module->params['intervalInactivityForOnline']);
+    }
 }

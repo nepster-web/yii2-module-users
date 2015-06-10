@@ -23,11 +23,11 @@ class m140418_204054_users extends Migration
         // Пользователи
         $this->createTable('{{%users}}', [
             'id' => Schema::TYPE_PK,
-            'group' => Schema::TYPE_STRING . ' NOT NULL DEFAULT "user" COMMENT "Группа пользователя"',
-            'status' => Schema::TYPE_SMALLINT . ' NOT NULL',
+            'group' => Schema::TYPE_STRING . ' NOT NULL DEFAULT "user" COMMENT "Группа"',
+            'status' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 1 COMMENT "Статус"',
             'email' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Почтовый адрес"',
             'phone' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Главный телефон"',
-            'mail_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация почты"',
+            'email_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация почты"',
             'phone_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация телефона"',
             'online' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Сайчас на сайте"',
             'banned' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Заблокирован"',
@@ -35,11 +35,9 @@ class m140418_204054_users extends Migration
             'auth_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен авторизации"',
             'api_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен для api"',
             'secure_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен"',
-            'auth_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
-            'auth_time' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
-            'create_ip' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
-            'time_create' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
-            'time_update' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
+            'time_activity' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
+            'ip_register' => Schema::TYPE_STRING . ' NULL DEFAULT NULL ',
+            'time_register' => Schema::TYPE_INTEGER . ' NULL DEFAULT NULL ',
         ], $tableOptions . ' COMMENT = "Пользователи"');
 
         // Профили

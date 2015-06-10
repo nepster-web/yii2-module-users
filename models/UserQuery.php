@@ -17,7 +17,7 @@ class UserQuery extends ActiveQuery
      */
     public function mailVerified($state = 1)
     {
-        $this->andWhere([User::tableName() . '.mail_verify' => $state]);
+        $this->andWhere([User::tableName() . '.email_verify' => $state]);
         return $this;
     }
 
@@ -56,7 +56,7 @@ class UserQuery extends ActiveQuery
      */
     public function control()
     {
-        $this->andWhere([User::tableName() . '.role' => $this->module->params['accessRoleToControlpanel']]);
+        $this->andWhere([User::tableName() . '.group' => $this->module->params['accessGroupsToControlpanel']]);
         return $this;
     }
 }

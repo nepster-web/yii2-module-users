@@ -15,6 +15,43 @@ class User extends \yii\web\User
     use ModuleTrait;
 
     /**
+     * @inheritdoc
+     */
+    public function afterLogin($identity, $cookieBased, $duration)
+    {
+        parent::afterLogin($identity, $cookieBased, $duration);
+
+        // обновляем время авторизации и статус online
+        if ($identity && $identity instanceof \common\modules\users\models\User) {
+            $identity->time_activity = time();
+            $identity->online = 1;
+            $identity->save(false);
+        }
+
+        // Авторизация с поддомена по кукам
+        if (Yii::$app->id == 'app-backend') {
+            //TODO: проверить права доступа
+            // echo 'Авторизация с поддомена по кукам';
+            // die();
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterLogout($identity)
+    {
+        parent::afterLogout($identity);
+
+        // обновляем время авторизации и статус online
+        if ($identity && $identity instanceof \common\modules\users\models\User) {
+            $identity->time_activity = time();
+            $identity->online = 0;
+            $identity->save(false);
+        }
+    }
+
+    /**
      * Записать действие пользователя в историю
      * @param $userId
      * @param $module

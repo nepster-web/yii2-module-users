@@ -22,19 +22,19 @@ class Module extends \yii\base\Module
         parent::init();
 
         /**
-         * Роль пользователя по умолчанию
+         * Группа пользователя по умолчанию
          */
-        $this->params['defaultRole'] = 'user';
+        $this->params['defaultGroup'] = 'user';
 
         /**
          * Доступ ролей в панель управления
          */
-        $this->params['accessRoleToControlpanel'] = ['admin'];
+        $this->params['accessGroupsToControlpanel'] = ['admin'];
 
         /**
          * Кол-во попыток неправильной авторизации
          */
-        $this->params['amountAttemptsAuth'] = 5;
+        $this->params['amountAttemptsAuth'] = 10;
 
         /**
          * Интервал времени на которое будет заблокирован пользователь
@@ -45,6 +45,11 @@ class Module extends \yii\base\Module
          * Интервал времени на который блокировать пользователя
          */
         $this->params['intervalAuthBan'] = 900; // 15 минут
+
+        /**
+         * Интервал времени бездействия, после которого считается, что пользователь покинул сайт
+         */
+        $this->params['intervalInactivityForOnline'] = 600; // 10 минут
 
         /**
          * Обязательное подтверждение почтового адреса после регистрации

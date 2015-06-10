@@ -31,7 +31,7 @@ class Profile extends ActiveRecord
                 'class' => 'yii\behaviors\TimestampBehavior',
                 //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',
                 ],
             ],
         ];
@@ -48,8 +48,8 @@ class Profile extends ActiveRecord
             'whau' => Yii::t('users', 'WHAU'),
             'avatar_url' => Yii::t('users', 'AVATAR_URL'),
             'birthday' => Yii::t('users', 'BIRTHDAY'),
-            'create_time' => Yii::t('users', 'CREATE_TIME'),
-            'update_time' => Yii::t('users', 'UPDATE_TIME'),
+            'time_create' => Yii::t('users', 'TIME_CREATE'),
+            'time_update' => Yii::t('users', 'TIME_UPDATE'),
         ];
     }
 

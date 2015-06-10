@@ -29,9 +29,8 @@ class LegalPerson extends ActiveRecord
         return [
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
-                //'value' => function () { return date("Y-m-d H:i:s"); },
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update_time',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',
                 ],
             ],
         ];
