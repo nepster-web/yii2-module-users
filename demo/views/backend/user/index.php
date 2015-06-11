@@ -5,6 +5,7 @@
  * @var $searchModel common\modules\users\models\backend\UserSearch
  * @var $dataProvider yii\data\ActiveDataProvider
  */
+
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -34,6 +35,7 @@ $actions = '
             <option value="rebanned">' . Yii::t('users', 'ACTION_REBANNED') . '</option>
             <option value="banned">' . Yii::t('users', 'ACTION_BANNED') . '</option>
             <option value="deleted">' . Yii::t('users', 'ACTION_DELETED') . '</option>
+            <option value="recover">' . Yii::t('users', 'ACTION_RECOVER') . '</option>
         </select>
         <button class="btn btn-primary">OK</button>
     </div>';

@@ -5,7 +5,7 @@ use yii\db\Migration;
 use yii\db\Schema;
 
 /**
- * Таблица сессий
+ * Сессии
  */
 class m140418_204057_users_session extends Migration
 {

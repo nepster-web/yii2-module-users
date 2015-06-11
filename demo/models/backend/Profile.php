@@ -16,8 +16,8 @@ class Profile extends \nepster\users\models\Profile
     public function scenarios()
     {
         return [
-            'create' => ['name', 'surname', 'birthday', 'whau'],
-            'update' => ['name', 'surname', 'birthday', 'whau'],
+            'create' => ['name', 'surname', 'birthday', 'whau', 'legal_person'],
+            'update' => ['name', 'surname', 'birthday', 'whau', 'legal_person'],
         ];
     }
 
@@ -39,6 +39,9 @@ class Profile extends \nepster\users\models\Profile
             // Birthday
             ['birthday', 'string'],
             ['birthday', 'date', 'format' => 'php:Y-m-d'],
+
+            // Legal Person
+            ['legal_person', 'boolean'],
         ];
     }
 }

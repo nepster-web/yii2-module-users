@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class ActivationForm
+ * Модель LegalPerson осуществляет работу с данными юридических лиц
  */
 class LegalPerson extends ActiveRecord
 {

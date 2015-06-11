@@ -99,10 +99,11 @@ class ActionSearch extends Action
             ],
         ]);
 
-        $dataProvider->sort->attributes['user'] = [
-            'asc' => [self::tableName() . '.id' => SORT_ASC],
-            'desc' => [self::tableName() . '.id' => SORT_DESC],
+        $dataProvider->sort->attributes['username'] = [
+            'asc' => [self::tableName() . '.user_id' => SORT_ASC],
+            'desc' => [self::tableName() . '.user_id' => SORT_DESC],
         ];
+
 
         $this->load($params);
 

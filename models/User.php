@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class User
+ * Модель User осуществляет работу с пользователями
  */
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -61,11 +61,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return [
             'id' => Yii::t('users', 'ID'),
             'username' => Yii::t('users', 'USERNAME'),
-            'group' => Yii::t('users', 'ROLE'),
+            'group' => Yii::t('users', 'GROUP'),
             'status' => Yii::t('users', 'STATUS'),
+            'banned' => Yii::t('users', 'BANNED'),
             'email' => Yii::t('users', 'EMAIL'),
             'phone' => Yii::t('users', 'PHONE'),
-            'mail_verify' => Yii::t('users', 'MAIL_VERIFY'),
+            'email_verify' => Yii::t('users', 'EMAIL_VERIFY'),
             'phone_verify' => Yii::t('users', 'PHONE_VERIFY'),
             'password' => Yii::t('users', 'PASSWORD'),
             'auth_key' => Yii::t('users', 'AUTH_KEY'),

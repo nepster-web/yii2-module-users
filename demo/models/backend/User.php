@@ -46,6 +46,7 @@ class User extends \common\modules\users\models\User
             ['email', 'email'],
             ['email', 'unique', 'targetAttribute' => 'email'],
 
+            ['group', 'in', 'range' => array_keys(\nepster\users\rbac\models\AuthItem::getGroupsArray())],
             ['status', 'in', 'range' => array_keys(self::getStatusArray())],
 
             ['password', 'required', 'on' => 'create'],
@@ -68,14 +69,6 @@ class User extends \common\modules\users\models\User
             return true;
         }
         return true;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
     }
 
     /**

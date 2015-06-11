@@ -1,11 +1,10 @@
 <?php
 
-use nepster\users\helpers\Security;
 use yii\db\Migration;
 use yii\db\Schema;
 
 /**
- * Добавление дополнительных полей
+ * Юридическое лицо
  */
 class m140418_204056_users_legal_person extends Migration
 {
@@ -19,6 +18,9 @@ class m140418_204056_users_legal_person extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
+
+        // Добавить колонку legal_person, указатель на юридическое лицо
+        $this->addColumn('{{%users_profile}}', 'legal_person', Schema::TYPE_SMALLINT . ' NOT NULL AFTER `birthday` DEFAULT 0');
 
         // Данные юридических лиц
         $this->createTable('{{%users_legal_person}}', [
@@ -40,6 +42,7 @@ class m140418_204056_users_legal_person extends Migration
      */
     public function safeDown()
     {
+        $this->execute('ALTER TABLE {{%users_profile}} DROP `legal_person`');
         $this->dropTable('{{%users_legal_person}}');
     }
 }

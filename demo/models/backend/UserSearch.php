@@ -55,7 +55,7 @@ class UserSearch extends User
         $labels = parent::attributeLabels();
 
         return array_merge($labels, [
-            'username' => Yii::t('users', 'USER'),
+            'user' => Yii::t('users', 'USER'),
             'contacts' => Yii::t('users', 'CONTACTS'),
             'date_from' => Yii::t('users', 'DATE_FROM'),
             'date_to' => Yii::t('users', 'DATE_TO'),

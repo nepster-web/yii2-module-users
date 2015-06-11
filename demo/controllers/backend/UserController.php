@@ -180,11 +180,48 @@ class UserController extends Controller
      */
     public function actionMultiControl()
     {
-        //TODO: Массовое управление
-        echo '<pre>';
-        print_r(Yii::$app->request->post('action'));
-        print_r(Yii::$app->request->post('selection'));
-        echo '</pre>';
+        $users = models\User::findIdentities(Yii::$app->request->post('selection'));
+
+        if ($users) {
+
+            switch (Yii::$app->request->post('action')) {
+
+                case 'rebanned': // Разблокировать
+                    foreach ($users as $user) {
+                        $user->banned = 0;
+                        $user->save(false);
+                    }
+                    break;
+
+                case 'banned': // Заблокировать
+                    foreach ($users as $user) {
+                        $user->banned = 1;
+                        $user->save(false);
+                    }
+                    break;
+
+                case 'deleted': // Удалить
+                    foreach ($users as $user) {
+                        $user->status = models\User::STATUS_DELETED;
+                        $user->save(false);
+                    }
+                    break;
+
+                case 'recover': // Восстановить
+                    foreach ($users as $user) {
+                        $user->status = models\User::STATUS_ACTIVE;
+                        $user->save(false);
+                    }
+                    break;
+            }
+
+        } else {
+
+            Yii::$app->session->setFlash('danger', Yii::t('users', 'Не выбран ни один пользователь'));
+
+        }
+
+        return $this->redirect(['index']);
     }
 
     /**

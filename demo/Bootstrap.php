@@ -18,7 +18,7 @@ class Bootstrap implements \yii\base\BootstrapInterface
             'sourceLanguage' => 'en-US',
             'basePath' => '@common/modules/users/messages',
             'fileMap' => [
-                // path you files
+                'users.rbac' => 'rbac.php',
             ],
         ];
 

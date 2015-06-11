@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class Profile
+ * Модель Profile осуществляет работу с профилями
  */
 class Profile extends ActiveRecord
 {
@@ -48,7 +48,7 @@ class Profile extends ActiveRecord
             'whau' => Yii::t('users', 'WHAU'),
             'avatar_url' => Yii::t('users', 'AVATAR_URL'),
             'birthday' => Yii::t('users', 'BIRTHDAY'),
-            'time_create' => Yii::t('users', 'TIME_CREATE'),
+            'legal_person' => Yii::t('users', 'LEGAL_PERSON'),
             'time_update' => Yii::t('users', 'TIME_UPDATE'),
         ];
     }
@@ -59,5 +59,17 @@ class Profile extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id'])->inverseOf('profile');
+    }
+
+    /**
+     * Поиск профиля по идентификатору пользователя
+     * @param $id
+     * @return array|null|ActiveRecord
+     */
+    public static function findByUserId($id)
+    {
+        return self::find()
+            ->where('user_id = :user_id', [':user_id' => $id])
+            ->one();
     }
 }

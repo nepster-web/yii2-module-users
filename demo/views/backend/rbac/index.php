@@ -5,11 +5,12 @@
  * @var $searchModel common\modules\users\models\backend\RbacSearch
  * @var $dataProvider yii\data\ActiveDataProvider
  */
+
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
-$this->title = Yii::t('users', 'USER_RBAC');
+$this->title = Yii::t('users.rbac', 'GROUPS');
 ?>
 
 <?php if (Yii::$app->session->hasFlash('danger')): ?>
@@ -25,7 +26,7 @@ $this->title = Yii::t('users', 'USER_RBAC');
 <?php endif; ?>
 
 
-<?php echo Html::a(Yii::t('users', 'GROUP_CREATE'), ['create'], ['class' => 'btn btn-primary']); ?>
+<?php echo Html::a(Yii::t('users.rbac', 'GROUP_CREATE'), ['create'], ['class' => 'btn btn-primary']); ?>
 
     <p><br/></p>
 

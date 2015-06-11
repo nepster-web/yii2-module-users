@@ -5,7 +5,7 @@ namespace common\modules\users\models;
 use Yii;
 
 /**
- * Class LegalPerson
+ * @inheritdoc
  */
 class LegalPerson extends \nepster\users\models\LegalPerson
 {

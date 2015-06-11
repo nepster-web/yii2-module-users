@@ -18,14 +18,6 @@ class Action extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return '{{%users_actions}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -35,6 +27,28 @@ class Action extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'time_create',
                 ],
             ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%users_actions}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'application' => Yii::t('users', 'APPLICATION'),
+            'module' => Yii::t('users', 'MODULE'),
+            'action' => Yii::t('users', 'ACTION'),
+            'ip' => Yii::t('users', 'IP'),
+            'time_create' => Yii::t('users', 'TIME_CREATE'),
         ];
     }
 

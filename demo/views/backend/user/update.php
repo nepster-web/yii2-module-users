@@ -6,8 +6,10 @@
  * @var $profile common\modules\users\models\Profile
  * @var $person common\modules\users\models\LegalPerson
  */
+
 use yii\helpers\Html;
-$this->title = '---';
+
+$this->title = Yii::t('users', 'USER_UPDATE');
 ?>
 
 <?php if (Yii::$app->session->hasFlash('danger')): ?>
