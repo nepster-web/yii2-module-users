@@ -29,8 +29,6 @@ class m140418_204054_users extends Migration
             'phone' => Schema::TYPE_STRING . ' NULL DEFAULT NULL COMMENT "Главный телефон"',
             'email_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация почты"',
             'phone_verify' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Верификация телефона"',
-            'online' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Сайчас на сайте"',
-            'banned' => Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 COMMENT "Заблокирован"',
             'password' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Пароль в зашифрованном виде"',
             'auth_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен авторизации"',
             'api_key' => Schema::TYPE_STRING . ' NOT NULL COMMENT "Секретный токен для api"',

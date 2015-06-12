@@ -20,7 +20,7 @@ class m140418_204056_users_legal_person extends Migration
         }
 
         // Добавить колонку legal_person, указатель на юридическое лицо
-        $this->addColumn('{{%users_profile}}', 'legal_person', Schema::TYPE_SMALLINT . ' NOT NULL AFTER `birthday` DEFAULT 0');
+        $this->addColumn('{{%users_profile}}', 'legal_person', Schema::TYPE_SMALLINT . ' NOT NULL DEFAULT 0 AFTER `birthday`');
 
         // Данные юридических лиц
         $this->createTable('{{%users_legal_person}}', [

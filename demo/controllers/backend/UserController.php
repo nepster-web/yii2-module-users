@@ -62,7 +62,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new models\backend\UserSearch();
+        $searchModel = new models\backend\search\UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -161,7 +161,8 @@ class UserController extends Controller
      * Удалить пользователя
      * Если пользователь будет удален, то сработает редирект на index
      * @param integer $id
-     * @return mixed
+     * @return Response
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
@@ -177,6 +178,7 @@ class UserController extends Controller
 
     /**
      *
+     * @return Response
      */
     public function actionMultiControl()
     {
@@ -213,7 +215,14 @@ class UserController extends Controller
                         $user->save(false);
                     }
                     break;
+
+                default:
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'Выбрано неправильное действие'));
+                    return $this->redirect(['index']);
             }
+
+
+            Yii::$app->session->setFlash('success', Yii::t('users', 'Действия выполнены'));
 
         } else {
 
@@ -222,21 +231,6 @@ class UserController extends Controller
         }
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Действия пользователей
-     * @return mixed
-     */
-    public function actionActions()
-    {
-        $searchModel = new models\backend\ActionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('actions', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\users\models\backend;
+namespace common\modules\users\models\backend\search;
 
 use yii\rbac\Item;
 use nepster\users\rbac\models\AuthItem;

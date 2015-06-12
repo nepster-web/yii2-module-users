@@ -51,7 +51,7 @@ class ActionController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new models\backend\ActionSearch();
+        $searchModel = new models\backend\search\ActionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

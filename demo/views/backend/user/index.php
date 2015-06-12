@@ -64,6 +64,16 @@ $actions = '
         echo Html::tag('p', 'Несуществующее правило', ['style' => 'color: red; font-weight: bold; color: green']);
     }
 
+
+    echo Html::tag('p', Html::tag('b', 'Ваша группа: ' . Yii::$app->user->identity->group));
+
+
+    echo '<h3>Текущий пользователь:</h3>';
+
+    echo Yii::$app->user->identity->isOnline() ? Html::tag('b', 'Онлайн', ['style' => 'color: green']) : Html::tag('b', 'Офлайн', ['style' => 'color: red']);
+    echo " &nbsp; ";
+    echo Yii::$app->user->identity->isBanned() ? Html::tag('b', 'Забанен', ['style' => 'color: red']) : Html::tag('b', 'Не забанен', ['style' => 'color: green']);
+
 ?>
 
 
@@ -169,8 +179,8 @@ echo GridView::widget([
             'class' => 'yii\grid\ActionColumn',
             'template' => "{update} &nbsp; {delete}",
             'contentOptions' => ['class' => 'text-center'],
-            'header' => 'Управление',
-        ]
+            'header' => Yii::t('users', 'CONTROL'),
+        ],
     ],
 
 ]);

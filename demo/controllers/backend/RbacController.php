@@ -52,7 +52,7 @@ class RbacController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new models\backend\RbacSearch();
+        $searchModel = new models\backend\search\RbacSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -126,6 +126,24 @@ class RbacController extends Controller
     }
 
     /**
+     * Удалить группу
+     * Если группа будет удалена, то сработает редирект на index
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->delete()) {
+            Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_DELETE'));
+        } else {
+            Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_DELETE'));
+        }
+        return $this->redirect(['index']);
+    }
+
+    /**
      * Находит модель пользователя на основе значения первичного ключа.
      * Если модель не найдена, будет сгенерировано исключение HTTP 404.
      * @param integer $id
@@ -138,6 +156,6 @@ class RbacController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('users', 'ROLE_NOT_FOUND'));
+        throw new NotFoundHttpException(Yii::t('users.rbac', 'GROUP_NOT_FOUND'));
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-namespace common\modules\users\models\backend;
+namespace common\modules\users\models\backend\search;
 
 use common\modules\users\models\backend\Profile;
+use common\modules\users\models\backend\User;
 use yii\data\ActiveDataProvider;
 use yii\base\Model;
 use Yii;

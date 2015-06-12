@@ -56,11 +56,10 @@ class User extends \nepster\users\models\User
             [['phone', 'email', 'password', 'repassword'], 'trim'],
 
             [['phone', 'email'], 'unique'],
-
-            ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users', 'SIMPLE_PASSWORD')],
-            ['repassword', 'compare', 'compareAttribute' => 'password'],
-
             ['email', 'email'],
+
+            ['password', '\nepster\users\validators\PasswordValidator'],
+            ['repassword', 'compare', 'compareAttribute' => 'password'],
         ];
     }
 
@@ -91,16 +90,6 @@ class User extends \nepster\users\models\User
         parent::afterSave($insert, $changedAttributes);
 
         if ($insert) {
-            // Сохраняем профиль
-            $this->profile->user_id = $this->id;
-            $this->profile->save(false);
-
-            // Сохраняем данные юридического лица
-            $this->person->user_id = $this->id;
-            $this->person->save(false);
-        }
-
-        if ($this->scenario == 'update') {
             // Сохраняем профиль
             $this->profile->user_id = $this->id;
             $this->profile->save(false);

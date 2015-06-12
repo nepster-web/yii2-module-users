@@ -46,79 +46,6 @@ class ControlController extends \yii\console\Controller
     }
 
 
-
-    /**
-     *
-     */
-    public function actionCron()
-    {
-
-
-
-    }
-
-
-
-    /**
-     *
-     */
-    public function actionRbac()
-    {
-        $auth = Yii::$app->authManager;
-
-        // Создание пользователей
-        $userCreate = $auth->createPermission('user-create');
-        $userCreate->description = 'PERMISSION_USER_CREATE';
-        $auth->add($userCreate);
-
-        // Редактирование пользователей
-        $userUpdate = $auth->createPermission('user-update');
-        $userUpdate->description = 'PARAM_USER_UPDATE';
-        $auth->add($userUpdate);
-
-        // Просмотр пользователей
-        $userView = $auth->createPermission('user-view');
-        $userView->description = 'PARAM_USER_VIEW';
-        $auth->add($userView);
-
-        // Удаление пользователей
-        $userDelete = $auth->createPermission('user-delete');
-        $userDelete->description = 'PERMISSION_USER_DELETE';
-        $auth->add($userDelete);
-
-        // Добавляем роль "admin"
-        $admin = $auth->createRole('admin');
-        $auth->add($admin);
-
-        $auth->addChild($admin, $userCreate);
-        $auth->addChild($admin, $userUpdate);
-        $auth->addChild($admin, $userView);
-        $auth->addChild($admin, $userDelete);
-
-        // Назначение ролей пользователям. 1 и 2 это IDs возвращаемые IdentityInterface::getId()
-        // обычно реализуемый в модели User.
-        $auth->assign($admin, 1);
-
-
-
-
-
-        $rule = new \nepster\users\rbac\rules\UserGroupRule;
-        $auth->add($rule);
-
-        /*$author = $auth->createRole('author');
-        $author->ruleName = $rule->name;
-        $auth->add($author);*/
-
-        /*
-        $admin = $auth->createRole('admin');
-        $admin->ruleName = $rule->name;
-        $auth->add($admin);
-        $auth->addChild($admin, $author);*/
-    }
-
-
-
     /**
      * Send mail
      */
@@ -140,5 +67,99 @@ class ControlController extends \yii\console\Controller
 
         $this->stdout("ERROR" . PHP_EOL, Console::FG_RED);
         Yii::getLogger()->log('ERROR: E-MAIL: ' . $this->_user['email'] . ', view: ' . $view, Logger::LEVEL_ERROR, 'users.send');
+    }
+
+
+    /**
+     * Import access rules
+     */
+    public function actionRbac()
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $auth = Yii::$app->authManager;
+
+            // ГРУППЫ
+            # ---------------------------------------------------
+            // Группа "admin"
+            $admin = $auth->createRole('admin');
+            $admin->description = 'ADMINISTRATOR';
+            $auth->add($admin);
+
+            // Группа "user"
+            $user = $auth->createRole('user');
+            $admin->description = 'USER';
+            $auth->add($user);
+
+
+            // РАЗРЕШЕНИЯ
+            # ---------------------------------------------------
+            // Создание пользователей
+            $userCreate = $auth->createPermission('user-create');
+            $userCreate->description = 'PERMISSION_USER_CREATE';
+            $auth->add($userCreate);
+
+            // Редактирование пользователей
+            $userUpdate = $auth->createPermission('user-update');
+            $userUpdate->description = 'PERMISSION_USER_UPDATE';
+            $auth->add($userUpdate);
+
+            // Просмотр пользователей
+            $userView = $auth->createPermission('user-view');
+            $userView->description = 'PERMISSION_USER_VIEW';
+            $auth->add($userView);
+
+            // Удаление пользователей
+            $userDelete = $auth->createPermission('user-delete');
+            $userDelete->description = 'PERMISSION_USER_DELETE';
+            $auth->add($userDelete);
+
+            // Блокировка пользователей
+            $userBanned = $auth->createPermission('user-banned');
+            $userBanned->description = 'PERMISSION_USER_BANNED';
+            $auth->add($userBanned);
+
+            // Массовое управление пользователями
+            $userMultiControl = $auth->createPermission('user-multi-control');
+            $userMultiControl->description = 'PERMISSION_USER_MULTI_CONTROL';
+            $auth->add($userMultiControl);
+
+            // Просмотр действий пользователей
+            $userActionsView = $auth->createPermission('user-actions-view');
+            $userActionsView->description = 'PERMISSION_USER_ACTIONS_VIEW';
+            $auth->add($userActionsView);
+
+            // Управление правами доступа
+            $userAccessRulesControl = $auth->createPermission('user-access-rules-control');
+            $userAccessRulesControl->description = 'PERMISSION_USER_ACCESS_RULES_CONTROL';
+            $auth->add($userAccessRulesControl);
+
+
+            // ПРАВА ДОСТУПА
+            # ---------------------------------------------------
+            // Администратор
+            $auth->addChild($admin, $userCreate);
+            $auth->addChild($admin, $userUpdate);
+            $auth->addChild($admin, $userView);
+            $auth->addChild($admin, $userDelete);
+            $auth->addChild($admin, $userBanned);
+            $auth->addChild($admin, $userMultiControl);
+            $auth->addChild($admin, $userActionsView);
+            $auth->addChild($admin, $userAccessRulesControl);
+
+
+            // НАЗНАЧЕНИЕ ГРУПП
+            # ---------------------------------------------------
+            $auth->assign($admin, 1);
+
+
+            $transaction->commit();
+            $this->stdout('Import access rules success', Console::FG_GREEN, Console::UNDERLINE);
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            $this->stdout('Import access rules error', Console::FG_RED, Console::UNDERLINE);
+        }
     }
 }

@@ -10,11 +10,6 @@ use Yii;
 class Module extends \yii\base\Module
 {
     /**
-     * @var bool Импортировать
-     */
-    public $importSettingsInFile = '@common/modules/users/config.php';
-
-    /**
      * @inheritdoc
      */
     public function init()
@@ -90,6 +85,5 @@ class Module extends \yii\base\Module
          * Адрес папки на сайте с аватарками пользователей
          */
         $this->params['avatarUrl'] = '/statics/users/avatars';
-
     }
 }

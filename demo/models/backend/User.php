@@ -2,7 +2,6 @@
 
 namespace common\modules\users\models\backend;
 
-use yii\db\ActiveRecord;
 use Yii;
 
 /**
@@ -43,15 +42,15 @@ class User extends \common\modules\users\models\User
 
             [['phone_verify', 'mail_verify'], 'boolean'],
 
+            [['phone', 'email'], 'unique'],
             ['email', 'email'],
-            ['email', 'unique', 'targetAttribute' => 'email'],
 
             ['group', 'in', 'range' => array_keys(\nepster\users\rbac\models\AuthItem::getGroupsArray())],
             ['status', 'in', 'range' => array_keys(self::getStatusArray())],
 
             ['password', 'required', 'on' => 'create'],
             ['password', 'trim'],
-            ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users', 'SIMPLE_PASSWORD')],
+            ['password', '\nepster\users\validators\PasswordValidator'],
         ];
     }
 
@@ -69,6 +68,24 @@ class User extends \common\modules\users\models\User
             return true;
         }
         return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $this->setGroup($this->group);
+
+        if ($this->scenario == 'update') {
+            // Сохраняем профиль
+            $this->profile->save(false);
+
+            // Сохраняем данные юридического лица
+            $this->person->save(false);
+        }
     }
 
     /**

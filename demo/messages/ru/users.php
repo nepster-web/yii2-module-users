@@ -3,16 +3,22 @@
 return [
     'APPLICATION' => 'Приложение',
     'MODULE' => 'Модуль',
-    'ACTION' => 'Действие',
-    'ACTIONS' => 'Действия',
     'USER_CREATE' => 'Создать пользователя',
     'USER_UPDATE' => 'Редактировать пользователя',
     'USER_ALL' => 'Все пользователи',
+    'DATE_FROM' => 'Дата от',
+    'DATE_TO' => 'Дата до',
+
+
+
+    'ACTION' => 'Действие',
+    'ACTIONS' => 'Действия',
     'ACTION_REBANNED' => 'Разблокировать',
     'ACTION_BANNED' => 'Заблокировать',
     'ACTION_DELETED' => 'Удалить',
-    'DATE_FROM' => 'Дата от',
-    'DATE_TO' => 'Дата до',
+    'ACTION_RECOVER' => 'Восстановить',
+
+
 
     'USER' => 'Пользователь',
     'CONTACTS' => 'Контакты',

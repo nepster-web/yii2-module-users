@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\users\models\backend;
+namespace common\modules\users\models\backend\search;
 
 use nepster\users\models\Action;
 use yii\data\ActiveDataProvider;

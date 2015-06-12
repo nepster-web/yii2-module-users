@@ -5,8 +5,8 @@ namespace nepster\users\models;
 use nepster\users\traits\ModuleTrait;
 use nepster\users\helpers\Security;
 use yii\base\InvalidParamException;
-use yii\web\User as WebUser;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 use Yii;
 
 /**
@@ -17,10 +17,23 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     use ModuleTrait;
 
     const STATUS_INACTIVE = 0;
-
     const STATUS_ACTIVE = 1;
-
     const STATUS_DELETED = 2;
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'time_register',
+                ],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -36,21 +49,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public static function find()
     {
         return new UserQuery(get_called_class());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'time_register',
-                ],
-            ],
-        ];
     }
 
     /**
@@ -173,7 +171,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * Поиск пользователей IDs.
      *
-     * @param $ids Users IDs
+     * @param $ids User IDs
      * @param null $scope Scope
      *
      * @return array|\yii\db\ActiveRecord[] Users
@@ -393,12 +391,33 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * Изменить пароль пользователя
      *
-     * @return boolean true if password was successfully changed
+     * @return boolean
      */
     public function password($password)
     {
         $this->setPassword($password);
         return $this->save(false);
+    }
+
+    /**
+     * Изменить группу пользователя
+     *
+     * @param $newGroup
+     * @return boolean
+     */
+    public function setGroup($newGroup)
+    {
+        $auth = Yii::$app->authManager;
+
+        $groups = $auth->getRolesByUser($this->id);
+        foreach ($groups as $group) {
+            $auth->revoke($group, $this->id);
+        }
+
+        $group = $auth->getRole($newGroup);
+        $result = $auth->assign($group, $this->id);
+
+        return $result;
     }
 
     /**
@@ -408,6 +427,16 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function isOnline()
     {
-        return ((time() - $this->time_activity) >= $this->module->params['intervalInactivityForOnline']);
+        return ((time() - $this->time_activity) <= $this->module->params['intervalInactivityForOnline']);
+    }
+
+    /**
+     * Статус Banned текущего пользователя
+     *
+     * @return bool
+     */
+    public function isBanned()
+    {
+        return false;
     }
 }

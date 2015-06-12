@@ -1,13 +1,14 @@
 <?php
 /**
- * Создать Права доступа
+ * Создать группу
  * @var yii\base\View $this Представление
- * @var $user common\modules\users\models\backend\---
+ * @var $model nepster\users\rbac\models\AuthItem
  */
+
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-$this->title = Yii::t('users', 'RBAC_CREATE');
+$this->title = Yii::t('users', 'GROUP_CREATE');
 ?>
 
 <?php if (Yii::$app->session->hasFlash('danger')): ?>

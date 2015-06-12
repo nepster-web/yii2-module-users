@@ -1,7 +1,7 @@
 <?php
 /* Поиск пользователей */
 /* @var $this yii\web\View */
-/* @var $model common\modules\users\models\backend\UserSearch */
+/* @var $model common\modules\users\models\backend\search\UserSearch */
 
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;

@@ -1,4 +1,5 @@
 <?php
+
 namespace nepster\users\behaviors;
 
 use nepster\users\models\Action;

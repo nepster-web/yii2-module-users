@@ -1,6 +1,5 @@
 <?php
 
-use nepster\users\helpers\Security;
 use yii\db\Migration;
 use yii\db\Schema;
 
