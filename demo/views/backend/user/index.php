@@ -74,6 +74,28 @@ $actions = '
     echo " &nbsp; ";
     echo Yii::$app->user->identity->isBanned() ? Html::tag('b', 'Забанен', ['style' => 'color: red']) : Html::tag('b', 'Не забанен', ['style' => 'color: green']);
 
+
+
+
+
+
+echo '<hr><b>';
+    $user = \common\modules\users\models\backend\User::find()
+        ->where(\common\modules\users\models\backend\User::tableName().'.id = ' . Yii::$app->user->id)
+        ->banned(0)
+        ->one();
+
+    if ($user) {
+        echo 'Есть юзер';
+    } else {
+        echo 'Нет юзера';
+    }
+echo '</b><hr>';
+
+
+
+
+
 ?>
 
 
@@ -162,7 +184,7 @@ echo GridView::widget([
             'format' => 'html',
             'contentOptions' => ['class' => 'text-center'],
             'value' => function ($model) {
-                return ArrayHelper::getValue(Yii::$app->formatter->booleanFormat, $model->banned);
+                return ArrayHelper::getValue(Yii::$app->formatter->booleanFormat, (int)$model->isBanned());
             },
         ],
 

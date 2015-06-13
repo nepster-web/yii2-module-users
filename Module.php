@@ -22,6 +22,11 @@ class Module extends \yii\base\Module
         $this->params['defaultGroup'] = 'user';
 
         /**
+         * Группы по умолчанию (нельзя удалять и редактировать)
+         */
+        $this->params['defaultGroups'] = ['admin', 'user'];
+
+        /**
          * Доступ ролей в панель управления
          */
         $this->params['accessGroupsToControlpanel'] = ['admin'];
@@ -35,6 +40,11 @@ class Module extends \yii\base\Module
          * Интервал времени на которое будет заблокирован пользователь
          */
         $this->params['allowedTimeAttemptsAuth'] = 600; // 10 минут
+
+        /**
+         * Интервал времени на который блокировать пользователя по умолчанию
+         */
+        $this->params['intervalDefaultTimeBan'] = 31536000; // 365 дней
 
         /**
          * Интервал времени на который блокировать пользователя

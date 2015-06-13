@@ -22,9 +22,8 @@ class User extends \yii\web\User
         parent::afterLogin($identity, $cookieBased, $duration);
 
         // обновляем время авторизации и статус online
-        if ($identity && $identity instanceof \common\modules\users\models\User) {
+        if ($identity && $identity instanceof \nepster\users\models\User) {
             $identity->time_activity = time();
-            $identity->online = 1;
             $identity->save(false);
         }
 
@@ -44,9 +43,8 @@ class User extends \yii\web\User
         parent::afterLogout($identity);
 
         // обновляем время авторизации и статус online
-        if ($identity && $identity instanceof \common\modules\users\models\User) {
+        if ($identity && $identity instanceof \nepster\users\models\User) {
             $identity->time_activity = time();
-            $identity->online = 0;
             $identity->save(false);
         }
     }
@@ -92,7 +90,7 @@ class User extends \yii\web\User
      * @param null $reason
      * @return mixed
      */
-    public function bannedByUser($userId, $time, $reason = null)
+    public function bannedByUser($userId, $time = null, $reason = null)
     {
         return Banned::saveRecordByUser($userId, $time, $reason);
     }
@@ -107,6 +105,26 @@ class User extends \yii\web\User
     public function bannedByIp($ip_network, $time, $reason = null)
     {
         return Banned::saveRecordByIp($ip_network, $time, $reason);
+    }
+
+    /**
+     * Разблокировать аккаунт пользователя
+     * @param $userId
+     * @return bool
+     */
+    public function reBannedByUser($userId)
+    {
+        return Banned::reBannedByUser($userId);
+    }
+
+    /**
+     * Разблокировать ip адрес
+     * @param $ip
+     * @return bool
+     */
+    public function reBannedByIp($ip)
+    {
+        return Banned::reBannedByUser($ip);
     }
 
     /**

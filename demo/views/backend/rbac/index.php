@@ -52,7 +52,7 @@ echo GridView::widget([
             'format' => 'html',
             'contentOptions' => ['class' => 'text-left'],
             'value' => function ($model) {
-                return $model->description;
+                return Yii::t('users.rbac', $model->description);
             }
         ],
 
@@ -60,7 +60,7 @@ echo GridView::widget([
             'class' => 'yii\grid\ActionColumn',
             'template' => "{update} &nbsp; {delete}",
             'contentOptions' => ['class' => 'text-center'],
-            'header' => 'Управление',
+            'header' => Yii::t('users', 'CONTROL'),
         ]
     ],
 

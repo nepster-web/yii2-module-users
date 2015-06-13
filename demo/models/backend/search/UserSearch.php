@@ -34,6 +34,16 @@ class UserSearch extends User
     public $date_to;
 
     /**
+     * @var bool
+     */
+    public $banned;
+
+    /**
+     * @var bool
+     */
+    public $online;
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -90,7 +100,8 @@ class UserSearch extends User
     {
         $query = self::find()
             ->joinWith([
-                'profile'
+                'profile',
+                'banned'
             ]);
 
         $dataProvider = new ActiveDataProvider([
@@ -115,6 +126,11 @@ class UserSearch extends User
             'desc' => [self::tableName() . '.email' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['banned'] = [
+            'asc' => ['banned' => SORT_ASC],
+            'desc' => ['banned' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -122,33 +138,43 @@ class UserSearch extends User
             return $dataProvider;
         }
 
+
         $query->andFilterWhere([
             self::tableName() . '.id' => $this->id,
             'status' => $this->status,
             'group' => $this->group,
-            'banned' => $this->banned,
         ]);
 
-        if (!$this->status) {
+        // Поиск по имени и фамилии
+        if (!empty($this->user)) {
+            $query->andWhere('name LIKE :name OR surname LIKE :surname', [':name' => '%' . $this->user . '%', ':surname' => '%' . $this->user . '%']);
+        }
+
+        // Поиск по контактам
+        if (!empty($this->contacts)) {
+            $query->andWhere('phone LIKE :phone OR email LIKE :email', [':phone' => '%' . $this->contacts . '%', ':email' => '%' . $this->contacts . '%']);
+        }
+
+        // Если статус не указан, по умолчанию не показываем удаленных пользователей
+        if (!isset($this->status)) {
             $query->andWhere('status != :status', [':status' => $this::STATUS_DELETED]);
         }
 
+
+        if (isset($this->banned)) {
+            $query->banned($this->banned);
+        }
+
+        // Поиск по дате регистрации, от
         if (!empty($this->date_from)) {
             $dateFrom = strtotime($this->date_from);
             $query->andWhere('time_register >= :date_from', [':date_from' => $dateFrom]);
         }
 
+        // Поиск по дате регистрации, до
         if (!empty($this->date_to)) {
             $dateTo = strtotime($this->date_to) + 86400; // Минимальный диапазон выборки 24 часа
             $query->andWhere('time_register <= :date_to', [':date_to' => $dateTo]);
-        }
-
-        if (!empty($this->user)) {
-            $query->andWhere('name LIKE :name OR surname LIKE :surname', [':name' => '%' . $this->user . '%', ':surname' => '%' . $this->user . '%']);
-        }
-
-        if (!empty($this->contacts)) {
-            $query->andWhere('phone LIKE :phone OR email LIKE :email', [':phone' => '%' . $this->contacts . '%', ':email' => '%' . $this->contacts . '%']);
         }
 
         return $dataProvider;

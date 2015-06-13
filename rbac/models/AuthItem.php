@@ -122,6 +122,12 @@ class AuthItem extends ActiveRecord
     public static function getGroupsArray()
     {
         $groups = Yii::$app->authManager->getRoles();
-        return ArrayHelper::map($groups, 'name', 'description');
+        $result = [];
+        if (is_array($groups)) {
+            foreach ($groups as $group) {
+                $result[$group->name] = Yii::t('users.rbac', $group->description);
+            }
+        }
+        return $result;
     }
 }

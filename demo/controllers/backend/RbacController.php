@@ -134,8 +134,7 @@ class RbacController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->delete()) {
+        if (!in_array($model->name, $this->module->params['defaultGroups']) && $model->delete()) {
             Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_DELETE'));
         } else {
             Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_DELETE'));

@@ -1,4 +1,5 @@
 <?php
+
 namespace nepster\users\models;
 
 use nepster\users\traits\ModuleTrait;
@@ -15,7 +16,7 @@ class UserQuery extends ActiveQuery
      * @param int $state
      * @return $this
      */
-    public function mailVerified($state = 1)
+    public function emailVerified($state = 1)
     {
         $this->andWhere([User::tableName() . '.email_verify' => $state]);
         return $this;
@@ -35,8 +36,11 @@ class UserQuery extends ActiveQuery
      * @param int $state
      * @return $this
      */
-    public function status($state = User::STATUS_ACTIVE)
+    public function status($state = null)
     {
+        if (!$state) {
+            $state = User::STATUS_ACTIVE;
+        }
         $this->andWhere([User::tableName() . '.status' => $state]);
         return $this;
     }
@@ -47,7 +51,34 @@ class UserQuery extends ActiveQuery
      */
     public function banned($state = 1)
     {
-        $this->andWhere([User::tableName() . '.banned' => $state]);
+        $time = time();
+
+        $this->joinWith([
+            'banned' => function($query) use ($state, $time) {
+                if ($state) {
+                    $query->andWhere('time_banned >= :time', [':time' => $time]);
+                } else {
+                    $query->andWhere('time_banned < :time OR time_banned IS NULL', [':time' => $time]);
+                }
+            }
+        ]);
+        return $this;
+    }
+
+    /**
+     * @param int $state
+     * @return $this
+     */
+    public function online($state = 1)
+    {
+        $time = time() - $this->module->params['intervalInactivityForOnline'];
+
+        if ($state) {
+            $this->andWhere(User::tableName() . '.time_activity >= :time', [':time' => $time]);
+        } else {
+            $this->andWhere(User::tableName() . '.time_activity < :time', [':time' => $time]);
+        }
+
         return $this;
     }
 

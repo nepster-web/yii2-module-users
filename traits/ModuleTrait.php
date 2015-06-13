@@ -16,21 +16,21 @@ trait ModuleTrait
     /**
      * @var \nepster\users\Module|null Module instance
      */
-    private $_module;
+    private static $_module;
 
     /**
      * @return Module|null|\yii\base\Module
      */
-    public function getModule()
+    public static function getModule()
     {
-        if ($this->_module === null) {
+        if (self::$_module === null) {
             $module = Module::getInstance();
             if ($module instanceof Module) {
-                $this->_module = $module;
+                self::$_module = $module;
             } else {
-                $this->_module = Yii::$app->getModule('users');
+                self::$_module = Yii::$app->getModule('users');
             }
         }
-        return $this->_module;
+        return self::$_module;
     }
 }

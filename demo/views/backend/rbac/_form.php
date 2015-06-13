@@ -25,7 +25,7 @@ use yii\rbac\Item;
             <?php echo $field->begin(); ?>
             <?php
                 echo Html::activeCheckbox($model, 'permissions[' . $id . ']', [
-                    'label' => Yii::t('users', $permission->description),
+                    'label' => Yii::t('users.rbac', $permission->description),
                     'class' => 'pull-left',
                 ]);
             ?>
@@ -37,3 +37,12 @@ use yii\rbac\Item;
 <?php echo Html::submitButton(Yii::t('users', 'SEND'), ['class' => 'btn btn-success']); ?>
 
 <?php ActiveForm::end(); ?>
+
+
+
+<?php
+
+$this->registerCss('
+    label b {margin-left: 5px;}
+    label p {font-weight: normal; margin-left: 20px;}
+');

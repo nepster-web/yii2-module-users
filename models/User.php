@@ -139,7 +139,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * Блокировки пользователя
      * @return \yii\db\ActiveQuery
      */
-    public function getBanneds()
+    public function getBanned()
     {
         return $this->hasMany(Banned::className(), ['user_id' => 'id']);
     }
@@ -437,6 +437,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function isBanned()
     {
+        if (Banned::isBannedByUser($this->id)) {
+            return true;
+        }
+
         return false;
     }
 }

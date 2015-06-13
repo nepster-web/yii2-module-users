@@ -49,7 +49,6 @@ class Banned extends ActiveRecord
         $banned = self::find()
             ->where('time_banned > :time', [':time' => time()])
             ->andWhere('user_id = :user_id', [':user_id' => $userId])
-            ->asArray()
             ->one();
 
         if ($banned) {
@@ -73,15 +72,14 @@ class Banned extends ActiveRecord
      *
      * (IP & IP_MASK) = IP_NETWORK
      *
-     * @param $userIp
+     * @param $ip
      * @return array|bool|null|ActiveRecord
      */
-    public static function isBannedByIp($userIp)
+    public static function isBannedByIp($ip)
     {
         $banned = self::find()
             ->where('time_banned > :time', [':time' => time()])
-            ->andWhere('(:ip & ip_mask) = ip_network', [':ip' => ip2long($userIp)])
-            ->asArray()
+            ->andWhere('(:ip & ip_mask) = ip_network', [':ip' => ip2long($ip)])
             ->one();
 
         if ($banned) {
@@ -98,7 +96,7 @@ class Banned extends ActiveRecord
      * @param null $reason
      * @return bool
      */
-    public static function saveRecordByUser($userId, $time, $reason = null)
+    public static function saveRecordByUser($userId, $time = null, $reason = null)
     {
         return self::saveRecord($userId, null, $time, $reason);
     }
@@ -110,7 +108,7 @@ class Banned extends ActiveRecord
      * @param null $reason
      * @return bool
      */
-    public static function saveRecordByIp($ip_network, $time, $reason = null)
+    public static function saveRecordByIp($ip_network, $time = null, $reason = null)
     {
         //TODO правильно сгенерировать маску для блокировки подсетей
         $ip_mask = '255.255.255.255';
@@ -121,7 +119,50 @@ class Banned extends ActiveRecord
     }
 
     /**
+     * Разблокировать пользователя
+     * Для истории запись о блокировке сохраняется, но при этом меняется дата
+     * истечения бана на текущую.
+     * @param $userId
+     * @return bool
+     */
+    public static function reBannedByUser($userId)
+    {
+        if ($banned = self::isBannedByUser($userId)) {
+            $banned->time_banned = time();
+            return $banned->save(false);
+        }
+
+        return true;
+    }
+
+    /**
+     * Разблокировать ip адрес
+     * IP адрес может быть заблокирован 2 способами:
+     *  - на прямую
+     *  - под фильтром блокировки подсети
+     * Поэтому в данном методе проверяем блокировку ip
+     * на прямую, чтобы не разблокировать всю подсеть
+     * @param $ip
+     * @return bool
+     */
+    public static function reBannedByIp($ip)
+    {
+        $banned = self::find()
+            ->where('time_banned > :time', [':time' => time()])
+            ->andWhere('ip = :ip', [':ip' => ip2long($ip)])
+            ->one();
+
+        if ($banned) {
+            $banned->time_banned = time();
+            return $banned->save(false);
+        }
+
+        return true;
+    }
+
+    /**
      * Сохранить запись о блокировке пользователя
+     *
      * @param $userId
      * @param $ip
      * @param $time
@@ -131,26 +172,37 @@ class Banned extends ActiveRecord
      * @return bool
      * @throws \yii\db\Exception
      */
-    protected static function saveRecord($userId, $ip, $time, $reason = null, $ip_network = null, $ip_mask = null)
+    protected static function saveRecord($userId, $ip, $time = null, $reason = null, $ip_network = null, $ip_mask = null)
     {
         $transaction = self::getDb()->beginTransaction();
 
         try {
-            $model = new self;
-            $model->user_id = $userId;
-            $model->ip = ip2long($ip);
-            $model->time_banned = $time;
-            $model->reason = $reason;
-            $model->ip_network = ip2long($ip_network);
-            $model->ip_mask = ip2long($ip_mask);
+            // Проверяем информацию о блокировке
+            $oldBannedInfo = self::find()
+                ->where('user_id = :user_id OR ip = :ip', [':user_id' => $userId, ':ip' => $ip])
+                ->andWhere('time_banned >= :time', [':time' => time()])
+                ->orderBy(['time_banned' => SORT_DESC])
+                ->one();
+
+            if ($oldBannedInfo) {
+                $model = $oldBannedInfo;
+                $model->reason = $reason;
+            } else {
+                $model = new self;
+                $model->user_id = $userId;
+                $model->ip = $ip ? ip2long($ip) : null;
+                $model->reason = $reason;
+                $model->ip_network = ip2long($ip_network);
+                $model->ip_mask = ip2long($ip_mask);
+            }
+
+            $model->time_banned = $time ? $time : time() + self::getModule()->params['intervalDefaultTimeBan'];
             $model->save(false);
 
             $transaction->commit();
             return true;
 
         } catch (\Exception $e) {
-
-            echo $e->getMessage();
             $transaction->rollBack();
             return false;
         }

@@ -177,7 +177,7 @@ class UserController extends Controller
     }
 
     /**
-     *
+     * Массовое управление пользователями
      * @return Response
      */
     public function actionMultiControl()
@@ -190,15 +190,13 @@ class UserController extends Controller
 
                 case 'rebanned': // Разблокировать
                     foreach ($users as $user) {
-                        $user->banned = 0;
-                        $user->save(false);
+                        Yii::$app->user->reBannedByUser($user->id);
                     }
                     break;
 
                 case 'banned': // Заблокировать
                     foreach ($users as $user) {
-                        $user->banned = 1;
-                        $user->save(false);
+                        Yii::$app->user->bannedByUser($user->id);
                     }
                     break;
 
@@ -217,16 +215,16 @@ class UserController extends Controller
                     break;
 
                 default:
-                    Yii::$app->session->setFlash('success', Yii::t('users', 'Выбрано неправильное действие'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'ACTION_INCORRECT'));
                     return $this->redirect(['index']);
             }
 
 
-            Yii::$app->session->setFlash('success', Yii::t('users', 'Действия выполнены'));
+            Yii::$app->session->setFlash('success', Yii::t('users', 'ACTIONS_MADE'));
 
         } else {
 
-            Yii::$app->session->setFlash('danger', Yii::t('users', 'Не выбран ни один пользователь'));
+            Yii::$app->session->setFlash('danger', Yii::t('users', 'NO_SET_USERS'));
 
         }
 

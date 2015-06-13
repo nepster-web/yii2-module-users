@@ -89,7 +89,7 @@ class ControlController extends \yii\console\Controller
 
             // Группа "user"
             $user = $auth->createRole('user');
-            $admin->description = 'USER';
+            $user->description = 'USER';
             $auth->add($user);
 
 
