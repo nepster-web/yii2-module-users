@@ -115,7 +115,6 @@ class Action extends ActiveRecord
             $query->andWhere('action = :action', [':action' => $action]);
         }
 
-
         if ($interval) {
             $query->andWhere('time_create >= :time', [':time' => time() - $interval]);
         }

@@ -40,8 +40,8 @@ class ResendForm extends \yii\base\Model
             ['email', 'email'],
             ['email', 'exist', 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                        $query->mailUnverified();
-                    }
+                    $query->mailUnverified();
+                }
             ]
         ];
     }
@@ -55,20 +55,20 @@ class ResendForm extends \yii\base\Model
             'email' => Yii::t('users', 'EMAIL'),
             'phone' => Yii::t('users', 'PHONE'),
         ];
-    }   
-    
+    }
+
     /**
      * @return false OR \nepster\users\models\User
      */
     public function resend()
     {
         $this->_user = User::findByEmail($this->email, 'inactive');
-        
+
         if ($this->_user !== null) {
             $this->_user->generateSecureKey();
-            if($this->_user->save(false)) {
+            if ($this->_user->save(false)) {
                 return $this->_user;
-            }            
+            }
         }
         return false;
     }

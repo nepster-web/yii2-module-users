@@ -38,7 +38,7 @@ class LoginForm extends \yii\base\Model
     public function scenarios()
     {
         return [
-            'user'  => ['username', 'password', 'rememberMe'],
+            'user' => ['username', 'password', 'rememberMe'],
             'admin' => ['username', 'password', 'rememberMe']
         ];
     }
@@ -78,7 +78,7 @@ class LoginForm extends \yii\base\Model
             $this->addError('username', '');
             $this->addError($attribute, Yii::t('users', 'INVALID_USERNAME_OR_PASSWORD'));
         }
-        
+
         if ($this->_user && !$this->_user->status) {
             $this->addError($attribute, Yii::t('users', 'MUST_ACTIVATE_ACCOUNT'));
         }

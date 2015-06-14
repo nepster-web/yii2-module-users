@@ -50,8 +50,8 @@ class RecoveryConfirmationForm extends \yii\base\Model
                 'exist',
                 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                        $query->active();
-                    }
+                    $query->active();
+                }
             ]
         ];
     }
@@ -88,5 +88,5 @@ class RecoveryConfirmationForm extends \yii\base\Model
             return $model->recovery($this->password);
         }
         return false;
-    }    
+    }
 }

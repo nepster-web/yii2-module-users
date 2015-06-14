@@ -29,12 +29,12 @@ class ActivationForm extends \yii\base\Model
             ['secure_key', 'string', 'max' => 53],
             ['secure_key', 'exist', 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                        $query->mailUnverified();
-                    }
+                    $query->mailUnverified();
+                }
             ]
         ];
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -56,5 +56,5 @@ class ActivationForm extends \yii\base\Model
         }
         return false;
     }
-    
+
 }

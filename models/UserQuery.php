@@ -54,7 +54,7 @@ class UserQuery extends ActiveQuery
         $time = time();
 
         $this->joinWith([
-            'banned' => function($query) use ($state, $time) {
+            'banned' => function ($query) use ($state, $time) {
                 if ($state) {
                     $query->andWhere('time_banned >= :time', [':time' => $time]);
                 } else {

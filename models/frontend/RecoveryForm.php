@@ -37,8 +37,8 @@ class RecoveryForm extends \yii\base\Model
                 'exist',
                 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                        $query->active();
-                    }
+                    $query->active();
+                }
             ]
         ];
     }
@@ -52,7 +52,7 @@ class RecoveryForm extends \yii\base\Model
             'email' => Yii::t('users', 'EMAIL')
         ];
     }
-    
+
     /**
      * @return false OR \nepster\users\models\User
      */
@@ -62,9 +62,9 @@ class RecoveryForm extends \yii\base\Model
 
         if ($this->_user !== null) {
             $this->_user->generateSecureKey();
-            if($this->_user->save(false)) {
+            if ($this->_user->save(false)) {
                 return $this->_user;
-            }            
+            }
         }
         return false;
     }

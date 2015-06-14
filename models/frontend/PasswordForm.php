@@ -95,5 +95,5 @@ class PasswordForm extends \yii\base\Model
         }
         return $this->_user;
     }
-    
+
 }
