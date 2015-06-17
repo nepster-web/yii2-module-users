@@ -41,7 +41,7 @@ class ControlController extends \yii\console\Controller
         if ($this->_user) {
             $this->sendMail($view, $subject);
         } else {
-            Yii::getLogger()->log('ERROR: send fail. DATA: ' . $userId . ', ' . $view. ', '  . $subject, Logger::LEVEL_ERROR, 'users.send');
+            Yii::getLogger()->log('ERROR: send fail. DATA: ' . $userId . ', ' . $view . ', ' . $subject, Logger::LEVEL_ERROR, 'users.send');
         }
     }
 

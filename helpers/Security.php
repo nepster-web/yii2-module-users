@@ -11,7 +11,7 @@ class Security
 {
     /**
      * Генерирует случайный секретный ключ с временным суффиксом
-     * @return string Random key
+     * @return string
      */
     public static function generateExpiringRandomString()
     {
@@ -23,12 +23,12 @@ class Security
      *
      * @param string $token
      * @param integer $duration
-     * @return boolean true если токен не исчек
+     * @return boolean
      */
     public static function isValidToken($token, $duration)
     {
         $parts = explode('_', $token);
-        $timestamp = (int) end($parts);
+        $timestamp = (int)end($parts);
         return ($timestamp + $duration > time());
     }
 }
