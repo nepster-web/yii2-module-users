@@ -1,6 +1,6 @@
 # Модуль пользователей для Yii2
 
-[![Latest Stable Version](https://poser.pugx.org/nepster-web/yii2-module-users/v/stable)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Total Downloads](https://poser.pugx.org/nepster-web/yii2-module-users/downloads)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Latest Unstable Version](https://poser.pugx.org/nepster-web/yii2-module-users/v/unstable)](https://packagist.org/packages/nepster-web/yii2-module-users) [![License](https://poser.pugx.org/nepster-web/yii2-module-users/license)](https://packagist.org/packages/nepster-web/yii2-module-users)[![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+[![Latest Stable Version](https://poser.pugx.org/nepster-web/yii2-module-users/v/stable)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Total Downloads](https://poser.pugx.org/nepster-web/yii2-module-users/downloads)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Latest Unstable Version](https://poser.pugx.org/nepster-web/yii2-module-users/v/unstable)](https://packagist.org/packages/nepster-web/yii2-module-users) [![License](https://poser.pugx.org/nepster-web/yii2-module-users/license)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
 > **NOTE:** Модуль находится в стадии разработки. **Не рекомендуется к использованию в боевом проекте**
 
