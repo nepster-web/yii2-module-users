@@ -2,6 +2,8 @@
 
 [![Latest Stable Version](https://poser.pugx.org/nepster-web/yii2-module-users/v/stable)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Total Downloads](https://poser.pugx.org/nepster-web/yii2-module-users/downloads)](https://packagist.org/packages/nepster-web/yii2-module-users) [![Latest Unstable Version](https://poser.pugx.org/nepster-web/yii2-module-users/v/unstable)](https://packagist.org/packages/nepster-web/yii2-module-users) [![License](https://poser.pugx.org/nepster-web/yii2-module-users/license)](https://packagist.org/packages/nepster-web/yii2-module-users)
 
+> **NOTE:** Модуль находится в стадии разработки. **Не рекомендуется к использованию в боевом проекте**
+
 
 Модуль обеспечивает простой и расширяемый функционал для работы с пользователями в приложении. 
 Поддерживает следующие возможности:
@@ -18,27 +20,24 @@
 **BACKEND**
     
 * Авторизация
-* Создание/Редактирование/Удаление пользователей
+* Управление пользователями
 * Фильтры поиска
+* Действия пользователей
 * Блокирование пользователей
-* Контроль действий
-* Права доступа (RBAC)
-* Создание/Редактирование/Удаление групп пользователей
 * Массовое управление
+* Права доступа (RBAC)
+* Управление группами пользователей
 
 **ОБЩЕЕ**
 
 * Конфигурация
 * Мультиязычность
-* Компонент фиксирующий действия пользователей
-* Блокировка пользователей
+* Контроль действий пользователей
+* Блокирование пользователей
 * Статус онлайн
 * Отправка EMAIL сообщений
 * Установка демонстрационных данных для быстрой работы
 * Гибкая настройка и расширяемость
-
-
-> **NOTE:** Модуль находится в стадии разработки.
 
 
 ## Установка
