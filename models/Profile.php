@@ -45,6 +45,7 @@ class Profile extends ActiveRecord
             'name' => Yii::t('users', 'NAME'),
             'surname' => Yii::t('users', 'SURNAME'),
             'whau' => Yii::t('users', 'WHAU'),
+            'about_me' => Yii::t('users', 'ABOUT_ME'),
             'avatar_url' => Yii::t('users', 'AVATAR_URL'),
             'birthday' => Yii::t('users', 'BIRTHDAY'),
             'legal_person' => Yii::t('users', 'LEGAL_PERSON'),

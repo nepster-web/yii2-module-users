@@ -1,13 +1,15 @@
 <?php
-/* @var $this yii\web\View */
-/* @var $user common\modules\users\models\backend\User */
-/* @var $profile common\modules\users\models\Profile */
-/* @var $person common\modules\users\models\LegalPerson */
+/**
+ * Форма пользователя
+ * @var $this yii\web\View
+ * @var $user common\modules\users\models\backend\User
+ * @var $profile common\modules\users\models\Profile
+ * @var $person common\modules\users\models\LegalPerson
+ */
 
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-
 ?>
 
 <?php $form = ActiveForm::begin(); ?>

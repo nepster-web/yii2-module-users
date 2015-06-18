@@ -2,7 +2,7 @@
 /**
  * Группы пользователей
  * @var yii\base\View $this Представление
- * @var $searchModel common\modules\users\models\backend\RbacSearch
+ * @var $searchModel common\modules\users\models\backend\search\RbacSearch
  * @var $dataProvider yii\data\ActiveDataProvider
  */
 
@@ -25,10 +25,11 @@ $this->title = Yii::t('users.rbac', 'GROUPS');
     </div>
 <?php endif; ?>
 
+<p><br/></p>
 
 <?php echo Html::a(Yii::t('users.rbac', 'GROUP_CREATE'), ['create'], ['class' => 'btn btn-primary']); ?>
 
-    <p><br/></p>
+<p><br/></p>
 
 <?php
 echo GridView::widget([

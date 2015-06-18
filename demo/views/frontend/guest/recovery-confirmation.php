@@ -1,9 +1,10 @@
 <?php
-/*
-    Изменить пароль
-    @var \yii\web\View this
-    @var \frontend\users\models\RecoveryConfirmationForm $model
-*/
+/**
+ * Изменить пароль
+ * @var \yii\web\View this
+ * @var \common\modules\users\models\frontend\RecoveryConfirmationForm $model
+ */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>

@@ -5,7 +5,7 @@ namespace common\modules\users\models;
 use Yii;
 
 /**
- * Class Profile
+ * @inheritdoc
  */
 class Profile extends \nepster\users\models\Profile
 {

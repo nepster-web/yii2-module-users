@@ -1,9 +1,10 @@
 <?php
-/*
-    Авторизация
-    @var \yii\web\View this
-    @var \common\modules\users\models\LoginForm $model
-*/
+/**
+ * Авторизация
+ * @var \yii\web\View this
+ * @var \common\modules\users\models\LoginForm $model
+ */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
@@ -31,12 +32,12 @@ $this->context->layout = '//min';
 <div class="row">
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'username') ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'rememberMe')->checkbox() ?>
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-        </div>
+            <?= $form->field($model, 'username') ?>
+            <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'rememberMe')->checkbox() ?>
+            <div class="form-group">
+                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>

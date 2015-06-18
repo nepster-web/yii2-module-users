@@ -2,9 +2,10 @@
 /**
  * Все действия пользователей
  * @var yii\base\View $this Представление
- * @var $searchModel common\modules\users\models\backend\ActionSearch
+ * @var $searchModel common\modules\users\models\backend\search\ActionSearch
  * @var $dataProvider yii\data\ActiveDataProvider
  */
+
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;

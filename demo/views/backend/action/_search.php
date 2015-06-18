@@ -1,7 +1,9 @@
 <?php
-/* Поиск действий пользователей */
-/* @var $this yii\web\View */
-/* @var $model common\modules\users\models\backend\ActionSearch */
+/**
+ * Поиск действий пользователей
+ * @var $this yii\web\View
+ * @var $model common\modules\users\models\backend\search\ActionSearch
+ */
 
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;

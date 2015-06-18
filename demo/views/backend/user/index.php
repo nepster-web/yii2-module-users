@@ -2,7 +2,7 @@
 /**
  * Все пользователи
  * @var yii\base\View $this Представление
- * @var $searchModel common\modules\users\models\backend\UserSearch
+ * @var $searchModel common\modules\users\models\backend\search\UserSearch
  * @var $dataProvider yii\data\ActiveDataProvider
  */
 

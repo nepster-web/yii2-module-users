@@ -8,7 +8,7 @@ use Yii;
 /**
  * @inheritdoc
  */
-class Profile extends \nepster\users\models\Profile
+class Profile extends \common\modules\users\models\Profile
 {
     /**
      * @inheritdoc
@@ -16,8 +16,8 @@ class Profile extends \nepster\users\models\Profile
     public function scenarios()
     {
         return [
-            'create' => ['name', 'surname', 'birthday', 'whau', 'legal_person'],
-            'update' => ['name', 'surname', 'birthday', 'whau', 'legal_person'],
+            'create' => ['name', 'surname', 'birthday', 'whau', 'about_me', 'legal_person'],
+            'update' => ['name', 'surname', 'birthday', 'whau', 'about_me', 'legal_person'],
         ];
     }
 
@@ -39,6 +39,9 @@ class Profile extends \nepster\users\models\Profile
             // Birthday
             ['birthday', 'string'],
             ['birthday', 'date', 'format' => 'php:Y-m-d'],
+
+            // About Me
+            ['about_me', 'string'],
 
             // Legal Person
             ['legal_person', 'boolean'],

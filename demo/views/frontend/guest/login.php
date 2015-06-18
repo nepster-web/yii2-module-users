@@ -1,9 +1,10 @@
 <?php
-/*
-    Авторизация
-    @var \yii\web\View this
-    @var \common\modules\users\models\LoginForm $model
-*/
+/**
+ * Авторизация
+ * @var \yii\web\View this
+ * @var \common\modules\users\models\LoginForm $model
+ */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>

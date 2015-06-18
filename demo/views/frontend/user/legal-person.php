@@ -1,9 +1,10 @@
 <?php
-/*
-    Данные юридического лица
-    @var \yii\web\View this
-    @var \common\modules\users\models\LegalPerson $model
+/**
+ * Данные юридического лица
+ * @var \yii\web\View this
+ * @var \common\modules\users\models\LegalPerson $model
 */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
@@ -29,20 +30,14 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
-
-
-        <?= $form->field($model, 'name')->textInput() ?>
-        <?= $form->field($model, 'address')->textInput() ?>
-        <?= $form->field($model, 'BIN')->textInput() ?>
-        <?= $form->field($model, 'bank')->textInput() ?>
-        <?= $form->field($model, 'account')->textInput() ?>
-
-
-
-
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-        </div>
+            <?= $form->field($model, 'name')->textInput() ?>
+            <?= $form->field($model, 'address')->textInput() ?>
+            <?= $form->field($model, 'BIN')->textInput() ?>
+            <?= $form->field($model, 'bank')->textInput() ?>
+            <?= $form->field($model, 'account')->textInput() ?>
+            <div class="form-group">
+                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>

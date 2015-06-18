@@ -1,9 +1,10 @@
 <?php
-/*
-    Повторный запрос ключа активации
-    @var \yii\web\View this
-    @var \frontend\users\models\ResendForm $model
-*/
+/**
+ * Повторный запрос ключа активации
+ * @var \yii\web\View this
+ * @var \common\modules\users\models\frontend\ResendForm $model
+ */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>

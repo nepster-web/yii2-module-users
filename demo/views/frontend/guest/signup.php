@@ -1,10 +1,11 @@
 <?php
-/*
-    Регистрация
-    @var \yii\web\View $this
-    @var \common\modules\users\models\User $user
-    @var \common\modules\users\models\Profile $profile
-*/
+/**
+ * Регистрация
+ * @var \yii\web\View $this
+ * @var \common\modules\users\models\User $user
+ * @var \common\modules\users\models\Profile $profile
+ */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>

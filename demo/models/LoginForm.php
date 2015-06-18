@@ -5,7 +5,7 @@ namespace common\modules\users\models;
 use Yii;
 
 /**
- * Class LoginForm
+ * Форма авторизации
  */
 class LoginForm extends \nepster\users\models\LoginForm
 {

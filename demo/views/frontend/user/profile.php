@@ -1,9 +1,10 @@
 <?php
-/*
-    Профиль
-    @var \yii\web\View this
-    @var \frontend\users\models\Profile $model
-*/
+/**
+ * Профиль
+ * @var \yii\web\View this
+ * @var \common\modules\users\models\Profile $model
+ */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
@@ -29,12 +30,12 @@ use yii\helpers\Html;
 <div class="row">
     <div class="col-lg-5">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'name') ?>
-        <?= $form->field($model, 'surname') ?>
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-            &nbsp; <?= Html::a('Изменить пароль', ['/users/user/password']) ?>
-        </div>
+            <?= $form->field($model, 'name') ?>
+            <?= $form->field($model, 'surname') ?>
+            <div class="form-group">
+                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                &nbsp; <?= Html::a('Изменить пароль', ['/users/user/password']) ?>
+            </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>

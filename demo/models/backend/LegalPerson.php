@@ -8,7 +8,7 @@ use Yii;
 /**
  * @inheritdoc
  */
-class LegalPerson extends \nepster\users\models\LegalPerson
+class LegalPerson extends \common\modules\users\models\LegalPerson
 {
     /**
      * @inheritdoc
