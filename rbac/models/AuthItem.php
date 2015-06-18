@@ -8,7 +8,7 @@ use yii\rbac\Item;
 use yii;
 
 /**
- *
+ * Class AuthItem
  */
 class AuthItem extends ActiveRecord
 {
@@ -28,6 +28,17 @@ class AuthItem extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        return [
+            'name' => Yii::t('users', 'NAME'),
+            'description' => Yii::t('users', 'DESCRIPTION'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         return [
@@ -42,7 +53,10 @@ class AuthItem extends ActiveRecord
     public function rules()
     {
         return [
-            ['name', 'unique', 'targetAttribute' => 'name'],
+            ['name', 'required'],
+            ['name', 'unique'],
+            ['name', 'match', 'pattern' => '/^[a-z]+$/'],
+            ['description', 'required'],
             ['description', 'string'],
         ];
     }

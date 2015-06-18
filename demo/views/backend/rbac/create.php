@@ -8,7 +8,7 @@
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-$this->title = Yii::t('users', 'GROUP_CREATE');
+$this->title = Yii::t('users.rbac', 'GROUP_CREATE');
 ?>
 
 <?php if (Yii::$app->session->hasFlash('danger')): ?>

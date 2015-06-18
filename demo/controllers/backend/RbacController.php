@@ -26,8 +26,11 @@ class RbacController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@']
-                    ]
+                        'roles' => $this->module->params['accessGroupsToControlpanel'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->can('user-access-rules-control');
+                        }
+                    ],
                 ]
             ]
         ];
@@ -41,9 +44,8 @@ class RbacController extends Controller
         if (parent::beforeAction($action)) {
             $this->module->viewPath = '@common/modules/users/views/backend';
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -117,15 +119,6 @@ class RbacController extends Controller
     }
 
     /**
-     * Установить права доступа для пользователя
-     * @return mixed
-     */
-    public function actionToUser($id)
-    {
-        echo $id;
-    }
-
-    /**
      * Удалить группу
      * Если группа будет удалена, то сработает редирект на index
      * @param integer $id
@@ -134,11 +127,17 @@ class RbacController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if (!in_array($model->name, $this->module->params['defaultGroups']) && $model->delete()) {
-            Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_DELETE'));
+
+        if (!in_array($model->name, $this->module->params['defaultGroups'])) {
+            if ($model->delete()) {
+                Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_DELETE'));
+            } else {
+                Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_DELETE'));
+            }
         } else {
-            Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_DELETE'));
+            Yii::$app->session->setFlash('danger', Yii::t('users.rbac', 'RBAC_NOT_ALLOWED_DELETE'));
         }
+
         return $this->redirect(['index']);
     }
 
@@ -146,7 +145,7 @@ class RbacController extends Controller
      * Находит модель пользователя на основе значения первичного ключа.
      * Если модель не найдена, будет сгенерировано исключение HTTP 404.
      * @param integer $id
-     * @return models\User
+     * @return AuthItem
      * @throws NotFoundHttpException
      */
     protected function findModel($id)

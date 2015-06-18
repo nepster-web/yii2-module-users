@@ -16,7 +16,7 @@ class Bootstrap implements \yii\base\BootstrapInterface
         $app->i18n->translations['users*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
-            'basePath' => '@common/modules/users/messages',
+            'basePath' => '@nepster/users/messages',
             'fileMap' => [
                 'users.rbac' => 'rbac.php',
             ],

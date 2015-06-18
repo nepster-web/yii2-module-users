@@ -3,10 +3,11 @@
 namespace common\modules\users\controllers\backend;
 
 use common\modules\users\models as models;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\widgets\ActiveForm;
+use yii\web\ForbiddenHttpException;
+use yii\web\Controller;
 use yii\web\Response;
+use yii\widgets\ActiveForm;
 use Yii;
 
 /**
@@ -25,8 +26,8 @@ class ActionController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@']
-                    ]
+                        'roles' => $this->module->params['accessGroupsToControlpanel'],
+                    ],
                 ]
             ]
         ];
@@ -37,12 +38,15 @@ class ActionController extends Controller
      */
     public function beforeAction($action)
     {
+        if (!Yii::$app->user->can('user-actions-view')) {
+            throw new ForbiddenHttpException(Yii::t('users.rbac', 'ACCESS_DENIED'));
+        }
+
         if (parent::beforeAction($action)) {
             $this->module->viewPath = '@common/modules/users/views/backend';
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

@@ -27,82 +27,24 @@ $this->title = Yii::t('users', 'USER_ALL');
 
 
 <?php
-$actions = '
-    <div class="table-actions">
-        <label>' . Yii::t('users', 'ACTIONS') . ':</label>
-        <select name="action" class="form-control" style="display: inline-block; width: auto">
-            <option value=""></option>
-            <option value="rebanned">' . Yii::t('users', 'ACTION_REBANNED') . '</option>
-            <option value="banned">' . Yii::t('users', 'ACTION_BANNED') . '</option>
-            <option value="deleted">' . Yii::t('users', 'ACTION_DELETED') . '</option>
-            <option value="recover">' . Yii::t('users', 'ACTION_RECOVER') . '</option>
-        </select>
-        <button class="btn btn-primary">OK</button>
-    </div>';
+    $actions = '';
+
+    if (Yii::$app->user->can('user-multi-control')) {
+        $actions = '
+        <div class="table-actions">
+            <label>' . Yii::t('users', 'ACTIONS') . ':</label>
+            <select name="action" class="form-control" style="display: inline-block; width: auto">
+                <option value=""></option>
+                <option value="sendemail">' . Yii::t('users', 'ACTION_SENDEMAIL') . '</option>
+                <option value="rebanned">' . Yii::t('users', 'ACTION_REBANNED') . '</option>
+                <option value="banned">' . Yii::t('users', 'ACTION_BANNED') . '</option>
+                <option value="deleted">' . Yii::t('users', 'ACTION_DELETED') . '</option>
+                <option value="recover">' . Yii::t('users', 'ACTION_RECOVER') . '</option>
+            </select>
+            <button class="btn btn-primary">OK</button>
+        </div>';
+    }
 ?>
-
-
-<?php
-
-    if (Yii::$app->user->can('user-view')) {
-        echo Html::tag('p', 'Есть права на просмотр пользователя', ['style' => 'font-weight: bold; color: green']);
-    }
-
-    if (Yii::$app->user->can('user-create')) {
-        echo Html::tag('p', 'Есть права на создание пользователя', ['style' => 'font-weight: bold; color: green']);
-    }
-
-    if (Yii::$app->user->can('user-update')) {
-        echo Html::tag('p', 'Есть права на редактирование пользователя', ['style' => 'font-weight: bold; color: green']);
-    }
-
-    if (Yii::$app->user->can('user-delete')) {
-        echo Html::tag('p', 'Есть права на удаление пользователя', ['style' => 'font-weight: bold; color: green']);
-    }
-
-    if (Yii::$app->user->can('user-undefined')) {
-        echo Html::tag('p', 'Несуществующее правило', ['style' => 'color: red; font-weight: bold; color: green']);
-    }
-
-
-    echo Html::tag('p', Html::tag('b', 'Ваша группа: ' . Yii::$app->user->identity->group));
-
-
-    echo '<h3>Текущий пользователь:</h3>';
-
-    echo Yii::$app->user->identity->isOnline() ? Html::tag('b', 'Онлайн', ['style' => 'color: green']) : Html::tag('b', 'Офлайн', ['style' => 'color: red']);
-    echo " &nbsp; ";
-    echo Yii::$app->user->identity->isBanned() ? Html::tag('b', 'Забанен', ['style' => 'color: red']) : Html::tag('b', 'Не забанен', ['style' => 'color: green']);
-
-
-
-
-
-
-echo '<hr><b>';
-    $user = \common\modules\users\models\backend\User::find()
-        ->where(\common\modules\users\models\backend\User::tableName().'.id = ' . Yii::$app->user->id)
-        ->banned(0)
-        ->one();
-
-    if ($user) {
-        echo 'Есть юзер';
-    } else {
-        echo 'Нет юзера';
-    }
-echo '</b><hr>';
-
-
-
-
-
-?>
-
-
-
-
-
-
 
 <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 

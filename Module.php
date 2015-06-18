@@ -29,7 +29,7 @@ class Module extends \yii\base\Module
         /**
          * Доступ ролей в панель управления
          */
-        $this->params['accessGroupsToControlpanel'] = ['admin'];
+        $this->params['accessGroupsToControlpanel'] = ['admin', 'tester'];
 
         /**
          * Кол-во попыток неправильной авторизации
