@@ -9,7 +9,7 @@ use yii\helpers\Json;
 use Yii;
 
 /**
- * Class Action
+ * Действия пользователей
  */
 class Action extends ActiveRecord
 {

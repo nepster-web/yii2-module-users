@@ -27,7 +27,7 @@ class UserController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions'=>['logout'],
+                        'actions' => ['logout'],
                         'roles' => ['@'],
                     ],
                     [
@@ -85,7 +85,7 @@ class UserController extends Controller
      * Создать пользователя
      * Если пользователь будет создан, то сработает редирект на index
      * @return mixed
-     * @throws \yii\web\ForbiddenHttpException
+     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
@@ -128,7 +128,8 @@ class UserController extends Controller
      * Редактировать пользователя
      * @param integer $id
      * @return mixed
-     * @throws \yii\web\ForbiddenHttpException
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -150,6 +151,16 @@ class UserController extends Controller
         if ($user->person) {
             $person = $user->person;
             $person->scenario = 'update';
+        }
+
+        // Разблокировать пользователя
+        if (isset(Yii::$app->request->get()['rebanned'])) {
+            if (Yii::$app->user->reBannedByUser($user->id)) {
+                Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+            } else {
+                Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
+            }
+            return $this->redirect(['update', 'id' => $user->id]);
         }
 
         if (Yii::$app->request->isPost) {
@@ -188,8 +199,8 @@ class UserController extends Controller
      * Если пользователь будет удален, то сработает редирект на index
      * @param $id
      * @return Response
+     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
-     * @throws \yii\web\ForbiddenHttpException
      */
     public function actionDelete($id)
     {
@@ -218,7 +229,9 @@ class UserController extends Controller
             throw new ForbiddenHttpException(Yii::t('users.rbac', 'ACCESS_DENIED'));
         }
 
-        $users = models\User::findIdentities(Yii::$app->request->post('selection'));
+        $params = Yii::$app->request->post('selection');
+        $params = is_array($params) ? $params : [];
+        $users = models\User::findIdentities($params);
 
         if ($users) {
 
@@ -240,14 +253,18 @@ class UserController extends Controller
 
                 case 'banned': // Заблокировать
                     foreach ($users as $user) {
-                        Yii::$app->user->bannedByUser($user->id);
+                        if ($user->id != Yii::$app->user->id) {
+                            Yii::$app->user->bannedByUser($user->id);
+                        }
                     }
                     break;
 
                 case 'deleted': // Удалить
                     foreach ($users as $user) {
-                        $user->status = models\User::STATUS_DELETED;
-                        $user->save(false);
+                        if ($user->id != Yii::$app->user->id) {
+                            $user->status = models\User::STATUS_DELETED;
+                            $user->save(false);
+                        }
                     }
                     break;
 
@@ -263,6 +280,8 @@ class UserController extends Controller
                     return $this->redirect(['index']);
             }
 
+            Yii::$app->user->action(Yii::$app->user->id, $this->module->id, 'multi-control', [Yii::$app->request->post('action') => $params]);
+
             Yii::$app->session->setFlash('success', Yii::t('users', 'ACTIONS_MADE'));
 
         } else {
@@ -274,19 +293,57 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
-
-
+    /**
+     * Отправить сообщение пользователям
+     * @return mixed
+     * @throws ForbiddenHttpException
+     */
     public function actionSendEmail()
     {
-        /*if (!Yii::$app->user->can('user-send-email')) {
+        if (!Yii::$app->user->can('user-send-email')) {
             throw new ForbiddenHttpException(Yii::t('users.rbac', 'ACCESS_DENIED'));
-        }*/
+        }
 
         $users = models\User::findIdentities(Yii::$app->request->get('ids'));
-        $model = new models\SendEmail();
-
+        $model = new \nepster\users\models\SendEmail();
 
         return $this->render('send-email', [
+            'model' => $model,
+            'users' => $users,
+        ]);
+    }
+
+    /**
+     * Заблокировать пользователей
+     * @return mixed
+     * @throws ForbiddenHttpException
+     */
+    public function actionBanned()
+    {
+        if (!Yii::$app->user->can('user-banned')) {
+            throw new ForbiddenHttpException(Yii::t('users.rbac', 'ACCESS_DENIED'));
+        }
+
+        $users = models\User::findIdentities(Yii::$app->request->get('ids'));
+        $model = new \nepster\users\models\Banned();
+
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            if ($model->validate()) {
+                if ($model->bannedUsers($users)) {
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                    return $this->redirect(['index']);
+                } else {
+                    Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
+                }
+                return $this->refresh();
+            } else if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+        }
+
+        return $this->render('banned', [
             'model' => $model,
             'users' => $users,
         ]);

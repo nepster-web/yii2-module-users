@@ -26,10 +26,19 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function behaviors()
     {
         return [
-            'timestamp' => [
+            'TimestampBehavior' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'time_register',
+                ],
+            ],
+            'ActionBehavior' => [
+                'class' => 'nepster\users\behaviors\ActionBehavior',
+                'module' => $this->module->id,
+                'actions' => [
+                    ActiveRecord::EVENT_AFTER_INSERT => 'create-user',
+                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-user',
+                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-user',
                 ],
             ],
         ];
@@ -439,6 +448,20 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         if (Banned::isBannedByUser($this->id)) {
             return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Информация о блокировке пользователя
+     *
+     * @return array|bool
+     */
+    public function bannedInfo()
+    {
+        if ($banned = Banned::isBannedByUser($this->id)) {
+            return $banned;
         }
 
         return false;

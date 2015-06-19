@@ -2,7 +2,7 @@
 
 namespace nepster\users\rbac\models;
 
-use yii\helpers\ArrayHelper;
+use nepster\users\traits\ModuleTrait;
 use yii\db\ActiveRecord;
 use yii\rbac\Item;
 use yii;
@@ -12,10 +12,30 @@ use yii;
  */
 class AuthItem extends ActiveRecord
 {
+    use ModuleTrait;
+
     /**
      * @var array Список разрешений
      */
     public $permissions = [];
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'ActionBehavior' => [
+                'class' => 'nepster\users\behaviors\ActionBehavior',
+                'module' => $this->module->id,
+                'actions' => [
+                    ActiveRecord::EVENT_AFTER_INSERT => 'create-rbac',
+                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-rbac',
+                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-rbac',
+                ],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc

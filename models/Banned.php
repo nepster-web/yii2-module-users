@@ -8,11 +8,29 @@ use yii\db\ActiveRecord;
 use Yii;
 
 /**
- * Class Banned
+ * Блокировка пользователей
  */
 class Banned extends ActiveRecord
 {
     use ModuleTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'ActionBehavior' => [
+                'class' => 'nepster\users\behaviors\ActionBehavior',
+                'module' => $this->module->id,
+                'actions' => [
+                    ActiveRecord::EVENT_AFTER_INSERT => 'create-banned',
+                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-banned',
+                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-banned',
+                ],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -35,6 +53,59 @@ class Banned extends ActiveRecord
             'ip_network' => Yii::t('users', 'IP_NETWORK'),
             'ip_mask' => Yii::t('users', 'IP_MASK'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            // Время блокировки
+            ['time_banned', 'required'],
+            ['time_banned', 'validateTime'],
+
+            // Причина
+            ['reason', 'string'],
+            ['reason', 'trim'],
+        ];
+    }
+
+    /**
+     * Валидации времени до которого будет заблокирован пользователь
+     * @param $attribute
+     */
+    public function validateTime($attribute)
+    {
+        $DateValidator = new \yii\validators\DateValidator(['format' => 'php:Y-i-d']);
+        $DateTimeValidator = new \yii\validators\DateValidator(['format' => 'php:Y-m-d H:i:s']);
+
+        if (!$DateValidator->validate($this->time_banned) && !$DateTimeValidator->validate($this->time_banned) && !$DateTimeValidator->validate($this->time_banned . ':00')) {
+            $this->addError($attribute, 'Не правильная дата');
+        }
+    }
+
+    /**
+     * Заблокировать пользователей
+     * @param array $models
+     * @return int
+     */
+    public function bannedUsers(array $models)
+    {
+        $count = 0;
+
+        $reason = $this->reason;
+        $time = strtotime($this->time_banned);
+
+        foreach ($models as $model) {
+            if ($model instanceof User) {
+                if (Yii::$app->user->bannedByUser($model->id, $time, $reason)) {
+                    ++$count;
+                }
+            }
+        }
+
+        return $count;
     }
 
     /**
@@ -162,7 +233,6 @@ class Banned extends ActiveRecord
 
     /**
      * Сохранить запись о блокировке пользователя
-     *
      * @param $userId
      * @param $ip
      * @param $time
@@ -192,8 +262,8 @@ class Banned extends ActiveRecord
                 $model->user_id = $userId;
                 $model->ip = $ip ? ip2long($ip) : null;
                 $model->reason = $reason;
-                $model->ip_network = ip2long($ip_network);
-                $model->ip_mask = ip2long($ip_mask);
+                $model->ip_network = $ip_network ? ip2long($ip_network) : null;
+                $model->ip_mask = $ip_mask ? ip2long($ip_mask) : null;
             }
 
             $model->time_banned = $time ? $time : time() + self::getModule()->params['intervalDefaultTimeBan'];

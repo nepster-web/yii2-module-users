@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\users\models;
+namespace nepster\users\models;
 
 use Yii;
 

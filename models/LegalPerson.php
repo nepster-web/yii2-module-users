@@ -16,24 +16,33 @@ class LegalPerson extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return '{{%users_legal_person}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
-            'timestamp' => [
+            'ActionBehavior' => [
+                'class' => 'nepster\users\behaviors\ActionBehavior',
+                'module' => $this->module->id,
+                'actions' => [
+                    ActiveRecord::EVENT_AFTER_INSERT => 'create-legalperson',
+                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-legalperson',
+                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-legalperson',
+                ],
+            ],
+            'TimestampBehavior' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',
                 ],
             ],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%users_legal_person}}';
     }
 
     /**

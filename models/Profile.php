@@ -27,7 +27,16 @@ class Profile extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp' => [
+            'ActionBehavior' => [
+                'class' => 'nepster\users\behaviors\ActionBehavior',
+                'module' => $this->module->id,
+                'actions' => [
+                    ActiveRecord::EVENT_AFTER_INSERT => 'create-profile',
+                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-profile',
+                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-profile',
+                ],
+            ],
+            'TimestampBehavior' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'time_update',

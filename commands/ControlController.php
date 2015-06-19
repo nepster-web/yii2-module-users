@@ -155,11 +155,11 @@ class ControlController extends \yii\console\Controller
 
 
             $transaction->commit();
-            $this->stdout('Import access rules success', Console::FG_GREEN, Console::UNDERLINE);
+            $this->stdout('Import access rules success' . PHP_EOL, Console::FG_GREEN, Console::UNDERLINE);
 
         } catch (\Exception $e) {
             $transaction->rollBack();
-            $this->stdout('Import access rules error', Console::FG_RED, Console::UNDERLINE);
+            $this->stdout('Import access rules error' . PHP_EOL, Console::FG_RED, Console::UNDERLINE);
         }
     }
 }

@@ -1,15 +1,14 @@
 <?php
 /**
- * Отправить email сообщение пользователям
+ * Заблокировать пользователей
  * @var yii\base\View $this Представление
- * @var common\modules\users\models\SendEmail $model
  * @var array $users Выбранные пользователи
  */
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = Yii::t('users', 'USERS_SEND_EMAIL');
+$this->title = Yii::t('users', 'USERS_BANNED');
 ?>
 
 <?php if (Yii::$app->session->hasFlash('danger')): ?>
@@ -27,7 +26,7 @@ $this->title = Yii::t('users', 'USERS_SEND_EMAIL');
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <h6 class="heading-hr"><?= Yii::t('users', 'USERS_SEND_EMAIL') ?></h6>
+    <h6 class="heading-hr"><?= Yii::t('users', 'USERS_BANNED') ?></h6>
 
     <div class="row">
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4">
@@ -40,7 +39,11 @@ $this->title = Yii::t('users', 'USERS_SEND_EMAIL');
     <p><br/></p>
 
     <div class="row">
-        <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4"><?= $form->field($model, 'text')->textarea() ?></div>
+        <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4"><?= $form->field($model, 'time_banned') ?></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4"><?= $form->field($model, 'reason')->textarea() ?></div>
     </div>
 
     <p><br/></p>
