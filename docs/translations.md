@@ -3,7 +3,23 @@
 Текущий подуль поддерживает [i18n](https://github.com/yiisoft/yii2/blob/master/docs/guide-ru/tutorial-i18n.md), 
 файлы переводов находятся в директории vendor/nepster-web/yii2-module-users/messages.
 
-В методе переводов указывается константа, например: Yii::t('users', 'USER'), которая соответствует значению из файла:
+
+**Подключение происходит в файле Bootstrap.php:**
+
+```
+    // Register translations
+    $app->i18n->translations['users*'] = [
+        'class' => 'yii\i18n\PhpMessageSource',
+        'sourceLanguage' => 'en-US',
+        'basePath' => '@nepster/users/messages',
+        'fileMap' => [
+            'users.rbac' => 'rbac.php',
+        ],
+    ];
+```
+
+
+В методе translate (Yii::t) указывается константа, например: Yii::t('users', 'USER'), которой соответствует значение из файла:
 
 ```
 return [
@@ -13,6 +29,7 @@ return [
     ];
     
 ```
+
 
 Удобство состоит в том, что если Вам необходимо заменить текст перевода на свой, это можно легко 
 сделать переопределив перевод и при этом не меняя кода самого приложения, сделать это можно следующим образом:

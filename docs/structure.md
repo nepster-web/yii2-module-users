@@ -18,5 +18,5 @@ validators          - Валидаторы
 **Дополнительно**
 
 - [Список изменений CHANGELOG](../CHANGELOG.md)
-- [Лицензия CHANGELOG](../LICENSE.md)
-- [Справка CHANGELOG](../README.md)
+- [Лицензия LICENSE](../LICENSE.md)
+- [Справка README](../README.md)
