@@ -41,7 +41,9 @@ yii installer
 
 # Настройка
 
-После того как модуль успешно установлен, добавьте следующие настройки в консольное приложение:
+После того как модуль успешно установлен внесите соответствующую конфигурацию.
+
+**Сконфигурируйте консольное приложение:**
 
 ```
 'modules' => [
@@ -49,8 +51,8 @@ yii installer
     'users' => [
         'class' => 'common\modules\users\Module',
         'controllerMap' => [
-            'send' => [
-                'class' => 'nepster\users\commands\SendController',
+            'control' => [
+                'class' => 'nepster\users\commands\ControlController',
                 'mailViewPath' => '@common/modules/users/mails/',
             ]
         ],
@@ -59,7 +61,7 @@ yii installer
 ],
 ```
 
-Сконфигурируйте Ваше основное приложение:
+**Сконфигурируйте основное приложение:**
 
 ```
 'bootstrap' => [
