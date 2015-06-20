@@ -4,3 +4,16 @@
  * Доступные [демонстрационные данные](demo.md) могут быть изменены по Вашему желанию. 
  * Общая [структура](structure.md) модуля.
 
+
+
+
+## Установка в шаблон [advanced](https://github.com/yiisoft/yii2-app-advanced)
+
+...
+
+
+
+
+## Установка в шаблон [basic](https://github.com/yiisoft/yii2-app-basic)
+
+...
