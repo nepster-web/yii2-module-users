@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
-$this->title = Yii::t('users', 'USER_ACTIONS');
+$this->title = Yii::t('users', 'ACTIONS');
 ?>
 
 <?php echo $this->render('_search', ['model' => $searchModel]); ?>

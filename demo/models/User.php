@@ -130,7 +130,7 @@ class User extends \nepster\users\models\User
             self::STATUS_DELETED => Yii::t('users', 'STATUS_DELETED'),
         ];
 
-        if ($status) {
+        if ($status !== null) {
             return \yii\helpers\ArrayHelper::getValue($statuses, $status);
         }
 

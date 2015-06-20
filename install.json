@@ -5,8 +5,8 @@
     "@vendor/nepster-web/yii2-module-users/demo": "@app/modules/users"
   },
   "settings": {
-    "Module namespace": "app\\modules\\users",
-    "Path to module": "@app/modules/users",
+    "Module namespace": "common\\modules\\users",
+    "Path to module": "@common/modules/users",
     "Web controller": "yii\\web\\Controller"
   }
 }

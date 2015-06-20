@@ -22,6 +22,22 @@ class Bootstrap implements \yii\base\BootstrapInterface
             ],
         ];
 
+
+        /*
+            Переопределить файл переводов для категории users.rbac
+            if (\Yii::$app->language == 'ru') {
+                $app->i18n->translations['users.rbac'] = [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'ru-RU',
+                    'basePath' => '@common/modules/users/messages',
+                    'fileMap' => [
+                        'users.rbac' => 'rbac.php',
+                    ],
+                ];
+            }
+        */
+
+        
         // Add module URL rules.
         $app->urlManager->addRules([
                 'activation/<token>' => 'users/guest/activation',

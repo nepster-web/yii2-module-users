@@ -1,18 +1,18 @@
 <?php
 
 return [
-    'GROUPS' => 'Группы пользователей',
-    'GROUP_CREATE' => 'Создать группу',
-    'GROUP_UPDATE' => 'Редактировать группу',
-    'ROLE_NOT_FOUND' => 'Группа не найдена',
-    'RBAC' => 'Права доступа',
+    'GROUPS' => 'Users groups',
+    'GROUP_CREATE' => 'Group create',
+    'GROUP_UPDATE' => 'Group update',
+    'ROLE_NOT_FOUND' => 'Group not found',
+    'RBAC' => 'Permissions',
 
-    'ACCESS_DENIED' => 'Доступ запрещен',
+    'ACCESS_DENIED' => 'Access denied',
 
-    'USER' => 'Пользователь',
-    'ADMINISTRATOR' => 'Администратор',
+    'USER' => 'User',
+    'ADMINISTRATOR' => 'Admin',
 
-    'RBAC_NOT_ALLOWED_DELETE' => 'Невозможно удалить группу, так как она является системной.',
+    'RBAC_NOT_ALLOWED_DELETE' => 'You can not delete this group, because the related configuration',
 
     'PERMISSION_USER_UPDATE' => '<b>Разрешить редактировать данные пользователя</b><p>Разрешение на редактирование любых данных всех пользователей.</p>',
     'PERMISSION_USER_VIEW' => '<b>Разрешить просмотр данных пользователя</b><p>Разрешение на просмотр любых данных пользователя.</p>',

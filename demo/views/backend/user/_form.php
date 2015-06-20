@@ -59,7 +59,9 @@ use yii\helpers\Html;
 
     <h6 class="heading-hr"><?= Yii::t('users', 'USER') ?></h6>
     <div class="row">
-        <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4"><?= $form->field($user, 'group')->dropDownList(\nepster\users\rbac\models\AuthItem::getGroupsArray()) ?></div>
+        <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4"><?= $form->field($user, 'group')->dropDownList(\nepster\users\rbac\models\AuthItem::getGroupsArray(),  ['options' => [
+                    'user' => ['selected ' => true]
+                ]]) ?></div>
         <div class="col-md-3 col-md-4 col-sm-4 col-xs-6 col-lg-4"></div>
     </div>
     <div class="row">
