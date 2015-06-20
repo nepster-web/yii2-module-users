@@ -51,7 +51,7 @@ class GuestController extends Controller
     public function actionSignup()
     {
         $user = new models\User(['scenario' => 'signup']);
-        $profile = new models\Profile(['scenario' => 'signup']);
+        $profile = new models\Profile(['scenario' => 'create']);
 
         if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
             if ($user->validate() && $profile->validate()) {

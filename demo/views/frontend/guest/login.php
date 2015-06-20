@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
 
-<h3><i class="glyphicon glyphicon-user"></i>  <?=Yii::t('users', 'SIGNIN.TITLE')?></h3>
+<h3><?=Yii::t('users', 'SIGNIN.TITLE')?></h3>
 
 <br/>
 
@@ -34,7 +34,7 @@ use yii\helpers\Html;
         <?= $form->field($model, 'password', ['errorOptions' => ['class' => 'help-block', 'encode' => false]])->passwordInput() ?>
         <?= $form->field($model, 'rememberMe')->checkbox() ?>
         <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            <?= Html::submitButton(Yii::t('users', 'SEND'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
             &nbsp; <?= Html::a(Yii::t('users', 'SIGNUP.TITLE'), ['/users/guest/signup']) ?>
             &nbsp; <?= Html::a(Yii::t('users', 'RECOVERY.TITLE'), ['/users/guest/recovery']) ?>
         </div>

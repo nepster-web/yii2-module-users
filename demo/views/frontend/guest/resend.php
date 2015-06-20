@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
 
-<h3><i class="glyphicon glyphicon-user"></i> <?=Yii::t('users', 'RESEND.TITLE')?> </h3>
+<h3><?=Yii::t('users', 'RESEND.TITLE')?> </h3>
 
 <br/>
 
@@ -32,7 +32,7 @@ use yii\helpers\Html;
         <?php $form = ActiveForm::begin(); ?>
         <?= $form->field($model, 'email')->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
         <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            <?= Html::submitButton(Yii::t('users', 'SEND'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
             &nbsp; <?= Html::a(Yii::t('users', 'SIGNUP.TITLE'), ['/users/guest/signup']) ?>
             &nbsp; <?= Html::a(Yii::t('users', 'SIGNIN.TITLE'), ['/users/guest/login']) ?>
         </div>
