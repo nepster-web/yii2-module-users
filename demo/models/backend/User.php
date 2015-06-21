@@ -80,10 +80,14 @@ class User extends \common\modules\users\models\User
         $this->setGroup($this->group);
 
         if ($this->scenario == 'update') {
+
             // Сохраняем профиль
             $this->profile->save(false);
 
             // Сохраняем данные юридического лица
+            if (!$this->person->user_id) {
+                $this->person->user_id = $this->id;
+            }
             $this->person->save(false);
         }
     }
