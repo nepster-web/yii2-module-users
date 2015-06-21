@@ -36,7 +36,7 @@ php composer.phar require --prefer-dist nepster-web/yii2-module-users "dev-maste
 yii installer
 ```
 
-и следуйте дальнейшим инструкциям.
+и следуйте дальнейшим инструкциям. Если у Вас возникли вопросы или проблемы с установкой, перейдите в раздел **[быстрый старт](start.md)**.
 
 
 # Настройка
