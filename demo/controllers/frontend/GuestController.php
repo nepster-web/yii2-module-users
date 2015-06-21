@@ -57,7 +57,7 @@ class GuestController extends Controller
             if ($user->validate() && $profile->validate()) {
                 $user->populateRelation('profile', $profile);
                 if ($user->save(false)) {
-                    if ($this->module->params['requireEmailConfirmation'] === true) {
+                    if ($this->module->requireEmailConfirmation === true) {
                         Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
@@ -92,7 +92,7 @@ class GuestController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                if ($this->module->params['requireEmailConfirmation'] === true) {
+                if ($this->module->requireEmailConfirmation === true) {
                     if ($user = $model->resend()) {
                         Yii::$app->consoleRunner->run('users/send ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RESEND'));

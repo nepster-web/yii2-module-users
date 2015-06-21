@@ -106,12 +106,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
 
                 // Статус по умолчанию
                 if (!$this->status) {
-                    $this->status = $this->module->params['requireEmailConfirmation'] ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
+                    $this->status = $this->module->requireEmailConfirmation ? self::STATUS_INACTIVE : self::STATUS_ACTIVE;
                 }
 
                 // Роль по умолчанию
                 if (!$this->group) {
-                    $this->group = $this->module->params['defaultGroup'];
+                    $this->group = $this->module->defaultGroup;
                 }
 
                 // Генерация секретных токенов
@@ -436,7 +436,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function isOnline()
     {
-        return ((time() - $this->time_activity) <= $this->module->params['intervalInactivityForOnline']);
+        return ((time() - $this->time_activity) <= $this->module->intervalInactivityForOnline);
     }
 
     /**

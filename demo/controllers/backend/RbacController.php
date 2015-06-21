@@ -26,7 +26,7 @@ class RbacController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => $this->module->params['accessGroupsToControlpanel'],
+                        'roles' => $this->module->accessGroupsToControlpanel,
                         'matchCallback' => function ($rule, $action) {
                             return Yii::$app->user->can('user-access-rules-control');
                         }
@@ -128,7 +128,7 @@ class RbacController extends Controller
     {
         $model = $this->findModel($id);
 
-        if (!in_array($model->name, $this->module->params['defaultGroups'])) {
+        if (!in_array($model->name, $this->module->defaultGroups)) {
             if ($model->delete()) {
                 Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_DELETE'));
             } else {

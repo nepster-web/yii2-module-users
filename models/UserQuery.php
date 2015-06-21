@@ -71,7 +71,7 @@ class UserQuery extends ActiveQuery
      */
     public function online($state = 1)
     {
-        $time = time() - $this->module->params['intervalInactivityForOnline'];
+        $time = time() - $this->module->intervalInactivityForOnline;
 
         if ($state) {
             $this->andWhere(User::tableName() . '.time_activity >= :time', [':time' => $time]);
@@ -87,7 +87,7 @@ class UserQuery extends ActiveQuery
      */
     public function control()
     {
-        $this->andWhere([User::tableName() . '.group' => $this->module->params['accessGroupsToControlpanel']]);
+        $this->andWhere([User::tableName() . '.group' => $this->module->accessGroupsToControlpanel]);
         return $this;
     }
 }

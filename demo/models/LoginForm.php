@@ -82,7 +82,7 @@ class LoginForm extends \nepster\users\models\LoginForm
             // Дополнительные условия авторизации
             // Если условия не выполнены, необходимо заблокировать пользователя
             if (!Yii::$app->user->verifyAuthCondition($userId)) {
-                Yii::$app->user->bannedByIp(Yii::$app->request->userIP, time() + $this->module->params['allowedTimeAttemptsAuth'], null);
+                Yii::$app->user->bannedByIp(Yii::$app->request->userIP, time() + $this->module->allowedTimeAttemptsAuth, null);
             }
         }
     }

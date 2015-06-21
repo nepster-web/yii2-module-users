@@ -32,7 +32,7 @@ class UserController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'roles' => $this->module->params['accessGroupsToControlpanel'],
+                        'roles' => $this->module->accessGroupsToControlpanel,
                     ],
                 ]
             ]

@@ -134,9 +134,9 @@ class User extends \yii\web\User
      */
     public function verifyAuthCondition($userId)
     {
-        $actions = Action::getRecords($userId, 'auth-error', $this->module->params['intervalAuthBan'], true);
+        $actions = Action::getRecords($userId, 'auth-error', $this->module->intervalAuthBan, true);
 
-        if ($actions >= $this->module->params['amountAttemptsAuth']) {
+        if ($actions >= $this->module->amountAttemptsAuth) {
             return false;
         }
 

@@ -26,7 +26,7 @@ class ActionController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => $this->module->params['accessGroupsToControlpanel'],
+                        'roles' => $this->module->accessGroupsToControlpanel,
                     ],
                 ]
             ]
