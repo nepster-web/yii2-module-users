@@ -40,7 +40,7 @@ class ResendForm extends \yii\base\Model
             ['email', 'email'],
             ['email', 'exist', 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                    $query->mailUnverified();
+                    $query->emailVerified(0);
                 }
             ]
         ];

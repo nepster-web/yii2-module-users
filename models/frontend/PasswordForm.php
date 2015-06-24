@@ -41,7 +41,7 @@ class PasswordForm extends \yii\base\Model
         return [
             [['password', 'repassword', 'oldpassword'], 'required'],
             [['password', 'repassword', 'oldpassword'], 'trim'],
-            ['password', 'match', 'pattern' => '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z-_!@,#$%]{6,16}$/', 'message' => Yii::t('users', 'SIMPLE_PASSWORD')],
+            ['password', '\nepster\users\validators\PasswordValidator'],
             ['password', 'compare', 'compareAttribute' => 'oldpassword', 'operator' => '!=='],
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             ['oldpassword', 'validateOldPassword']
@@ -91,7 +91,7 @@ class PasswordForm extends \yii\base\Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::find()->where(['id' => Yii::$app->user->identity->id])->active()->one();
+            $this->_user = User::find()->where(['id' => Yii::$app->user->identity->id])->status(User::STATUS_ACTIVE)->one();
         }
         return $this->_user;
     }

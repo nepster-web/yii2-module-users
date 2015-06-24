@@ -50,7 +50,7 @@ class RecoveryConfirmationForm extends \yii\base\Model
                 'exist',
                 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                    $query->active();
+                    $query->status(User::STATUS_ACTIVE);
                 }
             ]
         ];

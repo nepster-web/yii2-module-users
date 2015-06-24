@@ -29,7 +29,7 @@ class ActivationForm extends \yii\base\Model
             ['secure_key', 'string', 'max' => 53],
             ['secure_key', 'exist', 'targetClass' => User::className(),
                 'filter' => function ($query) {
-                    $query->mailUnverified();
+                    $query->emailVerified(0);
                 }
             ]
         ];
@@ -52,7 +52,7 @@ class ActivationForm extends \yii\base\Model
     {
         $model = User::findBySecureKey($this->secure_key, 'mailUnverified');
         if ($model !== null) {
-            return $model->mailVerification();
+            return $model->emailVerified(1);
         }
         return false;
     }
