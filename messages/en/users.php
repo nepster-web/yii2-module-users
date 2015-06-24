@@ -1,6 +1,17 @@
 <?php
 
 return [
+
+
+    /*'APPLICATION' => 'Приложение',
+    'MODULE' => 'Модуль',
+    'USER_CREATE' => 'Создать пользователя',
+    'USER_UPDATE' => 'Редактировать пользователя',
+    'USER_ALL' => 'Все пользователи',
+    'DATE_FROM' => 'Дата от',
+    'DATE_TO' => 'Дата до',*/
+
+
     'USER' => 'User',
     'CONTACTS' => 'Contacts',
     'USERNAME' => 'Username',
