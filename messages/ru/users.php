@@ -35,6 +35,7 @@ return [
     'EMAIL' => 'EMAIL',
     'PHONE' => 'Телефон',
     'PASSWORD' => 'Пароль',
+    'ABOUT_ME' => 'О себе',
     'REPASSWORD' => 'Повторите пароль',
     'GROUP' => 'Группа',
     'STATUS' => 'Статус',

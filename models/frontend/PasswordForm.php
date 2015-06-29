@@ -56,7 +56,7 @@ class PasswordForm extends \yii\base\Model
         return [
             'password' => Yii::t('users', 'NEW_PASSWORD'),
             'repassword' => Yii::t('users', 'NEW_REPASSWORD'),
-            'oldpassword' => Yii::t('users', 'OLDPASSWORD')
+            'oldpassword' => Yii::t('users', 'OLD_PASSWORD')
         ];
     }
 
