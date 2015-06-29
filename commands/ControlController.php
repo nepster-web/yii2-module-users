@@ -29,9 +29,9 @@ class ControlController extends \yii\console\Controller
      * @param $view
      * @param $subject
      *
-     * Command: php yii users/control/send-mail [email] [view] [subject]
+     * Command: php yii users/control/send-email [email] [view] [subject]
      */
-    public function actionSendMail($email, $view, $subject)
+    public function actionSendEmail($email, $view, $subject)
     {
         $this->_user = User::find()
             ->where('email = :email', [':email' => $email])
