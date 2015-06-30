@@ -75,7 +75,7 @@ class User extends \nepster\users\models\User
                 $this->setPassword($this->password);
                 // IP пользователя
                 if (!Yii::$app instanceof \yii\console\Application) {
-                    $this->create_ip = Yii::$app->request->userIP;
+                    $this->ip_register = Yii::$app->request->userIP;
                 }
             }
             return true;
