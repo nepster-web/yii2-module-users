@@ -96,8 +96,10 @@ class User extends \nepster\users\models\User
             $this->profile->save(false);
 
             // Сохраняем данные юридического лица
-            $this->person->user_id = $this->id;
-            $this->person->save(false);
+            if ($this->person) {
+                $this->person->user_id = $this->id;
+                $this->person->save(false);
+            }
         }
     }
 
