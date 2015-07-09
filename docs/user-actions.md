@@ -30,9 +30,9 @@
                 'class' => 'nepster\users\behaviors\ActionBehavior',
                 'module' => 'site',
                 'actions' => [
-                    ActiveRecord::EVENT_AFTER_INSERT => 'create-record',
-                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-record',
-                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-record',
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'create-record',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update-record',
+                    ActiveRecord::EVENT_BEFORE_DELETE => 'delete-record',
                 ],
             ],
         ];
