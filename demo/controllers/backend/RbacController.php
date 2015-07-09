@@ -11,7 +11,8 @@ use yii\web\Response;
 use Yii;
 
 /**
- * Class RbacController
+ * Контроллер для управления правами доступа
+ * @package common\modules\users\controllers\backend
  */
 class RbacController extends Controller
 {
@@ -50,7 +51,7 @@ class RbacController extends Controller
 
     /**
      * Все группы
-     * @return mixed
+     * @return string
      */
     public function actionIndex()
     {
@@ -65,7 +66,7 @@ class RbacController extends Controller
 
     /**
      * Создать группу
-     * @return mixed
+     * @return array|string|Response
      */
     public function actionCreate()
     {
@@ -92,7 +93,9 @@ class RbacController extends Controller
 
     /**
      * Редактировать группу
-     * @return mixed
+     * @param $id
+     * @return array|string|Response
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -121,8 +124,10 @@ class RbacController extends Controller
     /**
      * Удалить группу
      * Если группа будет удалена, то сработает редирект на index
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDelete($id)
     {

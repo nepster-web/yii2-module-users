@@ -8,6 +8,7 @@ use Yii;
 
 /**
  * Class DefaultController
+ * @package common\modules\users\controllers\frontend
  */
 class DefaultController extends Controller
 {
@@ -37,8 +38,8 @@ class DefaultController extends Controller
         if (parent::beforeAction($action)) {
             $this->module->viewPath = '@common/modules/users/views/frontend';
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

@@ -11,7 +11,7 @@ use yii\helpers\Html;
 $this->context->layout = '//min';
 ?>
 
-<h3><?=Yii::t('users', 'SIGNIN.TITLE')?></h3>
+<h3><i class="glyphicon glyphicon-user"></i>  <?=Yii::t('users', 'SIGNIN.TITLE')?></h3>
 
 <br/>
 

@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
 
-<h3><?=Yii::t('users', 'LEGAL_PERSON.TITLE')?></h3>
+<h3><i class="glyphicon glyphicon-user"></i>  Данные юридического лица</h3>
 
 <br/>
 
@@ -36,7 +36,7 @@ use yii\helpers\Html;
             <?= $form->field($model, 'bank')->textInput() ?>
             <?= $form->field($model, 'account')->textInput() ?>
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('users', 'SEND'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
             </div>
         <?php ActiveForm::end(); ?>
     </div>

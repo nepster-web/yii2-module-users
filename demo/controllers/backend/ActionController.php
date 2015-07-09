@@ -11,7 +11,8 @@ use yii\widgets\ActiveForm;
 use Yii;
 
 /**
- * Class ActionController
+ * Контроллер управления действиями пользователей
+ * @package common\modules\users\controllers\backend
  */
 class ActionController extends Controller
 {

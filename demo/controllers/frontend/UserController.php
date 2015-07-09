@@ -9,7 +9,8 @@ use yii\web\Response;
 use Yii;
 
 /**
- * Class UserController
+ * Контроллер для управления пользователями
+ * @package common\modules\users\controllers\frontend
  */
 class UserController extends Controller
 {
@@ -46,6 +47,7 @@ class UserController extends Controller
 
     /**
      * Выход
+     * @return Response
      */
     public function actionLogout()
     {
@@ -56,6 +58,7 @@ class UserController extends Controller
 
     /**
      * Профиль
+     * @return array|string|Response
      */
     public function actionProfile()
     {
@@ -83,6 +86,7 @@ class UserController extends Controller
 
     /**
      * Изменить пароль
+     * @return array|string|Response
      */
     public function actionPassword()
     {
@@ -109,6 +113,7 @@ class UserController extends Controller
 
     /**
      * Изменить данные юридического лица
+     * @return array|string|Response
      */
     public function actionLegalPerson()
     {

@@ -23,9 +23,9 @@ class LegalPerson extends ActiveRecord
                 'class' => 'nepster\users\behaviors\ActionBehavior',
                 'module' => $this->module->id,
                 'actions' => [
-                    ActiveRecord::EVENT_AFTER_INSERT => 'create-legalperson',
-                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-legalperson',
-                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-legalperson',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'create-legalperson',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update-legalperson',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'delete-legalperson',
                 ],
             ],
             'TimestampBehavior' => [
@@ -57,5 +57,17 @@ class LegalPerson extends ActiveRecord
             'bank' => Yii::t('users', 'LEGAL_PERSON_BANK'),
             'account' => Yii::t('users', 'LEGAL_PERSON_ACCOUNT'),
         ];
+    }
+
+    /**
+     * Поиск данных юридического лица по идентификатору пользователя
+     * @param $id
+     * @return array|null|ActiveRecord
+     */
+    public static function findByUserId($id)
+    {
+        return self::find()
+            ->where('user_id = :user_id', [':user_id' => $id])
+            ->one();
     }
 }

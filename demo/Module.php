@@ -9,5 +9,5 @@ use Yii;
  */
 class Module extends \nepster\users\Module
 {
-    
+
 }

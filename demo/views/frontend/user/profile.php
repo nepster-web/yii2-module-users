@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
 
-<h3><?=Yii::t('users', 'PROFILE')?></h3>
+<h3><i class="glyphicon glyphicon-user"></i>  Профиль</h3>
 
 <br/>
 
@@ -33,8 +33,8 @@ use yii\helpers\Html;
             <?= $form->field($model, 'name') ?>
             <?= $form->field($model, 'surname') ?>
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('users', 'SEND'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                &nbsp; <?= Html::a(Yii::t('users', 'CHANGE_PASSWORD'), ['/users/user/password']) ?>
+                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                &nbsp; <?= Html::a('Изменить пароль', ['/users/user/password']) ?>
             </div>
         <?php ActiveForm::end(); ?>
     </div>

@@ -10,7 +10,8 @@ use yii\helpers\Url;
 use Yii;
 
 /**
- * Class GuestController
+ * Контроллер управления неавторизированными пользователями
+ * @package common\modules\users\controllers\backend
  */
 class GuestController extends Controller
 {
@@ -46,6 +47,7 @@ class GuestController extends Controller
 
     /**
      * Авторизация
+     * @return array|string|Response
      */
     public function actionLogin()
     {

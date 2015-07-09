@@ -24,9 +24,9 @@ class Banned extends ActiveRecord
                 'class' => 'nepster\users\behaviors\ActionBehavior',
                 'module' => $this->module->id,
                 'actions' => [
-                    ActiveRecord::EVENT_AFTER_INSERT => 'create-banned',
-                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-banned',
-                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-banned',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'create-banned',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update-banned',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'delete-banned',
                 ],
             ],
         ];

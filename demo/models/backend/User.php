@@ -85,10 +85,12 @@ class User extends \common\modules\users\models\User
             $this->profile->save(false);
 
             // Сохраняем данные юридического лица
-            if (!$this->person->user_id) {
-                $this->person->user_id = $this->id;
+            if ($this->profile->legal_person) {
+                if (!$this->person->user_id) {
+                    $this->person->user_id = $this->id;
+                }
+                $this->person->save(false);
             }
-            $this->person->save(false);
         }
     }
 

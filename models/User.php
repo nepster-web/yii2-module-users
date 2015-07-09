@@ -36,9 +36,15 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
                 'class' => 'nepster\users\behaviors\ActionBehavior',
                 'module' => $this->module->id,
                 'actions' => [
-                    ActiveRecord::EVENT_AFTER_INSERT => 'create-user',
-                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-user',
-                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-user',
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'create-user',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update-user',
+                    ActiveRecord::EVENT_BEFORE_DELETE => [
+                        'action' => 'delete-user',
+                        'dependencies' => [
+                            'profile',
+                            'person'
+                        ]
+                    ],
                 ],
             ],
         ];

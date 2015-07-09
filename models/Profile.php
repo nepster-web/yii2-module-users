@@ -31,9 +31,9 @@ class Profile extends ActiveRecord
                 'class' => 'nepster\users\behaviors\ActionBehavior',
                 'module' => $this->module->id,
                 'actions' => [
-                    ActiveRecord::EVENT_AFTER_INSERT => 'create-profile',
-                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-profile',
-                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-profile',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'create-profile',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update-profile',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'delete-profile',
                 ],
             ],
             'TimestampBehavior' => [

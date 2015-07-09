@@ -12,7 +12,8 @@ use yii\widgets\ActiveForm;
 use Yii;
 
 /**
- * Class UserController
+ * Контроллер для управления пользователями
+ * @package common\modules\users\controllers\backend
  */
 class UserController extends Controller
 {
@@ -63,8 +64,8 @@ class UserController extends Controller
 
     /**
      * Все пользователи
-     * @return mixed
-     * @throws \yii\web\ForbiddenHttpException
+     * @return string
+     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
@@ -84,7 +85,7 @@ class UserController extends Controller
     /**
      * Создать пользователя
      * Если пользователь будет создан, то сработает редирект на index
-     * @return mixed
+     * @return array|string|Response
      * @throws ForbiddenHttpException
      */
     public function actionCreate()
@@ -126,8 +127,8 @@ class UserController extends Controller
 
     /**
      * Редактировать пользователя
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return array|string|Response
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
@@ -294,8 +295,8 @@ class UserController extends Controller
     }
 
     /**
-     * Отправить сообщение пользователям
-     * @return mixed
+     * Отправить сообщение
+     * @return array|string|Response
      * @throws ForbiddenHttpException
      */
     public function actionSendEmail()
@@ -307,6 +308,20 @@ class UserController extends Controller
         $users = models\User::findIdentities(Yii::$app->request->get('ids'));
         $model = new \nepster\users\models\SendEmail();
 
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            if ($model->validate()) {
+                $model->setUsers($users);
+                if ($model->send(true)) {
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'Задание поставлено в очередь'));
+                }
+                return $this->refresh();
+            } else if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+        }
+
         return $this->render('send-email', [
             'model' => $model,
             'users' => $users,
@@ -315,7 +330,7 @@ class UserController extends Controller
 
     /**
      * Заблокировать пользователей
-     * @return mixed
+     * @return array|string|Response
      * @throws ForbiddenHttpException
      */
     public function actionBanned()

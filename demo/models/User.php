@@ -71,11 +71,13 @@ class User extends \nepster\users\models\User
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
+
                 // Хешируем пароль
                 $this->setPassword($this->password);
+
                 // IP пользователя
                 if (!Yii::$app instanceof \yii\console\Application) {
-                    $this->ip_register = Yii::$app->request->userIP;
+                    $this->create_ip = Yii::$app->request->userIP;
                 }
             }
             return true;

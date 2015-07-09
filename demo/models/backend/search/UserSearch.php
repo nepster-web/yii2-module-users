@@ -127,8 +127,8 @@ class UserSearch extends User
         ];
 
         $dataProvider->sort->attributes['banned'] = [
-            'asc' => ['time_banned' => SORT_ASC],
-            'desc' => ['time_banned' => SORT_DESC],
+            'asc' => ['banned' => SORT_ASC],
+            'desc' => ['banned' => SORT_DESC],
         ];
 
         $this->load($params);

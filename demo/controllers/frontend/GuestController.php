@@ -10,7 +10,8 @@ use yii\helpers\Url;
 use Yii;
 
 /**
- * Class GuestController
+ * Контроллер управления неавторизированными пользователями
+ * @package common\modules\users\controllers\frontend
  */
 class GuestController extends Controller
 {
@@ -47,18 +48,19 @@ class GuestController extends Controller
 
     /**
      * Регистрация
+     * @return array|string|Response
      */
     public function actionSignup()
     {
         $user = new models\User(['scenario' => 'signup']);
-        $profile = new models\Profile(['scenario' => 'create']);
+        $profile = new models\Profile(['scenario' => 'signup']);
 
         if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
             if ($user->validate() && $profile->validate()) {
                 $user->populateRelation('profile', $profile);
                 if ($user->save(false)) {
                     if ($this->module->requireEmailConfirmation === true) {
-                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->email . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
+                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
                         ]));
@@ -85,6 +87,7 @@ class GuestController extends Controller
 
     /**
      * Повторная отправка ключа активации
+     * @return array|string|Response
      */
     public function actionResend()
     {
@@ -94,7 +97,7 @@ class GuestController extends Controller
             if ($model->validate()) {
                 if ($this->module->requireEmailConfirmation === true) {
                     if ($user = $model->resend()) {
-                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->email . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
+                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RESEND'));
                         return $this->redirect(['login']);
                     } else {
@@ -118,6 +121,7 @@ class GuestController extends Controller
 
     /**
      * Авторизация
+     * @return array|string|Response
      */
     public function actionLogin()
     {
@@ -145,6 +149,8 @@ class GuestController extends Controller
 
     /**
      * Активация
+     * @param $token
+     * @return Response
      */
     public function actionActivation($token)
     {
@@ -159,6 +165,7 @@ class GuestController extends Controller
 
     /**
      * Восстановить пароль
+     * @return array|string|Response
      */
     public function actionRecovery()
     {
@@ -167,7 +174,7 @@ class GuestController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($user = $model->recovery()) {
-                    Yii::$app->consoleRunner->run('users/control/send-email ' . $user->email . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"');
+                    Yii::$app->consoleRunner->run('users/control/send-email ' . $user->id . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"');
                     Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY'));
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY'));
@@ -186,6 +193,8 @@ class GuestController extends Controller
 
     /**
      * Подтверждение восстановления пароля
+     * @param $token
+     * @return array|string|Response
      */
     public function actionRecoveryConfirmation($token)
     {
