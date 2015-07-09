@@ -38,3 +38,32 @@
         ];
     }
 ```
+
+
+**Расширенный пример для удаление записей:**
+
+```
+public function behaviors()
+{
+    return [
+        'ActionBehavior' => [
+            'class' => 'nepster\users\behaviors\ActionBehavior',
+            'module' => 'site',
+            'actions' => [
+                ActiveRecord::EVENT_BEFORE_INSERT => 'create-record',
+                ActiveRecord::EVENT_BEFORE_UPDATE => 'update-record',
+                ActiveRecord::EVENT_BEFORE_DELETE => [
+                    'action' => 'delete-record',
+                    'dependencies' => [
+                        'relation1',
+                        'relation2'
+                    ]
+                ],
+            ],
+        ],
+    ];
+}
+```
+
+В ситуации, когда удаление связанных записей происходит по внешним ключам, можно определить зависимости.
+Тогда перед удаление записи будет собран общий массив с данными указанных реляций и записан в таблицу действий.
