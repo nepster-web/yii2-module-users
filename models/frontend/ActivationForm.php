@@ -50,9 +50,9 @@ class ActivationForm extends \yii\base\Model
      */
     public function activation()
     {
-        $model = User::findBySecureKey($this->secure_key, 'mailUnverified');
+        $model = User::findBySecureKey($this->secure_key, ['emailVerified' => 0]);
         if ($model !== null) {
-            return $model->emailVerified(1);
+            return $model->mailVerification();
         }
         return false;
     }

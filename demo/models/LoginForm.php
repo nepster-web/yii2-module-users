@@ -100,23 +100,23 @@ class LoginForm extends \nepster\users\models\LoginForm
 
         // Поиск пользователя по e-mail
         if ($validator->validate($username)) {
-            return User::findByEmail($username, $scope);
+            return User::findByEmail($username, [$scope]);
         }
         // Поиск пользователя по телефону
         else if(strncasecmp($username, "+", 1) === 0) {
             $username = str_replace('+', '', $username);
-            return User::findByPhone($username, $scope);
+            return User::findByPhone($username, [$scope]);
         }
 
-        return User::findByUsername($username, $scope);
+        return User::findByUsername($username, [$scope]);
         */
 
         // Поиск пользователя по телефону
         if (strncasecmp($username, "+", 1) === 0) {
             $username = str_replace('+', '', $username);
-            return User::findByPhone($username, $scope);
+            return User::findByPhone($username, [$scope]);
         } else {
-            return User::findByEmail($username, $scope);
+            return User::findByEmail($username, [$scope]);
         }
     }
 }

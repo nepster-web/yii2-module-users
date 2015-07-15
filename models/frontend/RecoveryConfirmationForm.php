@@ -73,7 +73,7 @@ class RecoveryConfirmationForm extends \yii\base\Model
     public function isValidToken()
     {
         if (Security::isValidToken($this->secure_key, $this->module->recoveryWithin) === true) {
-            return ($this->_user = User::findBySecureKey($this->secure_key, 'status')) !== null;
+            return ($this->_user = User::findBySecureKey($this->secure_key, ['status'])) !== null;
         }
         return false;
     }

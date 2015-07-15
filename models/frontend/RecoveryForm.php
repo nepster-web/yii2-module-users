@@ -58,7 +58,7 @@ class RecoveryForm extends \yii\base\Model
      */
     public function recovery()
     {
-        $this->_user = User::findByEmail($this->email, 'status');
+        $this->_user = User::findByEmail($this->email, ['status']);
 
         if ($this->_user !== null) {
             $this->_user->generateSecureKey();

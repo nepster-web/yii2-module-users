@@ -187,20 +187,22 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * Поиск пользователей IDs.
      *
      * @param $ids User IDs
-     * @param null $scope Scope
+     * @param array $scopes
      *
      * @return array|\yii\db\ActiveRecord[] Users
      */
-    public static function findIdentities($ids, $scope = null)
+    public static function findIdentities($ids, array $scopes = [])
     {
         $query = static::find()->where(['id' => $ids]);
-        if ($scope !== null) {
-            if (is_array($scope)) {
-                foreach ($scope as $value) {
-                    $query->$value();
+        if ($scopes !== null) {
+            foreach ($scopes as $scope => $state) {
+                if ($scope) {
+                    $query->$scope($state);
+                } else {
+                    if ($state) {
+                        $query->$state();
+                    }
                 }
-            } else {
-                $query->$scope();
             }
         }
         return $query->all();
@@ -210,20 +212,22 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * Поиск пользователя по логину
      *
      * @param string $username Username
-     * @param string $scope Scope
+     * @param array $scopes
      *
      * @return array|\yii\db\ActiveRecord[] User
      */
-    public static function findByUsername($username, $scope = null)
+    public static function findByUsername($username, array $scopes = [])
     {
         $query = static::find()->where(['username' => $username]);
-        if ($scope !== null) {
-            if (is_array($scope)) {
-                foreach ($scope as $value) {
-                    $query->$value();
+        if ($scopes !== null) {
+            foreach ($scopes as $scope => $state) {
+                if ($scope) {
+                    $query->$scope($state);
+                } else {
+                    if ($state) {
+                        $query->$state();
+                    }
                 }
-            } else {
-                $query->$scope();
             }
         }
         return $query->one();
@@ -233,20 +237,22 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * Поиск пользователя по email
      *
      * @param string $email Email
-     * @param string $scope Scope
+     * @param array $scopes
      *
      * @return array|\yii\db\ActiveRecord[] User
      */
-    public static function findByEmail($email, $scope = null)
+    public static function findByEmail($email, array $scopes = [])
     {
         $query = static::find()->where(['email' => $email]);
-        if ($scope !== null) {
-            if (is_array($scope)) {
-                foreach ($scope as $value) {
-                    $query->$value();
+        if (!empty($scopes)) {
+            foreach ($scopes as $scope => $state) {
+                if ($scope) {
+                    $query->$scope($state);
+                } else {
+                    if ($state) {
+                        $query->$state();
+                    }
                 }
-            } else {
-                $query->$scope();
             }
         }
         return $query->one();
@@ -256,20 +262,46 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * Поиск пользователя по телефону
      *
      * @param string $phone Phone
-     * @param string $scope Scope
+     * @param array $scopes
      *
      * @return array|\yii\db\ActiveRecord[] User
      */
-    public static function findByPhone($phone, $scope = null)
+    public static function findByPhone($phone, array $scopes = [])
     {
         $query = static::find()->where(['phone' => $phone]);
-        if ($scope !== null) {
-            if (is_array($scope)) {
-                foreach ($scope as $value) {
-                    $query->$value();
+        if ($scopes !== null) {
+            foreach ($scopes as $scope => $state) {
+                if ($scope) {
+                    $query->$scope($state);
+                } else {
+                    if ($state) {
+                        $query->$state();
+                    }
                 }
-            } else {
-                $query->$scope();
+            }
+        }
+        return $query->one();
+    }
+
+    /**
+     * Поиск пользователя по секретному ключу
+     *
+     * @param $secureKey
+     * @param array $scopes
+     * @return array|null|ActiveRecord
+     */
+    public static function findBySecureKey($secureKey, array $scopes = [])
+    {
+        $query = static::find()->where(['secure_key' => $secureKey]);
+        if ($scopes !== null) {
+            foreach ($scopes as $scope => $state) {
+                if ($scope) {
+                    $query->$scope($state);
+                } else {
+                    if ($state) {
+                        $query->$state();
+                    }
+                }
             }
         }
         return $query->one();
@@ -281,28 +313,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
         return static::findOne(['api_key' => $token]);
-    }
-
-    /**
-     * Поиск пользователя по секретному ключу
-     *
-     * @param $secureKey
-     * @param null $scope
-     * @return array|null|ActiveRecord
-     */
-    public static function findBySecureKey($secureKey, $scope = null)
-    {
-        $query = static::find()->where(['secure_key' => $secureKey]);
-        if ($scope !== null) {
-            if (is_array($scope)) {
-                foreach ($scope as $value) {
-                    $query->$value();
-                }
-            } else {
-                $query->$scope();
-            }
-        }
-        return $query->one();
     }
 
     /**
@@ -338,7 +348,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function mailVerification()
     {
         $this->status = self::STATUS_ACTIVE;
-        $this->mail_verify = 1;
+        $this->email_verify = 1;
         $this->generateSecureKey();
         return $this->save(false);
     }

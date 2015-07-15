@@ -29,9 +29,9 @@ class AuthItem extends ActiveRecord
                 'class' => 'nepster\users\behaviors\ActionBehavior',
                 'module' => $this->module->id,
                 'actions' => [
-                    ActiveRecord::EVENT_AFTER_INSERT => 'create-rbac',
-                    ActiveRecord::EVENT_AFTER_UPDATE => 'update-rbac',
-                    ActiveRecord::EVENT_AFTER_DELETE => 'delete-rbac',
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'create-rbac',
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'update-rbac',
+                    ActiveRecord::EVENT_BEFORE_DELETE => 'delete-rbac',
                 ],
             ],
         ];

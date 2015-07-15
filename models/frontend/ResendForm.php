@@ -62,8 +62,7 @@ class ResendForm extends \yii\base\Model
      */
     public function resend()
     {
-        $this->_user = User::findByEmail($this->email, 'inactive');
-
+        $this->_user = User::findByEmail($this->email, ['status' => User::STATUS_INACTIVE]);
         if ($this->_user !== null) {
             $this->_user->generateSecureKey();
             if ($this->_user->save(false)) {
