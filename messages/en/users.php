@@ -43,7 +43,7 @@ return [
     'BIRTHDAY' => 'Birthday',
     'MAIL_VERIFY' => 'E-MAIL verify',
     'PHONE_VERIFY' => 'Phone verify',
-    'CREATE_IP' => 'Register IP',
+    'IP_REGISTER' => 'Register IP',
     'AUTH_IP' => 'Login IP',
     'AUTH_TIME' => 'Login date',
 
