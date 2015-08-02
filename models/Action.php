@@ -88,9 +88,11 @@ class Action extends ActiveRecord
         $model->module = $module;
         $model->action = $action;
         $model->data = $data ? Json::encode($data) : null;
-        $model->user_agent = Yii::$app->request->userAgent;
-        $model->hash = md5(Yii::$app->request->userAgent . Yii::$app->request->userIP);
-        $model->ip = ip2long(Yii::$app->request->userIP);
+        if (!Yii::$app instanceof \yii\console\Application) {
+            $model->user_agent = Yii::$app->request->userAgent;
+            $model->hash = md5(Yii::$app->request->userAgent . Yii::$app->request->userIP);
+            $model->ip = ip2long(Yii::$app->request->userIP);
+        }
         $model->time_create = time();
         return $model->save(false);
     }

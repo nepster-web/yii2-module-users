@@ -120,7 +120,11 @@ class ActionBehavior extends Behavior
             }
 
             if ($save) {
-                Action::saveRecord(Yii::$app->user->id, $this->module, $action, $data);
+                $userId = null;
+                if (!Yii::$app instanceof \yii\console\Application) {
+                    $userId = Yii::$app->user->id;
+                }
+                Action::saveRecord($userId, $this->module, $action, $data);
             }
         }
     }
