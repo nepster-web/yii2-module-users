@@ -62,6 +62,7 @@ class PasswordForm extends \yii\base\Model
 
     /**
      * Валидация пароля
+     * @param $attribute
      */
     public function validateOldPassword($attribute)
     {

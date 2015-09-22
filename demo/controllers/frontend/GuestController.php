@@ -60,7 +60,7 @@ class GuestController extends Controller
                 $user->populateRelation('profile', $profile);
                 if ($user->save(false)) {
                     if ($this->module->requireEmailConfirmation === true) {
-                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
+                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->email . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_SIGNUP_WITHOUT_LOGIN', [
                             'url' => Url::toRoute('resend')
                         ]));
@@ -97,7 +97,7 @@ class GuestController extends Controller
             if ($model->validate()) {
                 if ($this->module->requireEmailConfirmation === true) {
                     if ($user = $model->resend()) {
-                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->id . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
+                        Yii::$app->consoleRunner->run('users/control/send-email ' . $user->email . ' signup "' . Yii::t('users', 'SUBJECT_SIGNUP') . '"');
                         Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RESEND'));
                         return $this->redirect(['login']);
                     } else {
@@ -174,7 +174,7 @@ class GuestController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($user = $model->recovery()) {
-                    Yii::$app->consoleRunner->run('users/control/send-email ' . $user->id . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"');
+                    Yii::$app->consoleRunner->run('users/control/send-email ' . $user->email . ' recovery "' . Yii::t('users', 'SUBJECT_RECOVERY') . '"');
                     Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_RECOVERY'));
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_RECOVERY'));

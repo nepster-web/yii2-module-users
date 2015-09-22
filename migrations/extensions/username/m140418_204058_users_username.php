@@ -6,7 +6,7 @@ use yii\db\Schema;
 /**
  * Добавление дополнительного поля username
  */
-class m140418_204057_users_username extends Migration
+class m140418_204058_users_username extends Migration
 {
     /**
      * @inheritdoc
