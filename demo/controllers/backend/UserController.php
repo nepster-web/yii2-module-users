@@ -106,7 +106,7 @@ class UserController extends Controller
                 $user->populateRelation('profile', $profile);
                 $user->populateRelation('person', $person);
                 if ($user->save(false)) {
-                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
                     return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
@@ -157,7 +157,7 @@ class UserController extends Controller
         // Разблокировать пользователя
         if (isset(Yii::$app->request->get()['rebanned'])) {
             if (Yii::$app->user->reBannedByUser($user->id)) {
-                Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
             } else {
                 Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
             }
@@ -177,7 +177,7 @@ class UserController extends Controller
                 $user->populateRelation('profile', $profile);
                 $user->populateRelation('person', $person);
                 if ($user->save(false)) {
-                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
                 }
@@ -212,7 +212,7 @@ class UserController extends Controller
         $user = $this->findModel($id);
         $user->status = $user::STATUS_DELETED;
         if ($user->save(false)) {
-            Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+            Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
         } else {
             Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));
         }
@@ -346,7 +346,7 @@ class UserController extends Controller
             $model->load(Yii::$app->request->post());
             if ($model->validate()) {
                 if ($model->bannedUsers($users)) {
-                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
                     return $this->redirect(['index']);
                 } else {
                     Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_UPDATE'));

@@ -75,7 +75,7 @@ class RbacController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
                 } else {
                     Yii::$app->session->setFlash('success', Yii::t('users', 'FAIL_UPDATE'));
                 }
@@ -105,7 +105,7 @@ class RbacController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->save(false)) {
-                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_UPDATE'));
+                    Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_UPDATE'));
                 } else {
                     Yii::$app->session->setFlash('success', Yii::t('users', 'FAIL_UPDATE'));
                 }
@@ -135,7 +135,7 @@ class RbacController extends Controller
 
         if (!in_array($model->name, $this->module->defaultGroups)) {
             if ($model->delete()) {
-                Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCES_DELETE'));
+                Yii::$app->session->setFlash('success', Yii::t('users', 'SUCCESS_DELETE'));
             } else {
                 Yii::$app->session->setFlash('danger', Yii::t('users', 'FAIL_DELETE'));
             }
