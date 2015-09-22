@@ -22,6 +22,7 @@ return [
     'NO_SET_USERS' => 'Не выбран ни один пользователь',
     'USERS_BANNED' => 'Заблокировать пользователей',
     'USERS_SEND_EMAIL' => 'Отправить сообщение на EMAIL',
+    'EMAIL_SUBJECT_NOTIFICATION' => '',
 
     'ONLINE' => 'Сейчас на сайте',
     'OFFLINE' => 'Нет на сайте',
