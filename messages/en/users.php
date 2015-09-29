@@ -75,7 +75,8 @@ return [
 
     'INVALID_USERNAME_OR_PASSWORD' => 'Incorrect login or password.',
     'MUST_ACTIVATE_ACCOUNT' => 'Account activation is necessary',
-    'SIMPLE_PASSWORD' => "You've entered too simple password, it can threaten safety of your account. Please, create the password consisting of letters, numbers and symbols: - _! @, # $ %",
+    'SIMPLE_PASSWORD' => "You've entered too simple password, it can threaten safety of your account. Please, create the password consisting of least a few numbers and letters of the alphabet with no spaces. Also it can be used the following symbols: -_!@,#$%",
+
     'OLD_PASSWORD_IS_INCORRECT' => 'The old password is entered incorrectly',
 
     'STATUS_ACTIVE' => 'Active',
