@@ -13,6 +13,11 @@ class SendEmail extends \yii\base\Model
     /**
      * @var string
      */
+    public $theme;
+
+    /**
+     * @var string
+     */
     public $text;
 
     /**
@@ -37,7 +42,7 @@ class SendEmail extends \yii\base\Model
     public function rules()
     {
         return [
-            ['text', 'string', 'max' => 32],
+            ['theme', 'string', 'max' => 32],
             ['text', 'required'],
             ['text', 'string', 'max' => 2000],
         ];
@@ -60,7 +65,11 @@ class SendEmail extends \yii\base\Model
      */
     public function send()
     {
-        $theme = Yii::t('users', 'EMAIL_SUBJECT_NOTIFICATION');
+        if (empty(trim($this->theme))) {
+            $theme = Yii::t('users', 'EMAIL_SUBJECT_NOTIFICATION');
+        } else {
+            $theme = Html::encode($this->theme);
+        }
         $emails = implode(' ', $this->_emails);
         $command = 'users/control/multi-send-email message "' . addslashes($theme) . '" "' . addslashes($this->text) . '" ' . $emails;
         Yii::$app->consoleRunner->run($command);

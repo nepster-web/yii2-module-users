@@ -22,7 +22,7 @@ return [
     'NO_SET_USERS' => 'Не выбран ни один пользователь',
     'USERS_BANNED' => 'Заблокировать пользователей',
     'USERS_SEND_EMAIL' => 'Отправить сообщение на EMAIL',
-    'EMAIL_SUBJECT_NOTIFICATION' => '',
+    'EMAIL_SUBJECT_NOTIFICATION' => 'Уведомление',
 
     'ONLINE' => 'Сейчас на сайте',
     'OFFLINE' => 'Нет на сайте',
@@ -45,6 +45,7 @@ return [
     'REMEMBER_ME' => 'Запомнить',
     'NAME' => 'Имя',
     'SURNAME' => 'Фамилия',
+    'THEME' => 'Тема',
     'DESCRIPTION' => 'Описание',
     'WHAU' => 'Откуда про нас узнали ?',
     'NEW_EMAIL' => 'Новый EMAIL',
