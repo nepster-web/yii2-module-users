@@ -20,6 +20,11 @@ class AuthItem extends ActiveRecord
     public $permissions = [];
 
     /**
+     * @var object
+     */
+    public $_parentPermission;
+
+    /**
      * @inheritdoc
      */
     public function behaviors()
@@ -75,10 +80,22 @@ class AuthItem extends ActiveRecord
         return [
             ['name', 'required'],
             ['name', 'unique'],
-            ['name', 'match', 'pattern' => '/^[a-z]+$/'],
+            ['name', 'match', 'pattern' => '/^[a-z-_]+$/'],
+            ['name', 'validateName'],
             ['description', 'required'],
             ['description', 'string'],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateName($attribute)
+    {
+        $this->_parentPermission = Yii::$app->authManager->getRole($this->name);
+        if (!$this->_parentPermission) {
+            $this->addError('name', Yii::t('users.rbac', 'ROLE_NOT_FOUND'));
+        }
     }
 
     /**
@@ -106,18 +123,17 @@ class AuthItem extends ActiveRecord
                 $auth = Yii::$app->authManager;
 
                 // Сохраняем разрешения для роли
-                $parentPermission = $auth->getRole($this->name);
                 $currentPermissions = $auth->getPermissionsByRole($this->name);
 
                 foreach ($this->permissions as $permission => $value) {
                     $permission = $auth->getPermission($permission);
                     if ($permission) {
                         if ($value) {
-                            if (!$auth->hasChild($parentPermission, $permission)) {
-                                $auth->addChild($parentPermission, $permission);
+                            if (!$auth->hasChild($this->_parentPermission, $permission)) {
+                                $auth->addChild($this->_parentPermission, $permission);
                             }
                         } else {
-                            $auth->removeChild($parentPermission, $permission);
+                            $auth->removeChild($this->_parentPermission, $permission);
                         }
                     }
                 }
