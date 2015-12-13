@@ -81,7 +81,7 @@ class AuthItem extends ActiveRecord
             ['name', 'required'],
             ['name', 'unique'],
             ['name', 'match', 'pattern' => '/^[a-z-_]+$/'],
-            ['name', 'validateName'],
+            ['name', 'validateName', 'on' => ['update']],
             ['description', 'required'],
             ['description', 'string'],
         ];
