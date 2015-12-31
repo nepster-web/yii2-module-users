@@ -77,11 +77,11 @@ class Banned extends ActiveRecord
      */
     public function validateTime($attribute)
     {
-        $DateValidator = new \yii\validators\DateValidator(['format' => 'php:Y-i-d']);
+        $DateValidator = new \yii\validators\DateValidator(['format' => 'php:Y-m-d']);
         $DateTimeValidator = new \yii\validators\DateValidator(['format' => 'php:Y-m-d H:i:s']);
 
-        if (!$DateValidator->validate($this->time_banned) && !$DateTimeValidator->validate($this->time_banned) && !$DateTimeValidator->validate($this->time_banned . ':00')) {
-            $this->addError($attribute, 'Не правильная дата');
+        if (!$DateValidator->validate($this->$attribute) && !$DateTimeValidator->validate($this->$attribute) && !$DateTimeValidator->validate($this->$attribute . ':00')) {
+            $this->addError($attribute, 'Неправильная дата');
         }
     }
 
