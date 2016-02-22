@@ -20,9 +20,14 @@ class AuthItem extends ActiveRecord
     public $permissions = [];
 
     /**
+     * @var string
+     */
+    public $oldName;
+
+    /**
      * @var object
      */
-    public $_parentPermission;
+    private $_parentPermission;
 
     /**
      * @inheritdoc
@@ -92,7 +97,7 @@ class AuthItem extends ActiveRecord
      */
     public function validateName($attribute)
     {
-        $this->_parentPermission = Yii::$app->authManager->getRole($this->name);
+        $this->_parentPermission = Yii::$app->authManager->getRole($this->oldName);
         if (!$this->_parentPermission) {
             $this->addError('name', Yii::t('users.rbac', 'ROLE_NOT_FOUND'));
         }
